@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-11T06:11:38.431Z",
+  "image": "fdeopen:local",
+  "buildPassed": true,
+  "nonRootUser": 1001,
+  "postgresModeHealth": true,
+  "postgresJSONB": true,
+  "liveModeHasNoDemoLogin": true,
+  "pgliteModeHealth": true,
+  "pgliteCookieLogin": true,
+  "productionCspNoEval": true,
+  "scope": "Local Docker containers; Supabase OAuth provider uses placeholder configuration and has not been authorized.",
+  "finalImageSmoke": true,
+  "articleFullTextSearch": true,
+  "ecosystemFallback": true
+}

@@ -1,0 +1,21 @@
+{
+  "sample": "GET /api/catalog?kind=project — same 12 seeded cards, uncompressed JSON",
+  "sameResourceIds": true,
+  "beforeBytes": 17131,
+  "afterBytes": 7254,
+  "reductionPercent": 57.7,
+  "homeQueries": {
+    "before": 15,
+    "after": 9,
+    "reason": "Six card previews no longer issue COUNT queries; three ancillary queries remain."
+  },
+  "workspaceProfileDataQueries": {
+    "before": 5,
+    "after": 0
+  },
+  "workspaceBookmarksDataQueries": {
+    "before": 5,
+    "after": 2
+  },
+  "scope": "Query counts exclude authentication; bytes compare the actual original response with the revised response. Local observations are not production latency guarantees."
+}

@@ -1,0 +1,462 @@
+{
+  "checkedAt": "2026-10-11T06:34:42.046Z",
+  "base": "http://127.0.0.1:3213",
+  "routes": [
+    {
+      "route": "/",
+      "status": 200
+    },
+    {
+      "route": "/projects",
+      "status": 200
+    },
+    {
+      "route": "/skills",
+      "status": 200
+    },
+    {
+      "route": "/scenarios",
+      "status": 200
+    },
+    {
+      "route": "/lab",
+      "status": 200
+    },
+    {
+      "route": "/build",
+      "status": 200
+    },
+    {
+      "route": "/developers",
+      "status": 200
+    },
+    {
+      "route": "/docs",
+      "status": 200
+    },
+    {
+      "route": "/collections",
+      "status": 200
+    },
+    {
+      "route": "/about",
+      "status": 200
+    },
+    {
+      "route": "/privacy",
+      "status": 200
+    },
+    {
+      "route": "/login",
+      "status": 200
+    },
+    {
+      "route": "/submit",
+      "status": 200
+    },
+    {
+      "route": "/search?q=RAG",
+      "status": 200
+    },
+    {
+      "route": "/robots.txt",
+      "status": 200
+    },
+    {
+      "route": "/sitemap.xml",
+      "status": 200
+    },
+    {
+      "route": "/opengraph-image",
+      "status": 200
+    },
+    {
+      "route": "/projects/dify",
+      "status": 200
+    },
+    {
+      "route": "/projects/ragflow",
+      "status": 200
+    },
+    {
+      "route": "/projects/langflow",
+      "status": 200
+    },
+    {
+      "route": "/projects/flowise",
+      "status": 200
+    },
+    {
+      "route": "/projects/langchain",
+      "status": 200
+    },
+    {
+      "route": "/projects/llamaindex",
+      "status": 200
+    },
+    {
+      "route": "/projects/autogen",
+      "status": 200
+    },
+    {
+      "route": "/projects/crewai",
+      "status": 200
+    },
+    {
+      "route": "/projects/smolagents",
+      "status": 200
+    },
+    {
+      "route": "/projects/openai-agents",
+      "status": 200
+    },
+    {
+      "route": "/projects/mcp-servers",
+      "status": 200
+    },
+    {
+      "route": "/projects/playwright-mcp",
+      "status": 200
+    },
+    {
+      "route": "/projects/browser-use",
+      "status": 200
+    },
+    {
+      "route": "/projects/open-webui",
+      "status": 200
+    },
+    {
+      "route": "/projects/ollama",
+      "status": 200
+    },
+    {
+      "route": "/projects/vllm",
+      "status": 200
+    },
+    {
+      "route": "/projects/haystack",
+      "status": 200
+    },
+    {
+      "route": "/projects/mem0",
+      "status": 200
+    },
+    {
+      "route": "/projects/fde-skills",
+      "status": 200
+    },
+    {
+      "route": "/projects/weknora",
+      "status": 200
+    },
+    {
+      "route": "/skills/enterprise-ai-diagnosis",
+      "status": 200
+    },
+    {
+      "route": "/skills/customer-discovery",
+      "status": 200
+    },
+    {
+      "route": "/skills/rag-architecture",
+      "status": 200
+    },
+    {
+      "route": "/skills/agent-design",
+      "status": 200
+    },
+    {
+      "route": "/skills/mcp-design",
+      "status": 200
+    },
+    {
+      "route": "/skills/workflow-design",
+      "status": 200
+    },
+    {
+      "route": "/skills/prompt-design",
+      "status": 200
+    },
+    {
+      "route": "/skills/context-engineering",
+      "status": 200
+    },
+    {
+      "route": "/skills/knowledge-base-design",
+      "status": 200
+    },
+    {
+      "route": "/skills/retrieval-strategy",
+      "status": 200
+    },
+    {
+      "route": "/skills/human-in-the-loop",
+      "status": 200
+    },
+    {
+      "route": "/skills/permission-model",
+      "status": 200
+    },
+    {
+      "route": "/skills/rag-evaluation",
+      "status": 200
+    },
+    {
+      "route": "/skills/eval-dataset-generation",
+      "status": 200
+    },
+    {
+      "route": "/skills/observability-design",
+      "status": 200
+    },
+    {
+      "route": "/skills/docker-deployment",
+      "status": 200
+    },
+    {
+      "route": "/skills/private-deployment",
+      "status": 200
+    },
+    {
+      "route": "/skills/enterprise-acceptance",
+      "status": 200
+    },
+    {
+      "route": "/skills/delivery-handover",
+      "status": 200
+    },
+    {
+      "route": "/skills/roi-assessment",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/manufacturing-sop",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/quality-8d",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/supplier-risk",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/crossborder-listing",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/ecommerce-service",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/review-insight",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/trade-inquiry",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/trade-quote",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/retail-sop",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/retail-ops",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/recruiting-match",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/interview-notes",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/education-assistant",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/education-material",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/medical-service",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/professional-contract",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/professional-bid",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/enterprise-knowledge",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/enterprise-meeting",
+      "status": 200
+    },
+    {
+      "route": "/scenarios/enterprise-analytics",
+      "status": 200
+    },
+    {
+      "route": "/lab/rag-citations",
+      "status": 200
+    },
+    {
+      "route": "/lab/visual-workflow",
+      "status": 200
+    },
+    {
+      "route": "/lab/local-model",
+      "status": 200
+    },
+    {
+      "route": "/lab/browser-agent",
+      "status": 200
+    },
+    {
+      "route": "/lab/fde-delivery",
+      "status": 200
+    },
+    {
+      "route": "/build/first-deployment",
+      "status": 200
+    },
+    {
+      "route": "/build/scenario-evaluation",
+      "status": 200
+    },
+    {
+      "route": "/build/skill-example",
+      "status": 200
+    },
+    {
+      "route": "/docs/fde-getting-started",
+      "status": 200
+    },
+    {
+      "route": "/docs/rag-engineering",
+      "status": 200
+    },
+    {
+      "route": "/docs/agent-engineering",
+      "status": 200
+    },
+    {
+      "route": "/docs/mcp-and-skills",
+      "status": 200
+    },
+    {
+      "route": "/docs/ai-coding",
+      "status": 200
+    },
+    {
+      "route": "/docs/delivery",
+      "status": 200
+    },
+    {
+      "route": "/docs/deployment",
+      "status": 200
+    },
+    {
+      "route": "/docs/industry",
+      "status": 200
+    }
+  ],
+  "accessibility": [
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "violations": []
+    },
+    {
+      "route": "/projects",
+      "viewport": "desktop",
+      "violations": []
+    },
+    {
+      "route": "/projects/ragflow",
+      "viewport": "desktop",
+      "violations": []
+    },
+    {
+      "route": "/skills/rag-architecture",
+      "viewport": "desktop",
+      "violations": []
+    },
+    {
+      "route": "/scenarios/manufacturing-sop",
+      "viewport": "desktop",
+      "violations": []
+    },
+    {
+      "route": "/docs/rag-engineering",
+      "viewport": "desktop",
+      "violations": []
+    },
+    {
+      "route": "/login",
+      "viewport": "desktop",
+      "violations": []
+    },
+    {
+      "route": "/",
+      "viewport": "390x844",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/projects",
+      "viewport": "390x844",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/projects/ragflow",
+      "viewport": "390x844",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/skills",
+      "viewport": "390x844",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/scenarios",
+      "viewport": "390x844",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "route": "/login",
+      "viewport": "390x844",
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "performance": {
+    "viewport": "1440x1000",
+    "network": "local, unthrottled",
+    "ttfbMs": 73,
+    "domReadyMs": 160,
+    "lcpMs": 188,
+    "cls": 0,
+    "transferBytes": 201787
+  },
+  "consoleErrors": [],
+  "articleAnchor": true
+}

@@ -1,0 +1,155 @@
+{
+  "checkedAt": "2026-10-11T06:30:17.453Z",
+  "layouts": [
+    {
+      "width": 320,
+      "route": "/",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "route": "/projects",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "route": "/projects/ragflow",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "route": "/skills",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "route": "/search?q=RAG",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "route": "/login",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "route": "/",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "route": "/projects",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "route": "/projects/ragflow",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "route": "/skills",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "route": "/search?q=RAG",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "route": "/login",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "route": "/",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "route": "/projects",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "route": "/projects/ragflow",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "route": "/skills",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "route": "/search?q=RAG",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "route": "/login",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "route": "/",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "route": "/projects",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "route": "/projects/ragflow",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "route": "/skills",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "route": "/search?q=RAG",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "route": "/login",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "route": "/",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "route": "/projects",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "route": "/projects/ragflow",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "route": "/skills",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "route": "/search?q=RAG",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "route": "/login",
+      "overflow": false
+    }
+  ]
+}

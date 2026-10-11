@@ -1,0 +1,27 @@
+{
+  "url": "https://raw.githubusercontent.com/bingyue/fde-skills/master/skills.json",
+  "checkedAt": "2026-10-11T05:44:34.220Z",
+  "verified": [
+    "enterprise-ai-diagnosis",
+    "customer-discovery",
+    "rag-architecture",
+    "agent-design",
+    "mcp-design",
+    "workflow-design",
+    "prompt-design",
+    "context-engineering",
+    "knowledge-base-design",
+    "retrieval-strategy",
+    "human-in-the-loop",
+    "permission-model",
+    "rag-evaluation",
+    "eval-dataset-generation",
+    "observability-design",
+    "docker-deployment",
+    "private-deployment",
+    "enterprise-acceptance",
+    "delivery-handover",
+    "roi-assessment"
+  ],
+  "missing": []
+}

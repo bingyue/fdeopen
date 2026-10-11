@@ -1,0 +1,8 @@
+{
+  "checkedAt": "2026-10-11T06:33:28.394Z",
+  "fault": "Unreadable demo database directory on an isolated server",
+  "status": 500,
+  "heading": "社区暂时无法访问",
+  "retryButton": 1,
+  "a11yViolations": []
+}

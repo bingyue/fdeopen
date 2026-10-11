@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-11T06:38:03.265Z",
+  "image": "sha256:eba479718c7f3ba3742595e4d0d275024807b6d322be298e62fb4bda1087e05a",
+  "health": {
+    "ok": true,
+    "mode": "demo"
+  },
+  "uid": "1001",
+  "projectCount": 20,
+  "listExcludesBody": true,
+  "sortPrototypeInputStatus": 200,
+  "demoLoginStatus": 200,
+  "memberSession": true
+}

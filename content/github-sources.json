@@ -1,0 +1,402 @@
+[
+  {
+    "full_name": "langgenius/dify",
+    "html_url": "https://github.com/langgenius/dify",
+    "description": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
+    "stargazers_count": 158105,
+    "language": "TypeScript",
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "pushed_at": "2026-10-11T05:19:01Z",
+    "default_branch": "main",
+    "homepage": "https://dify.ai",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:22.799Z",
+    "source_author": "langgenius"
+  },
+  {
+    "full_name": "infiniflow/ragflow",
+    "html_url": "https://github.com/infiniflow/ragflow",
+    "description": "RAGFlow is a leading open-source Retrieval-Augmented Generation (RAG) engine that fuses cutting-edge RAG with Agent capabilities to create a superior context layer for LLMs",
+    "stargazers_count": 91979,
+    "language": "Go",
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "pushed_at": "2026-10-11T04:20:04Z",
+    "default_branch": "main",
+    "homepage": "https://ragflow.io",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.114Z",
+    "source_author": "infiniflow"
+  },
+  {
+    "full_name": "langflow-ai/langflow",
+    "html_url": "https://github.com/langflow-ai/langflow",
+    "description": "Langflow is a powerful tool for building and deploying AI-powered agents and workflows.",
+    "stargazers_count": 155482,
+    "language": "Python",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "pushed_at": "2026-10-11T00:46:56Z",
+    "default_branch": "main",
+    "homepage": "http://www.langflow.org",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.076Z",
+    "source_author": "langflow-ai"
+  },
+  {
+    "full_name": "FlowiseAI/Flowise",
+    "html_url": "https://github.com/FlowiseAI/Flowise",
+    "description": "Build AI Agents, Visually",
+    "stargazers_count": 55492,
+    "language": "TypeScript",
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "pushed_at": "2026-08-13T12:38:19Z",
+    "default_branch": "main",
+    "homepage": "https://flowiseai.com",
+    "archived": true,
+    "checked_at": "2026-10-11T05:19:23.072Z",
+    "source_author": "FlowiseAI"
+  },
+  {
+    "full_name": "langchain-ai/langchain",
+    "html_url": "https://github.com/langchain-ai/langchain",
+    "description": "The agent engineering platform.",
+    "stargazers_count": 147570,
+    "language": "Python",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "pushed_at": "2026-10-10T08:54:26Z",
+    "default_branch": "master",
+    "homepage": "https://docs.langchain.com/langchain/",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.087Z",
+    "source_author": "langchain-ai"
+  },
+  {
+    "full_name": "run-llama/llama_index",
+    "html_url": "https://github.com/run-llama/llama_index",
+    "description": "LlamaIndex is the document processing platform for AI",
+    "stargazers_count": 52462,
+    "language": "Python",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "pushed_at": "2026-10-08T20:45:50Z",
+    "default_branch": "main",
+    "homepage": "https://developers.llamaindex.ai",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.476Z",
+    "source_author": "run-llama"
+  },
+  {
+    "full_name": "microsoft/autogen",
+    "html_url": "https://github.com/microsoft/autogen",
+    "description": "A programming framework for agentic AI",
+    "stargazers_count": 61343,
+    "language": "Python",
+    "license": {
+      "key": "cc-by-4.0",
+      "name": "Creative Commons Attribution 4.0 International",
+      "spdx_id": "CC-BY-4.0",
+      "url": "https://api.github.com/licenses/cc-by-4.0",
+      "node_id": "MDc6TGljZW5zZTI1"
+    },
+    "pushed_at": "2026-04-15T11:59:09Z",
+    "default_branch": "main",
+    "homepage": "https://microsoft.github.io/autogen/",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.484Z",
+    "source_author": "microsoft"
+  },
+  {
+    "full_name": "crewAIInc/crewAI",
+    "html_url": "https://github.com/crewAIInc/crewAI",
+    "description": "Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks.",
+    "stargazers_count": 59547,
+    "language": "Python",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "pushed_at": "2026-10-10T23:37:22Z",
+    "default_branch": "main",
+    "homepage": "https://crewai.com",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.491Z",
+    "source_author": "crewAIInc"
+  },
+  {
+    "full_name": "huggingface/smolagents",
+    "html_url": "https://github.com/huggingface/smolagents",
+    "description": "🤗 smolagents: a barebones library for agents that think in code.",
+    "stargazers_count": 29778,
+    "language": "Python",
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "pushed_at": "2026-10-06T18:35:07Z",
+    "default_branch": "main",
+    "homepage": "https://huggingface.co/docs/smolagents",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.482Z",
+    "source_author": "huggingface"
+  },
+  {
+    "full_name": "openai/openai-agents-python",
+    "html_url": "https://github.com/openai/openai-agents-python",
+    "description": "A lightweight, powerful framework for multi-agent workflows",
+    "stargazers_count": 29957,
+    "language": "Python",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "pushed_at": "2026-10-08T19:41:57Z",
+    "default_branch": "main",
+    "homepage": "https://openai.github.io/openai-agents-python/",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.491Z",
+    "source_author": "openai"
+  },
+  {
+    "full_name": "modelcontextprotocol/servers",
+    "html_url": "https://github.com/modelcontextprotocol/servers",
+    "description": "Model Context Protocol Servers",
+    "stargazers_count": 91132,
+    "language": "JavaScript",
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "pushed_at": "2026-10-11T05:17:16Z",
+    "default_branch": "main",
+    "homepage": "https://modelcontextprotocol.io",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.839Z",
+    "source_author": "modelcontextprotocol"
+  },
+  {
+    "full_name": "microsoft/playwright-mcp",
+    "html_url": "https://github.com/microsoft/playwright-mcp",
+    "description": "Playwright MCP server",
+    "stargazers_count": 38009,
+    "language": "TypeScript",
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "pushed_at": "2026-10-08T17:51:59Z",
+    "default_branch": "main",
+    "homepage": "https://www.npmjs.com/package/@playwright/mcp",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.851Z",
+    "source_author": "microsoft"
+  },
+  {
+    "full_name": "browser-use/browser-use",
+    "html_url": "https://github.com/browser-use/browser-use",
+    "description": "Agents that use the browser.",
+    "stargazers_count": 117590,
+    "language": "Python",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "pushed_at": "2026-10-09T17:36:28Z",
+    "default_branch": "main",
+    "homepage": "https://browser-use.com",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.856Z",
+    "source_author": "browser-use"
+  },
+  {
+    "full_name": "open-webui/open-webui",
+    "html_url": "https://github.com/open-webui/open-webui",
+    "description": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...)",
+    "stargazers_count": 154239,
+    "language": "Python",
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "pushed_at": "2026-10-10T21:10:07Z",
+    "default_branch": "main",
+    "homepage": "https://openwebui.com",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.840Z",
+    "source_author": "open-webui"
+  },
+  {
+    "full_name": "ollama/ollama",
+    "html_url": "https://github.com/ollama/ollama",
+    "description": "Get up and running with Kimi, GLM, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
+    "stargazers_count": 182678,
+    "language": "Go",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "pushed_at": "2026-10-11T03:51:34Z",
+    "default_branch": "main",
+    "homepage": "https://ollama.com",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.856Z",
+    "source_author": "ollama"
+  },
+  {
+    "full_name": "vllm-project/vllm",
+    "html_url": "https://github.com/vllm-project/vllm",
+    "description": "A high-throughput and memory-efficient inference and serving engine for LLMs",
+    "stargazers_count": 93541,
+    "language": "Python",
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "pushed_at": "2026-10-11T04:15:06Z",
+    "default_branch": "main",
+    "homepage": "https://vllm.ai",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:23.927Z",
+    "source_author": "vllm-project"
+  },
+  {
+    "full_name": "deepset-ai/haystack",
+    "html_url": "https://github.com/deepset-ai/haystack",
+    "description": "Open-source AI orchestration framework for building context-engineered, production-ready LLM applications. Design modular pipelines and agent workflows with explicit control over retrieval, routing, memory, and generation. Built for scalable agents, RAG, multimodal applications, semantic search, and conversational systems.",
+    "stargazers_count": 26715,
+    "language": "Python",
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "pushed_at": "2026-10-10T17:28:12Z",
+    "default_branch": "main",
+    "homepage": "https://haystack.deepset.ai",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:24.226Z",
+    "source_author": "deepset-ai"
+  },
+  {
+    "full_name": "mem0ai/mem0",
+    "html_url": "https://github.com/mem0ai/mem0",
+    "description": "The Memory Layer for AI Agents - Drop-in memory infrastructure for AI agents and apps. Context that persists. Built for production.",
+    "stargazers_count": 66962,
+    "language": "Python",
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "pushed_at": "2026-10-09T06:17:43Z",
+    "default_branch": "main",
+    "homepage": "https://mem0.ai",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:24.206Z",
+    "source_author": "mem0ai"
+  },
+  {
+    "full_name": "bingyue/fde-skills",
+    "html_url": "https://github.com/bingyue/fde-skills",
+    "description": null,
+    "stargazers_count": 5,
+    "language": "Python",
+    "license": {
+      "key": "agpl-3.0",
+      "name": "GNU Affero General Public License v3.0",
+      "spdx_id": "AGPL-3.0",
+      "url": "https://api.github.com/licenses/agpl-3.0",
+      "node_id": "MDc6TGljZW5zZTE="
+    },
+    "pushed_at": "2026-10-06T18:21:31Z",
+    "default_branch": "master",
+    "homepage": null,
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:24.206Z",
+    "source_author": "bingyue"
+  },
+  {
+    "full_name": "Tencent/WeKnora",
+    "html_url": "https://github.com/Tencent/WeKnora",
+    "description": "Open-source LLM knowledge platform: turn raw documents into a queryable RAG, an autonomous reasoning agent, and a self-maintaining Wiki.",
+    "stargazers_count": 33054,
+    "language": "Go",
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "pushed_at": "2026-10-11T04:36:39Z",
+    "default_branch": "main",
+    "homepage": "https://weknora.weixin.qq.com",
+    "archived": false,
+    "checked_at": "2026-10-11T05:19:24.206Z",
+    "source_author": "Tencent"
+  }
+]

@@ -1,0 +1,20 @@
+services:
+  web:
+    build: .
+    ports: ["127.0.0.1:3210:3210"]
+    environment:
+      NODE_ENV: production
+      APP_MODE: demo
+      ALLOW_DEMO_IN_PRODUCTION: "true"
+      DEMO_ACCESS_KEY: ${DEMO_ACCESS_KEY:?Set a 16+ character access key}
+      NEXT_PUBLIC_SITE_URL: http://localhost:3210
+      DEMO_DATA_DIR: /app/.data/fdeopen
+    volumes: ["fdeopen_demo:/app/.data"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3210/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+volumes:
+  fdeopen_demo:
