@@ -26,6 +26,7 @@
     "test:postgres": "node --import tsx tests/postgres-integration.ts",
     "audit:site": "node scripts/audit-site.mjs",
     "content:prepare": "python3 scripts/prepare-media-library.py",
+    "content:curate-cases": "node --env-file-if-exists=.env.local --import tsx scripts/curate-cases.ts",
     "content:clean-sources": "node --env-file-if-exists=.env.local --import tsx scripts/clean-media-sources.ts",
     "content:import": "node --env-file-if-exists=.env.local --import tsx scripts/import-media-library.ts"
   },

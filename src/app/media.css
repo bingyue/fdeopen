@@ -1450,6 +1450,43 @@
 .legal-copy p {
   color: #56677e;
 }
+.about-founder {
+  margin: 40px 0;
+  padding: clamp(24px, 5vw, 40px);
+  border: 1px solid #d8e1ec;
+  border-top: 3px solid #14243b;
+  background: #f7f9fc;
+}
+.about-founder-heading {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d8e1ec;
+}
+.about-founder-label {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #56677e;
+}
+.about-founder h2 {
+  margin: 4px 0 6px;
+  font-size: 36px;
+  line-height: 1.3;
+}
+.about-founder p.about-founder-role {
+  margin: 0;
+  color: #14243b;
+  font-weight: 600;
+}
+.about-founder-experience {
+  margin: 20px 0 0;
+  padding-left: 20px;
+  list-style: disc;
+  color: #56677e;
+}
+.about-founder-experience li + li {
+  margin-top: 10px;
+}
 .media-admin {
   padding-top: 30px;
   padding-bottom: 50px;

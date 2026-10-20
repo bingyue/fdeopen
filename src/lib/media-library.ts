@@ -70,11 +70,11 @@ export function validateLibrary(raw: unknown) {
     if (/\/Users\/|file:\/\/|poc_token=|\]\((?:\.\.\/|图片\/)/.test(value.body))
       throw new Error('Private or unresolved reference: ' + value.slug);
     if (
-      value.status !== 'published' ||
+      !['published', 'archived'].includes(value.status) ||
       !value.published_at ||
       Date.parse(value.published_at) > Date.now()
     )
-      throw new Error('Library contains non-public or future article: ' + value.slug);
+      throw new Error('Library contains unsupported status or future article: ' + value.slug);
     return { value, topic };
   });
   return { ...library, posts };

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 export const metadata = {
   title: '关于FDE前线',
-  description: 'FDE前线是面向企业AI转型与智能体产业的专业媒体、研究与资源连接平台。',
+  description: '了解FDE前线与创始人邴越：AI技术专家、企业FDE转型顾问，关注企业AI转型与智能体产业。',
   alternates: { canonical: '/about' },
 };
 export default function About() {
@@ -24,6 +24,25 @@ export default function About() {
         <p>
           我们重视来源、核验与表达边界。编辑观点不冒充统计结论，示例不冒充企业成果，商业合作不混同独立报道。匿名内容保留核验依据，公开范围尊重受访者和企业授权。
         </p>
+        <section className="about-founder" aria-labelledby="founder">
+          <div className="about-founder-heading">
+            <span className="media-eyebrow">FOUNDER</span>
+            <span className="about-founder-label">FDE前线创始人</span>
+            <h2 id="founder">邴越</h2>
+            <p className="about-founder-role">AI技术专家，企业FDE转型顾问</p>
+          </div>
+          <p>
+            拥有十二年一线互联网和企业数智化经验，FDE前线·FDE中国社区（FDEChina.ai）发起人。
+            在AI出海电商、AI自动化、AI营销获客领域有丰富实践经验。
+          </p>
+          <ul className="about-founder-experience">
+            <li>曾任职阿里巴巴 / 美团点评 / 快手技术专家</li>
+            <li>曾服务新华网、埃森哲中国、用友软件企业数字化转型</li>
+            <li>清华大学出版社《FDE企业AI转型》作者</li>
+            <li>中国通信工业协会人工智能领域专家</li>
+            <li>腾讯云架构师同盟专家</li>
+          </ul>
+        </section>
         <h2>从媒体，到开放生态</h2>
         <p>
           开放社区是 FDE前线的实践入口，连接开源项目、技能与企业交付。

@@ -32,6 +32,10 @@ const counts = Object.fromEntries(
     library.posts.filter((p) => p.value.channel === c).length,
   ]),
 );
+const publication = {
+  published: library.posts.filter((p) => p.value.status === 'published').length,
+  archived: library.posts.filter((p) => p.value.status === 'archived').length,
+};
 if (!apply) {
   console.log(
     JSON.stringify(
@@ -40,6 +44,7 @@ if (!apply) {
         articles: library.posts.length,
         assets: library.assets.length,
         channels: counts,
+        publication,
       },
       null,
       2,
@@ -76,7 +81,7 @@ await writeFile(
 );
 console.log(
   JSON.stringify(
-    { ...result, insertedIds: undefined, retiredIds: undefined, channels: counts },
+    { ...result, insertedIds: undefined, retiredIds: undefined, channels: counts, publication },
     null,
     2,
   ),
