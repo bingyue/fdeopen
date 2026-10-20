@@ -19,19 +19,22 @@ import { resourcePath, kinds } from '@/lib/types';
 import { Breadcrumb, ResourceIcon, ResourceGrid, SectionTitle, num } from '@/components/site';
 import { ToggleButton, TrackedLink, CopyCode, SimpleForm, ViewEvent } from '@/components/actions';
 import { siteUrl } from '@/lib/config';
+import { isChannel } from '@/lib/media-model';
+import { MediaDetail, mediaMetadata } from '@/components/media-detail';
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ section: string; slug: string }>;
 }) {
   const { section, slug } = await params;
+  if (section === 'articles' || isChannel(section)) return mediaMetadata(slug);
   const r = await getResource(slug);
   if (!r || kinds[r.kind].path !== `/${section}`) return {};
   return {
     title: r.title,
     description: r.summary,
     alternates: { canonical: resourcePath(r) },
-    openGraph: { title: `${r.title} · FDEOpen`, description: r.summary, url: resourcePath(r) },
+    openGraph: { title: `${r.title} · FDE前线`, description: r.summary, url: resourcePath(r) },
   };
 }
 export default async function Detail({
@@ -40,6 +43,7 @@ export default async function Detail({
   params: Promise<{ section: string; slug: string }>;
 }) {
   const { section, slug } = await params;
+  if (section === 'articles' || isChannel(section)) return <MediaDetail section={section} slug={slug}/>;
   const r = await getResource(slug);
   if (!r || kinds[r.kind].path !== `/${section}`) notFound();
   const [related, user, database] = await Promise.all([
@@ -90,7 +94,7 @@ export default async function Detail({
             name: r.title,
             description: r.summary,
             url: siteUrl() + resourcePath(r),
-            author: { '@type': 'Organization', name: r.source_author || 'FDEOpen' },
+            author: { '@type': 'Organization', name: r.source_author || 'FDE前线' },
             isAccessibleForFree: true,
           }).replace(/</g, '\\u003c'),
         }}
@@ -164,7 +168,7 @@ export default async function Detail({
                   )}
                 </div>
                 <p className="small muted">
-                  以上为 FDEOpen 建议的应用接入层次，项目内部架构请查阅原作者文档。
+                  以上为 FDE前线 建议的应用接入层次，项目内部架构请查阅原作者文档。
                 </p>
               </>
             )}

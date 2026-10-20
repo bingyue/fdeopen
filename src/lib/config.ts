@@ -3,6 +3,8 @@ export function isDemo() {
     ? process.env.APP_MODE === 'demo'
     : process.env.NODE_ENV !== 'production';
 }
+export const isLocalAuth = () => process.env.APP_MODE === 'postgres';
+export const usesSupabase = () => process.env.APP_MODE === 'supabase';
 export function assertConfig() {
   if (isDemo()) {
     if (
@@ -20,13 +22,13 @@ export function assertConfig() {
       !process.env.NEXT_PUBLIC_SITE_URL?.startsWith('https://')
     )
       throw new Error('Production requires an explicit HTTPS NEXT_PUBLIC_SITE_URL.');
+    if (!process.env.DATABASE_URL || (!isLocalAuth() && !usesSupabase()))
+      throw new Error('Configure APP_MODE=postgres or supabase and DATABASE_URL.');
     if (
-      process.env.APP_MODE !== 'supabase' ||
-      !process.env.DATABASE_URL ||
-      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-      !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+      usesSupabase() &&
+      (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY)
     )
-      throw new Error('Configure APP_MODE=supabase, DATABASE_URL and Supabase Auth environment.');
+      throw new Error('Configure Supabase Auth environment.');
   }
 }
 export const siteUrl = () => process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3210';

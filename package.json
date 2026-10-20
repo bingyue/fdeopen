@@ -19,9 +19,15 @@
     "github:refresh": "node --env-file-if-exists=.env.local --import tsx scripts/refresh-sources.ts",
     "check": "npm run lint && npm run typecheck && npm test && npm run build",
     "admin:grant": "node --env-file-if-exists=.env.local --import tsx scripts/grant-admin.ts",
+    "admin:bootstrap": "node --env-file-if-exists=.env.local --import tsx scripts/bootstrap-account.ts",
+    "account:reset-password": "node --env-file-if-exists=.env.local --import tsx scripts/reset-account-password.ts",
+    "release:check": "node --env-file-if-exists=.env.local --import tsx scripts/check-production.ts",
     "format": "prettier --write src scripts tests *.ts *.mjs content/*.json docs/*.md README.md",
     "test:postgres": "node --import tsx tests/postgres-integration.ts",
-    "audit:site": "node scripts/audit-site.mjs"
+    "audit:site": "node scripts/audit-site.mjs",
+    "content:prepare": "python3 scripts/prepare-media-library.py",
+    "content:clean-sources": "node --env-file-if-exists=.env.local --import tsx scripts/clean-media-sources.ts",
+    "content:import": "node --env-file-if-exists=.env.local --import tsx scripts/import-media-library.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
@@ -36,6 +42,8 @@
     "postgres": "^3.4.9",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "server-only": "^0.0.1",
     "tailwind-merge": "^3.7.0",
     "zod": "^4.6.5"

@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
 import { randomUUID, randomBytes, createHash } from 'node:crypto';
 import { db } from './db';
-import { isDemo } from './config';
+import { usesSupabase } from './config';
 import type { User } from './types';
 import { AppError, isModerator } from './validation';
 import { githubIdentity, type VerifiedOAuthUser } from './identity';
@@ -31,7 +31,7 @@ export async function supabase() {
 // Request-scoped memoization only: never share identity across requests.
 export const currentUser = cache(async (): Promise<User | null> => {
   let id: string | undefined;
-  if (isDemo()) {
+  if (!usesSupabase()) {
     const token = (await cookies()).get('fdeopen_session')?.value;
     if (!token) return null;
     const rows = await (
@@ -69,6 +69,9 @@ export async function loginDemo(userId: string) {
     "INSERT INTO sessions(token_hash,user_id,expires_at) VALUES($1,$2,now()+interval '7 days')",
     [hashToken(token), userId],
   );
+  await setSessionCookie(token);
+}
+export async function setSessionCookie(token: string) {
   (await cookies()).set('fdeopen_session', token, {
     httpOnly: true,
     sameSite: 'lax',

@@ -525,7 +525,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Se
   return (
     <div className="container page-space">
       <PageHeading
-        eyebrow="FDEOPEN OPERATIONS"
+        eyebrow="COMMUNITY OPERATIONS"
         title="社区运营台"
         description="让内容保持可信，让贡献获得回应。"
       >
@@ -535,6 +535,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Se
       </PageHeading>
       <div className="dashboard-layout">
         <nav className="dashboard-nav" aria-label="后台导航">
+          <Link href="/admin/media">媒体编辑工作台 ↗</Link>
           {tabs.map(([key, title]) => (
             <Link key={key} href={`/admin?tab=${key}`} className={key === tab ? 'active' : ''}>
               {title}

@@ -1,5 +1,11 @@
 # 部署手册
 
+## 当前采用：自管 Docker + PostgreSQL
+
+正式目标为腾讯云 Server-Shanghai，域名 `fdeopen.com`。使用[独立 Docker 部署说明](../deploy/server-shanghai/README.md)：`APP_MODE=postgres` 启用自管账号，应用和 PostgreSQL 分别运行在容器中，上传文件和数据库使用持久化卷。无需单独配置 Supabase。
+
+下方 Supabase / Vercel 章节是可选方案。当前媒体附件使用本地文件系统，因此 Vercel 方案必须先改为持久化对象存储；不能把上传目录放在临时磁盘上直接上线。
+
 ## 本地开发
 
 Node 22.12+。`npm ci && npm run dev`，打开 http://127.0.0.1:3210。没有环境变量时仅开发环境启用演示。演示数据是持久化的；备份时先停止进程，再复制整个 `.data/fdeopen` 目录，不要在运行中复制数据库文件。
@@ -60,8 +66,9 @@ npm start
 Docker 正式运行需传入生产环境文件：
 
 ```bash
-docker build -t fdeopen:1.0 .
-docker run --rm --env-file .env.production -p 127.0.0.1:3210:3210 fdeopen:1.0
+docker build --build-arg NEXT_PUBLIC_SITE_URL=https://fdeopen.com -t fdeopen:1.0 .
+docker run --rm --env-file .env.production -p 127.0.0.1:3210:3210 \
+  -v fdeopen_uploads:/app/.data/uploads fdeopen:1.0
 ```
 
 前置 HTTPS 反向代理，并把 NEXT_PUBLIC_SITE_URL 设置为公网 URL。公开环境不要使用 .env.example 中的 localhost 值。镜像以非 root 用户运行。
@@ -84,9 +91,9 @@ DEMO_ACCESS_KEY='替换为至少16字符的本地演示访问口令' docker comp
 - 发布后观察 `/api/health`、应用错误、OAuth 失败率、审核队列和关键事件；不要在日志打印 Cookie、Token 或企业原始需求。
 - 定期清理过期 sessions、rate_limits、webhook_deliveries 和超过运营周期的 analytics_events。审计日志的保存期限由实际运营主体制定。
 
-## 当前未配置项
+## 可选托管环境
 
-本次交付未连接真实 Supabase / Vercel 账号，未注册 GitHub OAuth App，未绑定 DNS。Docker 已在本机完成镜像构建、非 root 启动、PGlite 与 PostgreSQL 两种模式验收；仍需验证目标部署机的网络和资源限制。上线前补充运营主体、隐私联络渠道、数据保留与删除流程，替换隐私页中的部署说明。
+Supabase / Vercel 的账号、OAuth 与存储仅在选择相应方案时配置。Docker 生产方案使用自管账号，不需要上述凭据。每次发布仍需验证目标服务器上的 HTTPS、读写权限、内容导入和数据持久化。
 
 ## 生态入口
 

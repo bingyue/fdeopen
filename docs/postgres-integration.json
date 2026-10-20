@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-10-11T06:28:55.806Z",
-  "engine": "PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
-  "migrations": 4,
+  "checkedAt": "2026-10-20T08:23:32.780Z",
+  "engine": "PostgreSQL 17.11 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "migrations": 8,
   "concurrentDuplicateSubmission": true,
   "concurrentToggleSerialization": true,
   "idempotentMigration": true,
@@ -10,5 +10,7 @@
   "taskContributionTransaction": true,
   "bookmarkPersistence": true,
   "rlsAnonIsolation": true,
-  "rlsOwnSubmissions": true
+  "rlsOwnSubmissions": true,
+  "localAccountPasswordAndSessionRevocation": true,
+  "passwordTableDeniedToAnon": true
 }

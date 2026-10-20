@@ -10,10 +10,14 @@ import { PageHeading, ResourceGrid, Empty } from '@/components/site';
 import { ProfileForm } from '@/components/forms';
 import { Logout, SimpleForm, ActionButton } from '@/components/actions';
 import { resourcePath } from '@/lib/types';
+import { mediaRole } from '@/lib/media-service';
+import { isLocalAuth } from '@/lib/config';
+import { PasswordForm } from '@/components/account-forms';
 export const metadata = { title: '我的工作台', robots: { index: false, follow: false } };
 export default async function Dashboard({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const user = await currentUser();
   if (!user) redirect('/login');
+  const mediaAccess = await mediaRole(user);
   const params = await searchParams;
   const requestedTab = queryText(params, 'tab');
   const tab: WorkspaceTab = workspaceTabs.includes(requestedTab as WorkspaceTab)
@@ -48,12 +52,17 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
               {label}
             </Link>
           ))}
+          <Link href="/dashboard/requests">媒体与合作申请</Link>
+          {mediaAccess && <Link href="/admin/media">媒体编辑工作台 ↗</Link>}
           {user.public && <Link href={`/developers/${user.handle}`}>我的公开主页 ↗</Link>}
           {isModerator(user.role) && <Link href="/admin">运营后台 ↗</Link>}
         </nav>
         <div className="dashboard-panel">
           {tab === 'profile' ? (
-            <ProfileForm user={user} />
+            <>
+              <ProfileForm user={user} />
+              {isLocalAuth() && <PasswordForm />}
+            </>
           ) : tab === 'bookmarks' ? (
             <>
               <h2>我的收藏</h2>

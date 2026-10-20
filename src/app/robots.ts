@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: isDemo() ? undefined : '/',
       disallow: isDemo()
         ? '/'
-        : ['/admin', '/dashboard', '/api/', '/login', '/auth/', '/submit', '/search'],
+        : ['/admin', '/dashboard', '/api/', '/login', '/auth/', '/submit', '/search', '/unsubscribe'],
     },
     sitemap: isDemo() ? undefined : siteUrl() + '/sitemap.xml',
   };

@@ -115,7 +115,7 @@ assert.equal(
   0,
 );
 await migrate(database, true);
-assert.equal((await database.query('SELECT * FROM schema_migrations')).length, 4);
+assert.equal((await database.query('SELECT * FROM schema_migrations')).length, 8);
 
 await database.transaction(async (tx) => {
   await tx.query('SET LOCAL ROLE anon');
@@ -138,6 +138,44 @@ await database.transaction(async (tx) => {
   await tx.query("SELECT set_config('request.jwt.claim.sub',$1,true)", [adminId]);
   assert.equal((await tx.query('SELECT * FROM submissions')).length, 0);
 });
+const { createAccount, loginAccount, changePassword } = await import('../src/lib/accounts');
+const accountId = await createAccount(database, {
+  loginName: 'postgres-account-test',
+  name: 'Account regression',
+  password: 'postgres-account-long-passphrase',
+  consent: true,
+  role: 'admin',
+});
+assert.equal(
+  (await database.query<{ role: string }>('SELECT role FROM users WHERE id=$1', [accountId]))[0]
+    .role,
+  'member',
+);
+const accountSession = await loginAccount(database, {
+  loginName: 'POSTGRES-ACCOUNT-TEST',
+  password: 'postgres-account-long-passphrase',
+});
+assert.equal(accountSession.userId, accountId);
+await changePassword(database, accountId, {
+  currentPassword: 'postgres-account-long-passphrase',
+  password: 'postgres-account-replaced-passphrase',
+});
+assert.equal(
+  (await database.query('SELECT token_hash FROM sessions WHERE user_id=$1', [accountId])).length,
+  0,
+);
+await assert.rejects(
+  loginAccount(database, {
+    loginName: 'postgres-account-test',
+    password: 'postgres-account-long-passphrase',
+  }),
+);
+await assert.rejects(
+  database.transaction(async (tx) => {
+    await tx.query('SET LOCAL ROLE anon');
+    await tx.query('SELECT password_hash FROM account_credentials');
+  }),
+);
 const result = {
   checkedAt: new Date().toISOString(),
   engine: (await database.query<{ version: string }>('SELECT version()'))[0].version,
@@ -151,6 +189,8 @@ const result = {
   bookmarkPersistence: true,
   rlsAnonIsolation: true,
   rlsOwnSubmissions: true,
+  localAccountPasswordAndSessionRevocation: true,
+  passwordTableDeniedToAnon: true,
 };
 await writeFile('docs/postgres-integration.json', JSON.stringify(result, null, 2));
 console.log(result);

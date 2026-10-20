@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { supabase, syncIdentity } from '@/lib/auth';
-import { siteUrl, isDemo } from '@/lib/config';
+import { siteUrl, usesSupabase } from '@/lib/config';
 export async function GET(request: Request) {
-  if (isDemo()) return NextResponse.redirect(new URL('/login', siteUrl()));
+  if (!usesSupabase()) return NextResponse.redirect(new URL('/login', siteUrl()));
   const code = new URL(request.url).searchParams.get('code');
   if (code) {
     const client = await supabase();

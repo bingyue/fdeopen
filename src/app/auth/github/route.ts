@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/auth';
-import { isDemo, siteUrl } from '@/lib/config';
+import { usesSupabase, siteUrl } from '@/lib/config';
 export async function GET() {
-  if (isDemo()) return NextResponse.redirect(new URL('/login', siteUrl()));
+  if (!usesSupabase()) return NextResponse.redirect(new URL('/login', siteUrl()));
   const { data, error } = await (
     await supabase()
   ).auth.signInWithOAuth({

@@ -6,9 +6,12 @@ export default defineConfig([
   ...nextTs,
   globalIgnores([
     '.next/**',
+    '.data/**',
     'node_modules/**',
     'next-env.d.ts',
     'playwright-report/**',
     'test-results/**',
+    'output/playwright/**',
+    '.playwright-cli/**',
   ]),
 ]);

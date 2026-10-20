@@ -1,8 +1,8 @@
-# FDEOpen · FDE开放社区
+# FDE前线 · 企业AI转型与智能体产业媒体
 
-**让企业 AI 落地更加开放。**
+**洞察 AI 产业变革，记录企业转型实践。**
 
-面向 FDE、AI 应用工程师、独立开发者与企业 AI 负责人，发现开源项目、复用 Agent Skills、连接真实业务场景，沉淀可确认的开源贡献。由 FDE前线发起，保持独立品牌；公开内容默认免费阅读。
+提供企业案例、深度文章、产业研究与开放社区，面向企业 AI 负责人、FDE、AI 应用工程师和独立开发者。公开内容默认免费阅读，仓库与部署项目名保留为 `fdeopen`。
 
 ![首页预览](docs/screenshots/home-desktop.png)
 
@@ -15,16 +15,21 @@ npm ci
 npm run dev
 ```
 
-打开 **http://127.0.0.1:3210**。无需密钥即可运行，页面明确标记“本地演示模式”。在 `/login` 选择示例开发者或示例管理员；切换身份前先在工作台退出。数据使用 PGlite（本地 PostgreSQL）持久化到 `.data/fdeopen`，刷新及重启不会丢失。不要让多个进程同时打开同一 PGlite 目录。
+打开 **http://127.0.0.1:3210**。无需密钥即可运行。在 `/login` 选择示例开发者或示例管理员；切换身份前先在工作台退出。数据使用 PGlite（本地 PostgreSQL）持久化到 `.data/fdeopen`，刷新及重启不会丢失。不要让多个进程同时打开同一 PGlite 目录。
 
-开发环境默认演示模式。正式部署必须明确选择 `APP_MODE=supabase`；配置不足时拒绝启动，不会自动退回开放管理员。
+开发环境默认演示模式。正式 Docker 部署使用 `APP_MODE=postgres`，自管账号、密码与 PostgreSQL；可选 `APP_MODE=supabase` 接入 Supabase GitHub OAuth。配置不足时拒绝启动，不会自动退回演示管理员。
+
+Next.js 16.4 的开发磁盘缓存存在重启后反复刷新问题，本项目已关闭
+`experimental.turbopackFileSystemCacheForDev`。正常 Fast Refresh 和生产构建缓存仍然启用；
+代价是每次重启开发服务后需要重新编译页面。不要为加快启动直接恢复这个开关，升级 Next.js 后先做重启回归。
+排查证据、内存对照和回归步骤见 [开发刷新异常排查](docs/DEV-REFRESH-DIAGNOSIS.md)。
 
 ## 已实现的核心闭环
 
 - **OpenHub**：项目目录、分类 / 语言 / 许可 / 活跃度 / Stars 筛选、分页搜索、独立详情、来源与许可说明、GitHub 导入与服务端同步、README 纯文本预览。
 - **SkillHub**：来源、版本、平台、依赖、安装命令、配置示例、关联资源、收藏与下载来源跳转。
 - **ScenarioHub**：20 个明确标为编辑方案的行业场景，包含痛点、流程、实施路径、评测指标及双向关联的项目与 Skills。
-- **社区身份**：Supabase GitHub OAuth、演示身份、资料编辑、私密 / 公开档案、联系方式公开开关、作品集、已确认贡献、私人收藏。
+- **社区身份**：自管账号注册与登录、加盐密码哈希、修改密码并撤销全部会话；可选 Supabase GitHub OAuth。资料编辑、私密 / 公开档案、联系方式公开开关、作品集与私人收藏。
 - **投稿与编辑**：提交 → 审核 → 发布 → 发布者提出修改 → 再审核；重复审核、越权编辑和非法状态转换被服务端阻止。
 - **企业需求**：原始需求和联系信息默认私密；仅获得授权后，编辑另写脱敏内容转为公开任务。
 - **FDE Lab**：5 个外部体验 / 教程入口及说明性输入输出；不执行第三方代码、不默认嵌入第三方页面。
@@ -34,6 +39,8 @@ npm run dev
 - **SEO**：SSR、规范 URL、Metadata、分享图、JSON-LD、动态 Sitemap、Robots；演示环境不允许搜索引擎索引。
 
 ## 初始内容
+
+媒体内容包包含 **201 篇文章与案例、114 张图片、5 个媒体专题**。构成为 174 篇企业案例、13 篇深度文章、12 篇研究和 2 篇观察。正式环境通过幂等导入初始化，不自动创建演示作者或虚构人物。详见[内容库说明](docs/CONTENT-LIBRARY.md)。
 
 | 内容     | 数量 | 说明                                                                             |
 | -------- | ---: | -------------------------------------------------------------------------------- |
@@ -61,7 +68,7 @@ tests/                  服务层与 RLS 测试、Playwright E2E
 docs/                   架构、部署、运营、验收与迭代计划
 ```
 
-技术栈：Next.js 16.4、React 19.3、TypeScript、Tailwind CSS 4、Radix / shadcn 风格组件、PostgreSQL / Supabase Auth。演示数据库与生产数据库执行相同的参数化 SQL，生产使用 Supabase PostgreSQL 连接与 GitHub OAuth。
+技术栈：Next.js 16.4、React 19.3、TypeScript、Tailwind CSS 4、Radix / shadcn 风格组件、PostgreSQL。演示数据库与生产数据库执行相同的参数化 SQL；正式 Docker 服务使用 PostgreSQL 容器与网站自管账号。
 
 ## 检查与构建
 
@@ -81,18 +88,19 @@ E2E 在 3211 端口启动真正的独立生产包，使用一次性的演示数�
 
 ## 生产配置
 
-复制 `.env.example` 为 `.env.local`，根据[部署手册](docs/DEPLOYMENT.md)配置专用 Supabase 项目、GitHub OAuth、HTTPS 域名和服务端数据库连接，执行迁移与种子，然后建立第一个管理员。
+使用 [Server-Shanghai Docker 部署说明](deploy/server-shanghai/README.md)配置数据库密码、HTTPS 域名与持久化卷，执行迁移、建立管理员并导入内容。该方案不需要 Supabase 服务。
 
 ```bash
 npm run db:migrate
 npm run db:seed
-# 先让本人通过 GitHub 登录，再核对应用 users 表中的 UUID
-npm run admin:grant -- USER_UUID --confirm
+# 使用受保护的环境文件提供 BOOTSTRAP_ADMIN_LOGIN / BOOTSTRAP_ADMIN_PASSWORD
+npm run admin:bootstrap
+npm run content:import -- --apply --owner=ADMIN_UUID
 npm run build
 npm start
 ```
 
-**交付状态**：本地与独立部署包已验收；没有创建远程仓库、购买或绑定域名、部署线上站点。真实 OAuth、Vercel 和 Supabase 托管环境需由实际部署凭据完成联调。详细边界见[验收记录](docs/ACCEPTANCE.md)。
+远程仓库：[bingyue/fdeopen](https://github.com/bingyue/fdeopen)。部署过程、验证和回滚应以实际发布记录为准；本地测试通过不代表已经完成公网发布。
 
 ## 文档
 
@@ -105,4 +113,4 @@ npm start
 - [路线图](docs/ROADMAP.md)
 - [贡献指南](CONTRIBUTING.md)
 
-代码采用 MIT 许可。第三方项目、Skill 和原文仍适用其原作者许可，索引不改变原资源许可。FDEOpen 原创文档的转载与修改应标明来源。
+代码采用 MIT 许可。第三方项目、Skill 和原文仍适用其原作者许可，索引不改变原资源许可。FDE前线原创文档的转载与修改应标明来源。

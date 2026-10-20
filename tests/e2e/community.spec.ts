@@ -17,7 +17,7 @@ async function logout(page: Page) {
 test('public discovery, detail, MDX, SEO, responsive layout and accessibility', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('/community');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('让企业 AI 落地');
   await page.screenshot({ path: 'docs/screenshots/home-desktop.png', fullPage: true });
   await page.getByRole('textbox', { name: '搜索项目、Skills 或企业场景' }).fill('RAGFlow');
@@ -38,7 +38,7 @@ test('public discovery, detail, MDX, SEO, responsive layout and accessibility', 
     'href',
     /blob\/master\//,
   );
-  await page.goto('/');
+  await page.goto('/community');
   const desktop = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
     .analyze();
@@ -142,7 +142,7 @@ test('private requirement, server authorization, CSRF, settings and resource edi
   expect(
     (
       await request.post('/api/resource', {
-        headers: { Origin: 'http://127.0.0.1:3211' },
+        headers: { Origin: `http://127.0.0.1:${process.env.FDE_E2E_PORT || 3211}` },
         data: {},
       })
     ).status(),
@@ -157,7 +157,7 @@ test('private requirement, server authorization, CSRF, settings and resource edi
   ).toBe(403);
   await login(page);
   const denied = await page.request.post('/api/role', {
-    headers: { Origin: 'http://127.0.0.1:3211' },
+    headers: { Origin: `http://127.0.0.1:${process.env.FDE_E2E_PORT || 3211}` },
     data: { id: '00000000-0000-4000-8000-000000000001', role: 'admin', disabled: false },
   });
   expect(denied.status()).toBe(403);
@@ -180,7 +180,7 @@ test('private requirement, server authorization, CSRF, settings and resource edi
   await page.getByLabel('社区公告').fill('E2E 验收公告 · 一起开放共建');
   await page.getByRole('button', { name: '保存首页配置' }).click();
   await expect(page.getByRole('status')).toContainText('已保存');
-  await page.goto('/');
+  await page.goto('/community');
   await expect(page.getByText('E2E 验收公告 · 一起开放共建')).toBeVisible();
   await page.goto('/admin?tab=resources&q=Dify');
   await page.getByRole('link', { name: '编辑', exact: true }).click();
@@ -197,7 +197,7 @@ test('review regressions: malformed query parameters, bounded API payloads and m
   request,
 }) => {
   await page.goto('/search?q=RAG&q=Agent&page=1.5');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('发现下一个');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('搜索产业观察');
   await page.goto('/projects?sort=constructor');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('开源项目');
   await page.goto('/projects?page=Infinity');
@@ -210,7 +210,7 @@ test('review regressions: malformed query parameters, bounded API payloads and m
   for (const data of ['null', '[]', '{broken']) {
     const response = await request.post('/api/bookmark', {
       data,
-      headers: { Origin: 'http://127.0.0.1:3211', 'Content-Type': 'application/json' },
+      headers: { Origin: `http://127.0.0.1:${process.env.FDE_E2E_PORT || 3211}`, 'Content-Type': 'application/json' },
     });
     expect(response.status()).toBe(400);
   }

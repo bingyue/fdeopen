@@ -1,6 +1,12 @@
 import type { NextConfig } from 'next';
 const config: NextConfig = {
   output: 'standalone',
+  experimental: {
+    // Next 16.4 can replay stale HMR versions after restoring the dev disk cache,
+    // causing an endless reload after a restart (vercel/next.js#100251, #100267).
+    // Keep in-session Fast Refresh and the production build cache enabled.
+    turbopackFileSystemCacheForDev: false,
+  },
   serverExternalPackages: ['@electric-sql/pglite', 'postgres'],
   outputFileTracingExcludes: {
     '/*': [

@@ -8,3 +8,14 @@ test-results/
 coverage/
 *.tsbuildinfo
 .DS_Store
+
+.playwright-cli/
+output/playwright/
+
+# Deployment credentials, private certificates and server-local configuration.
+**/server.env
+**/runtime.env
+*.key
+*.pem
+*.p12
+*.pfx

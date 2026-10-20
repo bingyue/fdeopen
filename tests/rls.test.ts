@@ -21,6 +21,9 @@ it('enforces Supabase RLS: public catalog only; own submissions; no raw profiles
   expect((await database.query('SELECT * FROM projects')).length).toBe(20);
   expect((await database.query('SELECT * FROM submissions')).length).toBe(0);
   await expect(database.query('SELECT * FROM profiles')).rejects.toThrow();
+  for (const table of ['media_posts','media_inquiries','media_assets','media_staff','media_subscriptions']) {
+    await expect(database.query(`SELECT * FROM ${table}`)).rejects.toThrow();
+  }
   await expect(database.query("UPDATE users SET role='admin'")).rejects.toThrow();
   await expect(
     database.query(

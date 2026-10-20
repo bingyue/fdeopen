@@ -41,6 +41,10 @@ export async function migrate(db: DB, rls = false) {
     ...(rls ? ['002_rls.sql'] : []),
     '003_query_indexes.sql',
     '004_webhook_claims.sql',
+    '005_media.sql',
+    '006_frontline_brand.sql',
+    '007_media_sourced.sql',
+    '008_account_credentials.sql',
   ]) {
     if ((await db.query('SELECT version FROM schema_migrations WHERE version=$1', [file])).length)
       continue;
@@ -68,6 +72,8 @@ export async function db(): Promise<DB> {
           await migrate(database);
           const { seed } = await import('./seed');
           await seed(database, true);
+          const { seedMedia } = await import('./media-seed');
+          await seedMedia(database, true);
           return database;
         } catch (error) {
           await pg.close().catch(() => {});

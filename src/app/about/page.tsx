@@ -1,47 +1,51 @@
 import Link from 'next/link';
-import { PageHeading } from '@/components/site';
-export const metadata = { title: '关于 FDEOpen', alternates: { canonical: '/about' } };
+export const metadata = {
+  title: '关于FDE前线',
+  description: 'FDE前线是面向企业AI转型与智能体产业的专业媒体、研究与资源连接平台。',
+  alternates: { canonical: '/about' },
+};
 export default function About() {
   return (
-    <div className="container page-space privacy-page">
-      <PageHeading
-        eyebrow="OPEN BY DEFAULT"
-        title="开放实践，连接真实业务"
-        description="FDEOpen · FDE开放社区，让企业 AI 落地更加开放。"
-      />
-      <h2>一个独立的开放社区</h2>
-      <p>
-        FDEOpen 面向 Forward Deployed Engineer、AI 应用工程师、独立开发者、AI 创业者与企业 AI
-        负责人。我们通过项目、Skills、行业场景和真实贡献，让实践经验可以被发现、验证与复用。
-      </p>
-      <h2 id="frontline">由 FDE前线发起</h2>
-      <p>
-        FDE前线承担行业观察、媒体内容与实践传播。FDEOpen
-        保持独立品牌和开发者体验，公开项目与文档默认免费访问。你不需要购买课程才能查看开放资源。
-      </p>
-      <h2>FDE 生态如何协作</h2>
-      <ul>
-        <li>FDEOpen：开放项目、技能、场景与协作。</li>
-        <li>
-          <span id="learning">51FDE</span>
-          ：学习、训练营、职业与人才成长等独立服务。正式入口开放后会在社区中更新。
-        </li>
-        <li>
-          <a href="https://fdechina.ai" target="_blank" rel="noreferrer">
-            FDE中国
-          </a>
-          ：企业需求、专家与生态合作。
-        </li>
-      </ul>
-      <h2>100 个企业 AI 开源实战项目共建计划</h2>
-      <p>
-        这是长期共建目标，不是对当前成果数量的声明。项目应带有可复现文档、来源许可与验收证据；没有验证过的效果不作为成果宣传。
-      </p>
-      <p>
-        <Link href="/collections/hundred-builds" className="text-link">
-          查看共建计划 →
-        </Link>
-      </p>
+    <div className="media-container media-page">
+      <div className="channel-heading">
+        <span className="media-eyebrow">ABOUT US</span>
+        <h1>
+          洞察变革，记录实践<i>。</i>
+        </h1>
+        <p>FDE前线 · 企业 AI 转型与智能体产业媒体</p>
+      </div>
+      <div className="legal-copy">
+        <h2 id="frontline">在技术与业务的交汇处</h2>
+        <p>
+          FDE前线关注企业 AI 转型、智能体产业、AI Native
+          组织与管理变革。通过产业观察、深度文章、企业案例、人物与研究，让企业决策者和一线实践者理解正在发生的变化。
+        </p>
+        <h2>用证据建立可信度</h2>
+        <p>
+          我们重视来源、核验与表达边界。编辑观点不冒充统计结论，示例不冒充企业成果，商业合作不混同独立报道。匿名内容保留核验依据，公开范围尊重受访者和企业授权。
+        </p>
+        <h2>从媒体，到开放生态</h2>
+        <p>
+          开放社区是 FDE前线的实践入口，连接开源项目、技能与企业交付。
+          你可以在社区维护资料、收藏资源、参与讨论与共创。
+        </p>
+        <div className="media-links">
+          <Link href="/community">开放社区</Link>
+          <Link href="/developers">专家与开发者</Link>
+          <Link href="/enterprise">企业需求</Link>
+          <Link href="/contribute">投稿与合作</Link>
+        </div>
+        <h2 id="learning">专业成长与产业协作</h2>
+        <p>
+          学习、培训、企业诊断与人才合作作为生态连接入口。我们优先公开可阅读、可复核的经验；具体服务与安排由合作双方确认。
+        </p>
+        <h2>长期共建</h2>
+        <p>
+          100 个企业 AI
+          开源实战项目是社区的长期共建目标，不是对已经完成数量的声明。现有开放资料可以从原社区继续访问。
+        </p>
+        <Link href="/collections/hundred-builds">查看共建计划 →</Link>
+      </div>
     </div>
   );
 }

@@ -1,9 +1,17 @@
 import { z } from 'zod';
 import { cookies } from 'next/headers';
-import { randomUUID } from 'node:crypto';
-import { currentUser, requireUser, loginDemo, supabase, hashToken } from '@/lib/auth';
+import { randomUUID, createHash } from 'node:crypto';
+import {
+  currentUser,
+  requireUser,
+  loginDemo,
+  supabase,
+  hashToken,
+  setSessionCookie,
+} from '@/lib/auth';
 import { db } from '@/lib/db';
-import { isDemo } from '@/lib/config';
+import { isDemo, isLocalAuth, usesSupabase } from '@/lib/config';
+import { createAccount, loginAccount, changePassword } from '@/lib/accounts';
 import { DEMO_ADMIN, DEMO_MEMBER } from '@/lib/seed';
 import { AppError, isModerator } from '@/lib/validation';
 import { checkOrigin, readJson, errorResponse, requestKey } from '@/lib/http';
@@ -20,7 +28,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ acti
     const u = new URL(request.url);
     if (action === 'health') {
       await (await db()).query('SELECT 1');
-      return Response.json({ ok: true, mode: isDemo() ? 'demo' : 'supabase' });
+      return Response.json({
+        ok: true,
+        mode: isDemo() ? 'demo' : isLocalAuth() ? 'postgres' : 'supabase',
+      });
     }
     if (action === 'me')
       return Response.json(
@@ -55,6 +66,26 @@ export async function POST(request: Request, { params }: { params: Promise<{ act
     const { action } = await params;
     const data = await readJson(request);
     await service.rateLimit(`http:${requestKey(request)}`, 150, 60);
+    if (action === 'account-login' || action === 'account-register') {
+      if (!isLocalAuth()) throw new AppError('账号登录未启用', 404);
+      await service.rateLimit(`account-ip:${requestKey(request)}`, 20, 600);
+      const accountKey = createHash('sha256')
+        .update(
+          String(data.loginName || '')
+            .trim()
+            .toLowerCase(),
+        )
+        .digest('hex');
+      await service.rateLimit(`account-name:${accountKey}`, 20, 600);
+      if (action === 'account-register') {
+        await service.rateLimit(`register:${requestKey(request)}`, 5, 3600);
+        await createAccount(await db(), data);
+        return Response.json({ ok: true }, { status: 201 });
+      }
+      const session = await loginAccount(await db(), data);
+      await setSessionCookie(session.token);
+      return Response.json({ ok: true });
+    }
     if (action === 'demo-login') {
       if (!isDemo()) throw new AppError('演示登录已关闭', 404);
       const v = z
@@ -81,7 +112,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ act
     let result: unknown = { ok: true };
     switch (action) {
       case 'logout': {
-        if (isDemo()) {
+        if (!usesSupabase()) {
           const jar = await cookies();
           const token = jar.get('fdeopen_session')?.value;
           if (token)
@@ -93,6 +124,13 @@ export async function POST(request: Request, { params }: { params: Promise<{ act
           const { error } = await (await supabase()).auth.signOut();
           if (error) throw new AppError('退出登录未完成，请稍后重试', 502);
         }
+        break;
+      }
+      case 'account-password': {
+        if (!isLocalAuth()) throw new AppError('账号登录未启用', 404);
+        await service.rateLimit(`password:${user.id}`, 5, 600);
+        await changePassword(await db(), user.id, data);
+        (await cookies()).delete('fdeopen_session');
         break;
       }
       case 'submit':

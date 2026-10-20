@@ -5,7 +5,7 @@ export default function GlobalError({ reset }: { reset: () => void }) {
   return (
     <html lang="zh-CN">
       <head>
-        <title>暂时无法访问 · FDEOpen</title>
+        <title>暂时无法访问 · FDE前线</title>
       </head>
       <body
         style={{
@@ -16,7 +16,7 @@ export default function GlobalError({ reset }: { reset: () => void }) {
         }}
       >
         <main style={{ maxWidth: 560, margin: '12vh auto', padding: '32px 24px', lineHeight: 1.8 }}>
-          <p style={{ color: '#154fd1', fontWeight: 700 }}>FDEOpen · FDE 开放社区</p>
+          <p style={{ color: '#154fd1', fontWeight: 700 }}>FDE前线</p>
           <h1 style={{ fontSize: 28 }}>社区暂时无法访问</h1>
           <p>服务遇到了临时问题，请稍后重新加载。</p>
           <button

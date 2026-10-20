@@ -18,21 +18,19 @@ import type { User, Resource, ResourceSummary, Profile, Collection } from '@/lib
 import { kinds, resourcePath } from '@/lib/types';
 import { Button } from './ui/button';
 import { SiteNavigation } from './navigation';
-import { learningUrl } from '@/lib/config';
 export function Logo() {
   return (
-    <Link href="/" className="logo" aria-label="FDEOpen 首页">
-      <span className="logo-symbol">
-        <Box size={23} strokeWidth={2.3} />
+    <Link href="/" className="logo media-logo" aria-label="FDE前线 首页">
+      <span className="media-logo-mark">
+        F<span>↗</span>
       </span>
       <span>
-        FDE<span className="logo-open">Open</span>
-        <small>FDE 开放社区</small>
+        FDE前线<small>企业AI转型与智能体产业媒体</small>
       </span>
     </Link>
   );
 }
-export function Header({ user, demo }: { user: User | null; demo: boolean }) {
+export function Header({ user }: { user: User | null }) {
   return (
     <>
       <a href="#main" className="skip-link">
@@ -47,14 +45,14 @@ export function Header({ user, demo }: { user: User | null; demo: boolean }) {
               <Search size={19} />
             </Link>
             <Button asChild size="sm" variant="secondary">
-              <Link href="/submit">
+              <Link href="/contribute">
                 <Plus size={15} />
-                提交项目
+                投稿 / 合作
               </Link>
             </Button>
             <Link
               className="login-link"
-              aria-label={user ? '我的工作台' : 'GitHub 登录'}
+              aria-label={user ? '我的工作台' : '账号登录'}
               href={user ? '/dashboard' : '/login'}
             >
               {user ? (
@@ -68,62 +66,55 @@ export function Header({ user, demo }: { user: User | null; demo: boolean }) {
           <SiteNavigation mobile loggedIn={!!user} />
         </div>
       </header>
-      {demo && (
-        <div className="demo-strip">
-          <span className="status-dot" /> 本地演示模式 <span>·</span>{' '}
-          真实来源目录，示例身份与演示数据{' '}
-          <Link href="/login">
-            切换体验身份 <ArrowRight size={12} />
-          </Link>
-        </div>
-      )}
     </>
   );
 }
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <div className="container footer-grid">
-        <div>
-          <Logo />
-          <p>让企业 AI 落地更加开放。</p>
-          <span className="micro">OPEN SOURCE · AI AGENTS · REAL-WORLD DEPLOYMENT</span>
+    <footer className="site-footer media-footer">
+      <div className="media-container">
+        <div className="media-footer-grid">
+          <div>
+            <Logo />
+            <p>洞察 AI 产业变革，记录企业转型实践。</p>
+            <small>INDEPENDENT THINKING. REAL-WORLD PRACTICE.</small>
+          </div>
+          <div>
+            <strong>内容与研究</strong>
+            <Link href="/insights">前线观察</Link>
+            <Link href="/features">深度报道</Link>
+            <Link href="/cases">企业案例</Link>
+            <Link href="/research">产业研究</Link>
+          </div>
+          <div>
+            <strong>连接与共建</strong>
+            <Link href="/people">前线人物</Link>
+            <Link href="/events">产业活动</Link>
+            <Link href="/community">FDE开放社区</Link>
+            <Link href="/enterprise">企业服务</Link>
+          </div>
+          <div>
+            <strong>关于 FDE前线</strong>
+            <Link href="/about">关于我们</Link>
+            <Link href="/contribute">投稿 / 合作 / 联系</Link>
+            <Link href="/terms">用户协议</Link>
+            <Link href="/privacy">隐私政策</Link>
+          </div>
         </div>
-        <div>
-          <strong>发现与构建</strong>
-          <Link href="/projects">开源项目</Link>
-          <Link href="/skills">Skills 市场</Link>
-          <Link href="/scenarios">企业 AI 场景</Link>
-        </div>
-        <div>
-          <strong>参与社区</strong>
-          <Link href="/submit">提交你的作品</Link>
-          <Link href="/build">参与开源共创</Link>
-          <Link href="/docs/fde-getting-started">从这里开始</Link>
-        </div>
-        <div>
-          <strong>FDE 生态</strong>
-          <Link href="/about#frontline">FDE前线 · 内容与传播</Link>
-          <Link href={learningUrl()}>
-            51FDE · 学习与成长 <ArrowUpRight size={12} />
-          </Link>
-          <a href="https://fdechina.ai" target="_blank" rel="noreferrer">
-            FDE中国 · 企业与生态 <ArrowUpRight size={12} />
+        <div className="media-footer-bottom">
+          <div className="media-footer-identity">
+            <span>© {new Date().getFullYear()} FDE前线</span>
+            <span>杭州集智光年科技有限公司</span>
+          </div>
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+            浙ICP备2025181284号-9
           </a>
-          <span className="muted small">生态服务独立于免费开放资源</span>
-        </div>
-      </div>
-      <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} FDEOpen · 由 FDE前线发起</span>
-        <div>
-          <Link href="/about">关于社区</Link>
-          <Link href="/privacy">隐私与社区规则</Link>
-          <Link href="/admin">运营后台</Link>
         </div>
       </div>
     </footer>
   );
 }
+
 export function SectionTitle({
   eyebrow,
   title,

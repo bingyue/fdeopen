@@ -53,12 +53,12 @@ export function parseJsonObject(text: string): Record<string, unknown> {
     throw new AppError('请求内容必须是 JSON 对象');
   return value as Record<string, unknown>;
 }
-export async function readJson(request: Request) {
+export async function readJson(request: Request, maxBytes = 128000) {
   if (
     request.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !== 'application/json'
   )
     throw new AppError('需要 JSON 请求', 415);
-  return parseJsonObject(await readBody(request));
+  return parseJsonObject(await readBody(request, maxBytes));
 }
 export function errorResponse(error: unknown) {
   if (error instanceof ZodError)

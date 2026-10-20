@@ -1,0 +1,94 @@
+name: fdeopen
+
+x-app-env: &app-env
+  NODE_ENV: production
+  APP_MODE: postgres
+  NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:?Set the public HTTPS origin}
+  DATABASE_URL: postgresql://fdeopen:${POSTGRES_PASSWORD:?Set a random database password}@postgres:5432/fdeopen
+  MEDIA_UPLOAD_DIR: /app/.data/uploads
+  FDE_LEARNING_URL: ${FDE_LEARNING_URL:-https://51fde.net}
+
+services:
+  postgres:
+    image: ${POSTGRES_IMAGE:-postgres:17-alpine}
+    environment:
+      POSTGRES_USER: fdeopen
+      POSTGRES_DB: fdeopen
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a random database password}
+      POSTGRES_INITDB_ARGS: --data-checksums
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U fdeopen -d fdeopen]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+    mem_limit: 512m
+    logging: &logs
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  tools:
+    image: ${FDEOPEN_TOOLS_IMAGE:-fdeopen-tools:release}
+    build:
+      context: ../..
+      target: tools
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node:22-bookworm-slim}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+    profiles: [tools]
+    environment:
+      <<: *app-env
+      BOOTSTRAP_ADMIN_LOGIN: ${BOOTSTRAP_ADMIN_LOGIN:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
+    volumes:
+      - uploads:/app/.data/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+    logging: *logs
+
+  web:
+    image: ${FDEOPEN_IMAGE:-fdeopen:release}
+    build:
+      context: ../..
+      target: runner
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node:22-bookworm-slim}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+    environment:
+      <<: *app-env
+      PORT: 3210
+      HOSTNAME: 0.0.0.0
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET:-}
+      CRON_SECRET: ${CRON_SECRET:-}
+    ports:
+      - 127.0.0.1:3215:3210
+    volumes:
+      - uploads:/app/.data/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    init: true
+    mem_limit: 1536m
+    pids_limit: 128
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3210/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    logging: *logs
+
+volumes:
+  postgres_data:
+  uploads:

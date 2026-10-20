@@ -345,24 +345,6 @@ section[id] {
 .mobile-nav {
   display: none;
 }
-.demo-strip {
-  background: #f5f8fb;
-  border-bottom: 1px solid #eaf0f5;
-  font-size: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  color: #5e7083;
-  min-height: 27px;
-}
-.demo-strip a {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: #366bc1;
-  margin-left: 10px;
-}
 .hero-wrap {
   background:
     radial-gradient(ellipse at 74% 45%, #eaf2ff80, transparent 55%),
@@ -2406,15 +2388,6 @@ section[id] {
   }
   .header-actions .login-link > span:not(.avatar) {
     display: none;
-  }
-  .demo-strip {
-    font-size: 9px;
-    gap: 7px;
-    padding: 5px 12px;
-    flex-wrap: wrap;
-  }
-  .demo-strip a {
-    margin-left: 0;
   }
   .announcement {
     font-size: 9px;

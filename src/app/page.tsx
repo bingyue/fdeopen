@@ -1,351 +1,260 @@
 import Link from 'next/link';
+import { ArrowRight, ArrowUpRight, Radio } from 'lucide-react';
+import { mediaList, mediaTaxonomy } from '@/lib/media-service';
+import { postPath } from '@/lib/media-model';
 import {
-  ArrowRight,
-  ArrowUpRight,
-  Search,
-  Sparkles,
-  GitFork,
-  Code2,
-  Workflow,
-  Box,
-  Command,
-  BookOpen,
-  FlaskConical,
-  Terminal,
-  Check,
-  Star,
-  ShieldCheck,
-} from 'lucide-react';
-import { resourcePreview, collections, developers, homeSettings } from '@/lib/catalog';
-import { ResourceGrid, SectionTitle, CollectionCard, DeveloperCard } from '@/components/site';
-import { Button } from '@/components/ui/button';
-export const metadata = { alternates: { canonical: '/' } };
-const categories = [
-  ['RAG', BookOpen, '知识的下一步'],
-  ['Agent', Sparkles, '让想法开始行动'],
-  ['MCP', Box, '连接工具与能力'],
-  ['Skills', Command, '复用专业的方法'],
-  ['Workflow', Workflow, '编排业务流程'],
-  ['AI Infra', Terminal, '构建可靠的底座'],
-];
-function Ecosystem() {
-  return (
-    <div className="ecosystem" aria-label="从真实场景到开源项目、技能和企业交付的连接图">
-      <div className="ecosystem-top">
-        <span className="status-dot" /> BUILT IN THE OPEN <span>v1.0</span>
-      </div>
-      <div className="orbit orbit-one" />
-      <div className="orbit orbit-two" />
-      <svg className="connectors" viewBox="0 0 520 350" aria-hidden="true">
-        <path d="M260 172L106 84M260 172L407 94M260 172L100 275M260 172L420 273" />
-        <circle cx="187" cy="130" r="3" />
-        <circle cx="333" cy="133" r="3" />
-        <circle cx="184" cy="222" r="3" />
-      </svg>
-      <div className="eco-center">
-        <span className="eco-logo">
-          <Box size={30} />
-        </span>
-        <b>FDEOpen</b>
-        <small>从开放，到落地</small>
-      </div>
-      <div className="eco-node node-one">
-        <span className="node-icon blue">
-          <Code2 size={18} />
-        </span>
-        <div>
-          <b>Open Source</b>
-          <small>发现优质开源项目</small>
-        </div>
-        <span className="node-dot" />
-      </div>
-      <div className="eco-node node-two">
-        <span className="node-icon violet">
-          <Command size={18} />
-        </span>
-        <div>
-          <b>Agent Skills</b>
-          <small>让经验可以复用</small>
-        </div>
-      </div>
-      <div className="eco-node node-three">
-        <span className="node-icon green">
-          <Workflow size={18} />
-        </span>
-        <div>
-          <b>Real-world Scenarios</b>
-          <small>从真实业务出发</small>
-        </div>
-      </div>
-      <div className="eco-node node-four">
-        <span className="node-icon orange">
-          <GitFork size={18} />
-        </span>
-        <div>
-          <b>Build Together</b>
-          <small>让贡献持续发生</small>
-        </div>
-      </div>
-      <div className="ecosystem-bottom">
-        <span>
-          <Check size={12} /> Open by default
-        </span>
-        <span>Built for real work ↗</span>
-      </div>
-    </div>
-  );
-}
+  EditorialCover,
+  PostMeta,
+  PostCard,
+  EditorialSection,
+  MediaEmpty,
+} from '@/components/media';
+import { Newsletter } from '@/components/media-interactions';
+export const metadata = {
+  title: 'FDE前线 · 企业AI转型与智能体产业媒体',
+  description:
+    '洞察AI产业变革，记录企业转型实践。关注企业AI转型、智能体产业、FDE工程交付与组织变革。',
+  alternates: { canonical: '/' },
+};
 export default async function Home() {
-  const settings = await homeSettings();
-  const [projects, skills, scenarios, demos, tasks, sets, people, latest] = await Promise.all([
-    resourcePreview('project', { featured: true, limit: 6 }),
-    resourcePreview('skill', { featured: true, limit: 3 }),
-    resourcePreview('scenario', { featured: true, limit: 3 }),
-    settings.showLab ? resourcePreview('demo') : [],
-    settings.showTasks ? resourcePreview('task') : [],
-    collections(),
-    settings.showDevelopers ? developers() : [],
-    resourcePreview('project', { sort: 'newest', limit: 3 }),
-  ]);
+  const [home, latest, breaking, cases, research, people, events, popular, taxonomy] =
+    await Promise.all([
+      mediaList({ home: true, limit: 5 }),
+      mediaList({ limit: 6 }),
+      mediaList({ breaking: true, limit: 3 }),
+      mediaList({ channel: 'cases', limit: 3 }),
+      mediaList({ channel: 'research', limit: 3 }),
+      mediaList({ channel: 'people', limit: 2 }),
+      mediaList({ channel: 'events', limit: 2 }),
+      mediaList({ popular: true, limit: 4 }),
+      mediaTaxonomy(),
+    ]);
+  const lead = home.rows[0] || latest.rows[0],
+    picks = home.rows.length > 1 ? home.rows.slice(1) : latest.rows.slice(1, 5);
   return (
-    <>
-      <section className="hero-wrap">
-        <div className="container">
-          <Link href="/collections/hundred-builds" className="announcement">
-            <span>COMMUNITY BUILD</span>
-            {settings.announcement}
-            <ArrowUpRight size={14} />
-          </Link>
-          <div className="hero">
-            <div className="hero-copy">
-              <span className="eyebrow">
-                <span className="blue-dash" /> THE OPEN COMMUNITY FOR FDE
-              </span>
-              <h1>
-                让企业 AI 落地
-                <br />
-                <em>更加开放。</em>
-              </h1>
-              <p>
-                发现值得构建的开源项目，复用经过整理的 Skills，
-                <br className="desktop-only" />
-                从真实业务场景出发，和开发者一起把 AI 落到实处。
-              </p>
-              <form action="/search" className="hero-search" role="search">
-                <Search size={21} />
-                <input
-                  aria-label="搜索项目、Skills 或企业场景"
-                  name="q"
-                  placeholder="搜索项目、Skills 或企业场景…"
-                />
-                <button type="submit" aria-label="开始搜索">
-                  <ArrowRight size={20} />
-                </button>
-              </form>
-              <div className="search-hints">
-                <span>从这里开始</span>
-                {['RAG', 'MCP', '知识库', 'Agent'].map((q) => (
-                  <Link key={q} href={`/search?q=${encodeURIComponent(q)}`}>
-                    {q}
-                  </Link>
-                ))}
-              </div>
-              <div className="hero-buttons">
-                <Button asChild size="lg">
-                  <Link href="/projects">
-                    探索开源项目 <ArrowRight size={17} />
-                  </Link>
-                </Button>
-                <Button asChild variant="ghost" size="lg">
-                  <Link href="/submit">
-                    <GitFork size={17} />
-                    分享你的作品
-                  </Link>
-                </Button>
-              </div>
-              <div className="hero-trust">
-                <span>
-                  <ShieldCheck size={15} />
-                  开放访问
-                </span>
-                <span>
-                  <Code2 size={15} />
-                  尊重来源与许可
-                </span>
-                <span>
-                  <GitFork size={15} />
-                  共建真实贡献
-                </span>
-              </div>
-            </div>
-            <Ecosystem />
-          </div>
-          <div className="category-bar">
-            {categories.map(([name, Icon, desc]) => {
-              const C = Icon as typeof BookOpen;
-              return (
-                <Link
-                  key={String(name)}
-                  href={`/projects?category=${encodeURIComponent(String(name))}`}
-                >
-                  <C size={23} />
-                  <div>
-                    <strong>{String(name)}</strong>
-                    <span>{String(desc)}</span>
-                  </div>
-                  <ArrowUpRight size={13} />
-                </Link>
-              );
-            })}
-          </div>
+    <div className="media-home media-container">
+      <div className="newswire">
+        <span>
+          <Radio size={15} />
+          产业动态
+        </span>
+        <div>
+          {breaking.rows.length ? (
+            breaking.rows.map((p) => (
+              <Link key={p.id} href={postPath(p)}>
+                {p.authenticity === 'example' && <small>示例</small>}
+                {p.title}
+                <ArrowUpRight size={13} />
+              </Link>
+            ))
+          ) : (
+            <p>暂未发布产业快讯，持续关注经过编辑审核的行业信息。</p>
+          )}
         </div>
-      </section>
-      <div className="container home-content">
+        <Link className="wire-all" href="/insights">
+          全部 <ArrowRight size={14} />
+        </Link>
+      </div>
+      <div className="edition-line">
+        <span>洞察 AI 产业变革，记录企业转型实践</span>
+        <span>BUSINESS × TECHNOLOGY × TRANSFORMATION</span>
+      </div>
+      {lead ? (
+        <section className="front-cover" aria-label="封面与编辑精选">
+          <article className="lead-story">
+            <Link
+              className="lead-image"
+              href={postPath(lead)}
+              prefetch={false}
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              <EditorialCover post={lead} large />
+            </Link>
+            <div className="lead-content">
+              <span className="media-eyebrow">COVER STORY / 封面深度</span>
+              <h1>
+                <Link href={postPath(lead)} prefetch={false}>
+                  {lead.title}
+                </Link>
+              </h1>
+              <p>{lead.summary}</p>
+              <PostMeta post={lead} />
+            </div>
+          </article>
+          <aside className="editors-picks">
+            <div className="rail-title">
+              <span>编辑精选</span>
+              <small>EDITOR’S PICKS</small>
+            </div>
+            {picks.map((post, index) => (
+              <div className="pick-item" key={post.id}>
+                <span className="pick-number">0{index + 1}</span>
+                <PostCard post={post} mode="compact" />
+              </div>
+            ))}
+            <Link href="/features" className="rail-more">
+              进入深度栏目 <ArrowUpRight size={16} />
+            </Link>
+          </aside>
+        </section>
+      ) : (
+        <MediaEmpty title="为企业 AI 的下一步，记录值得阅读的内容。" />
+      )}
+      <div className="media-main-grid">
         <section>
-          <SectionTitle
-            eyebrow="OPENHUB"
-            title="好的实践，从好的项目开始"
-            description="为企业 AI 开发而精选，连接原作者与开源社区。"
-            href="/projects"
-            linkLabel="探索项目库"
-          />
-          <div className="section-tabs">
-            <span className="active">
-              <Star size={14} />
-              精选项目
-            </span>
-            <Link href="/projects?sort=newest">最新收录</Link>
-            <Link href="/projects?sort=popular">社区收藏</Link>
-            <small>GitHub 数据为带日期的来源快照</small>
+          <EditorialSection title="前线正在发生" en="LATEST STORIES" href="/insights" />
+          <div className="story-tabs">
+            <span>最新文章</span>
+            <Link href="/insights">前线观察</Link>
+            <Link href="/features">深度分析</Link>
+            <Link href="/features?featured=1">编辑精选</Link>
           </div>
-          <ResourceGrid resources={projects} />
-        </section>
-        <section className="collection-section">
-          <SectionTitle
-            eyebrow="CURATED COLLECTIONS"
-            title="少一点寻找，多一点构建"
-            href="/collections"
-            linkLabel="全部专题"
-          />
-          <div className="collection-grid">
-            {sets
-              .filter((c) => c.theme !== 'dark')
-              .slice(0, 3)
-              .map((c) => (
-                <CollectionCard key={c.id} c={c} />
-              ))}
+          <div className="story-feed">
+            {latest.rows.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+            {!latest.rows.length && <MediaEmpty />}
           </div>
-        </section>
-        <section>
-          <SectionTitle
-            eyebrow="SKILLHUB"
-            title="把专业方法，装进你的 Agent"
-            description="从需求诊断到交付验收，可复用的技能让工作更进一步。"
-            href="/skills"
-          />
-          <ResourceGrid resources={skills} />
-        </section>
-        <section className="scenario-section">
-          <SectionTitle
-            eyebrow="SCENARIOHUB"
-            title="技术，最终要回答业务问题"
-            description="从一个真实问题出发，找到可复用的组件与实施路径。"
-            href="/scenarios"
-          />
-          <ResourceGrid resources={scenarios} />
-          <Link href="/submit?type=requirement" className="inline-cta">
-            <span>
-              <Workflow size={18} />
-              有一个值得解决的企业问题？
-            </span>
-            <b>
-              私密提交场景需求 <ArrowRight size={16} />
-            </b>
+          <Link className="load-more-link" href="/insights">
+            更多前线观察 <ArrowRight size={16} />
           </Link>
         </section>
-        {settings.showLab && (
-          <section>
-            <SectionTitle
-              eyebrow="FDE LAB"
-              title="先体验，再开始构建"
-              description="查看原项目体验入口与示例，了解技术如何工作。"
-              href="/lab"
-            />
-            <ResourceGrid resources={demos} />
-          </section>
-        )}
-        {settings.showTasks && (
-          <section>
-            <SectionTitle
-              eyebrow="BUILD TOGETHER"
-              title="你的下一次贡献，可以从这里开始"
-              description="一份部署记录、一个行业示例，都能让开放生态走得更远。"
-              href="/build"
-            />
-            <ResourceGrid resources={tasks} />
-          </section>
-        )}
-        {settings.showDevelopers && (
-          <section>
-            <SectionTitle
-              eyebrow="PEOPLE BEHIND THE BUILD"
-              title="项目背后，是认真构建的人"
-              href="/developers"
-            />
-            {people.length ? (
-              <div className="developer-grid">
-                {people.slice(0, 3).map((p) => (
-                  <DeveloperCard key={p.user_id} p={p} />
-                ))}
+        <aside className="home-sidebar">
+          <div className="sidebar-section">
+            <div className="rail-title">
+              <span>读者关注</span>
+              <small>READING LIST</small>
+            </div>
+            {popular.rows.map((p, i) => (
+              <div className="popular-item" key={p.id}>
+                <b>{String(i + 1).padStart(2, '0')}</b>
+                <div>
+                  <Link href={postPath(p)}>{p.title}</Link>
+                  <small>
+                    {p.views || 0} 次已记录访问{p.authenticity === 'example' ? ' · 示例' : ''}
+                  </small>
+                </div>
               </div>
-            ) : (
-              <div className="join-developers">
-                <UsersIcon />
-                <p>社区正在开放共建，来建立你的第一个开发者档案。</p>
-                <Link href="/login" className="text-link">
-                  加入共建 <ArrowRight size={16} />
-                </Link>
+            ))}
+          </div>
+          <div className="sidebar-section">
+            <div className="rail-title">
+              <span>持续追踪</span>
+              <small>TOPICS</small>
+            </div>
+            {taxonomy.topics.map((t) => (
+              <Link className="topic-teaser" href={`/topics/${t.slug}`} key={t.slug}>
+                <span>专题 / SPECIAL REPORT</span>
+                <h3>{t.title}</h3>
+                <p>{t.description}</p>
+                <ArrowUpRight size={20} />
+              </Link>
+            ))}
+          </div>
+          <div className="sidebar-section">
+            <div className="rail-title">
+              <span>研究推荐</span>
+              <small>RESEARCH</small>
+            </div>
+            {research.rows.slice(0, 2).map((post) => (
+              <PostCard key={post.id} post={post} mode="compact" />
+            ))}
+          </div>
+          <Newsletter />
+        </aside>
+      </div>
+      <section className="home-cases">
+        <EditorialSection
+          title="企业 AI 转型实录"
+          en="TRANSFORMATION IN PRACTICE"
+          description="深入真实业务场景，记录企业 AI 转型的方法、挑战与价值。"
+          href="/cases"
+        />
+        <div className="media-grid-three">
+          {cases.rows.map((post) => (
+            <PostCard key={post.id} post={post} mode="tile" />
+          ))}
+        </div>
+        {!cases.rows.length && <MediaEmpty title="企业案例正在整理" />}
+      </section>
+      <section className="home-research">
+        <EditorialSection title="FDE 产业研究" en="RESEARCH & PERSPECTIVES" href="/research" />
+        <div className="research-strip">
+          {research.rows.map((post) => (
+            <Link className="research-card" href={postPath(post)} key={post.id}>
+              <EditorialCover post={post} />
+              <div>
+                <span>FDE前线 · 产业研究</span>
+                <h3>{post.title}</h3>
+                <p>{post.summary}</p>
+                <span className="research-read">
+                  阅读研究 <ArrowUpRight size={16} />
+                </span>
               </div>
-            )}
-          </section>
-        )}
-        <section className="latest-row">
-          <span className="eyebrow">RECENTLY ADDED</span>
-          <b>最新收录</b>
-          {latest.map((r) => (
-            <Link key={r.id} href={`/projects/${r.slug}`}>
-              {r.title}
-              <ArrowUpRight size={13} />
             </Link>
           ))}
+        </div>
+        {!research.rows.length && <MediaEmpty title="研究内容正在准备" />}
+      </section>
+      <div className="home-two-columns">
+        <section>
+          <EditorialSection title="前线人物" en="PEOPLE AT THE FRONTLINE" href="/people" />
+          {people.rows.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+          {!people.rows.length && <MediaEmpty title="人物报道正在准备" />}
         </section>
-        <section className="community-cta">
-          <div>
-            <span className="eyebrow">LESS ALONE. MORE OPEN.</span>
-            <h2>
-              下一个企业 AI 实践，
-              <br />
-              和社区一起构建。
-            </h2>
-            <p>加入「100 个企业 AI 开源实战项目共建计划」</p>
-          </div>
-          <div>
-            <Button asChild variant="secondary" size="lg">
-              <Link href="/submit">
-                提交你的项目 <ArrowRight size={17} />
-              </Link>
-            </Button>
-            <Link href="/collections/hundred-builds">
-              了解共建计划 <ArrowUpRight size={15} />
+        <section>
+          <EditorialSection title="产业活动" en="MEET & CONNECT" href="/events" />
+          {events.rows.map((post) => (
+            <Link className="event-teaser" href={postPath(post)} key={post.id}>
+              <div className="event-date">
+                <small>{post.authenticity === 'example' ? '示例活动' : '即将相遇'}</small>
+                <strong>
+                  {post.authenticity === 'example'
+                    ? '—'
+                    : new Date(post.details.event_start || '').getDate()}
+                </strong>
+              </div>
+              <div>
+                <h3>{post.title}</h3>
+                <p>{post.details.location}</p>
+                <span>
+                  {post.authenticity === 'example'
+                    ? '暂不开放报名'
+                    : post.details.event_state === 'open'
+                      ? '查看活动与报名'
+                      : '查看活动详情'}{' '}
+                  ↗
+                </span>
+              </div>
             </Link>
-            <small>100 是长期目标，每一份贡献都从真实开始。</small>
-          </div>
-          <div className="cta-orbit" />
+          ))}
+          {!events.rows.length && <MediaEmpty title="近期活动尚未公布" />}
         </section>
       </div>
-    </>
+      <section className="ecosystem-editorial">
+        <EditorialSection title="连接实践者，共建产业生态" en="FDE ECOSYSTEM" href="/community" />
+        <div className="ecosystem-links">
+          {[
+            ['01', 'FDE 开放社区', '从开源项目与可复用经验开始。', '/community'],
+            ['02', 'FDE 专家网络', '认识关注一线问题的实践者。', '/developers'],
+            ['03', '企业 AI 需求', '从你的业务问题开始一次交流。', '/enterprise'],
+            ['04', '产业合作', '让有价值的行业经验被看见。', '/contribute'],
+            ['05', '企业 AI 诊断', '梳理场景与边界，形成行动起点。', '/enterprise?type=diagnosis'],
+          ].map(([n, title, desc, href]) => (
+            <Link href={href} key={n}>
+              <span>
+                {n}
+                <ArrowUpRight size={18} />
+              </span>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </div>
   );
-}
-function UsersIcon() {
-  return <FlaskConical size={24} />;
 }

@@ -148,7 +148,7 @@ export function ResourceEditor({ resource }: { resource?: Resource }) {
             name="slug"
             required
             defaultValue={r?.slug}
-            pattern="[a-z0-9][a-z0-9-]{1,99}"
+            pattern="[a-z0-9](?:[a-z0-9]|-){1,99}"
             placeholder="lowercase-slug"
           />
         </label>
@@ -193,7 +193,7 @@ export function ResourceEditor({ resource }: { resource?: Resource }) {
         </label>
         <label>
           原作者
-          <input name="source_author" defaultValue={r?.source_author || 'FDEOpen 编辑组'} />
+          <input name="source_author" defaultValue={r?.source_author || 'FDE前线 编辑组'} />
         </label>
         <label>
           许可
@@ -407,7 +407,12 @@ export function CollectionEditor({
       </label>
       <label>
         URL 标识
-        <input name="slug" required pattern="[a-z0-9-]{2,100}" defaultValue={collection?.slug} />
+        <input
+          name="slug"
+          required
+          pattern="(?:[a-z0-9]|-){2,100}"
+          defaultValue={collection?.slug}
+        />
       </label>
       <label>
         专题介绍
