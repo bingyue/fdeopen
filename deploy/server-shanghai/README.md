@@ -5,7 +5,7 @@
 ## 目录与配置
 
 - 发布代码：`/opt/fdeopen/releases/<commit>`，`/opt/fdeopen/current` 指向当前版本。
-- 运行配置：`/etc/fdeopen/server.env`，root 所有、0600 权限。参考 `server.env.example`，数据库密码用 `openssl rand -hex 32` 生成。
+- 运行配置：`/etc/fdeopen/server.env`，root 所有、0600 权限。参考 `server.env.example`，`POSTGRES_PASSWORD` 与 `APP_DATABASE_PASSWORD` 分别用 `openssl rand -hex 32` 生成。应用只连接非超级用户 `fdeopen_app`，不会接收集群管理员密码。
 - 数据卷：`fdeopen_postgres_data`、`fdeopen_uploads`。不要执行 `docker compose down -v`。
 - `NEXT_PUBLIC_SITE_URL=https://fdeopen.com` 同时传入构建与运行阶段。
 - 初始化管理员的口令仅临时传给 tools 容器，不写入应用镜像或 web 容器环境。
@@ -38,6 +38,8 @@ curl --fail http://127.0.0.1:3215/api/health
 
 使用 Certbot 为两个域名签发证书并开启 HTTP 跳转 HTTPS。签发后验证证书域名与有效期，运行 `certbot renew --dry-run` 验证续期。Nginx 必须覆盖客户端传入的转发头，服务端限流才能使用可信来源。
 
+签发后用 `nginx-tls.conf` 替换站点配置，再验证并 reload；它统一将 HTTP 和 `www` 跳转到 `https://fdeopen.com`，避免不同域名的 Cookie 与来源校验不一致。
+
 ## 账号与密钥
 
 `APP_MODE=postgres` 下关闭演示登录和 Supabase OAuth，开放原生账号注册；注册账号始终为 member，个人主页默认私密。密码使用带随机盐的 scrypt，Cookie 为 HttpOnly/Secure/SameSite=Lax，数据库只保存会话摘要。修改密码会撤销所有会话。
@@ -51,9 +53,13 @@ dc --profile tools run --rm -e RESET_ACCOUNT_LOGIN -e RESET_ACCOUNT_PASSWORD \
 
 GitHub 公开资源同步无需个人 Token；若配置 Token，仅放入服务器环境文件。Webhook 与 Cron 不配置密钥时保持不可用。
 
+配置 `CRON_SECRET` 后，可安装 `fdeopen-github-sync.timer` 每日 11:00 左右刷新公开 GitHub 元数据；密钥仅在容器内读取，不进入 systemd 命令参数或日志。刷新受 GitHub 公共 API 配额限制。
+
 ## 备份、升级与回滚
 
 发布前导出 PostgreSQL 自定义格式备份，并归档上传卷；备份文件只允许 root 读取。正式上线后安排每日备份，定期复制到独立存储并验证恢复。运行备份时不要复制正在运行的 PostgreSQL 数据目录。
+
+`fdeopen-backup.timer` 每日服务器时间 03:20 左右运行 `backup.sh`，保存到 `/var/backups/fdeopen/时间戳`，包括数据库、上传文件、清单与 SHA-256 校验。默认保留全部备份，需要监控磁盘并根据实际运营周期制定清理规则。此目录仍在同一台服务器上，不能替代异地备份。
 
 升级按“备份 → 构建带 commit 标签镜像 → 迁移 → seed/内容导入 → 切换 web → 健康检查”进行。保留前一镜像和发布目录。回滚切回前一应用镜像，保留数据库与上传卷；新增迁移默认向后兼容，不自动删除用户数据。
 

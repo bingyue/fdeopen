@@ -151,7 +151,7 @@ export function MediaEmpty({
 }) {
   return (
     <div className="media-empty">
-      <span>FDE / OPEN</span>
+      <span>FDE FRONTLINE</span>
       <h2>{title}</h2>
       <p>{description}</p>
       <Link href="/contribute">

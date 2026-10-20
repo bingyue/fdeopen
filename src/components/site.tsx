@@ -4,12 +4,12 @@ import {
   ArrowRight,
   Plus,
   Search,
-  GitBranch as Github,
   Layers,
   BookOpen,
   Code2,
   FlaskConical,
   Users,
+  UserRound,
   Workflow,
   Box,
   Command,
@@ -58,7 +58,7 @@ export function Header({ user }: { user: User | null }) {
               {user ? (
                 <span className="avatar avatar-sm">{user.name.slice(0, 1)}</span>
               ) : (
-                <Github size={18} />
+                <UserRound size={18} />
               )}
               <span>{user ? '工作台' : '登录'}</span>
             </Link>

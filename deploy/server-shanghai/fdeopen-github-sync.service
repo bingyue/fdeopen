@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresh FDE Frontline public GitHub resource metadata
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/fdeopen/current
+TimeoutStartSec=300
+ExecStart=/usr/bin/docker compose --env-file /etc/fdeopen/server.env -f deploy/server-shanghai/compose.yaml exec -T web node -e "fetch('http://127.0.0.1:3210/api/cron/github',{headers:{Authorization:'Bearer '+process.env.CRON_SECRET}}).then(r=>{console.log('GitHub refresh HTTP '+r.status);if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"

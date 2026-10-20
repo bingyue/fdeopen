@@ -4,7 +4,7 @@ x-app-env: &app-env
   NODE_ENV: production
   APP_MODE: postgres
   NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:?Set the public HTTPS origin}
-  DATABASE_URL: postgresql://fdeopen:${POSTGRES_PASSWORD:?Set a random database password}@postgres:5432/fdeopen
+  DATABASE_URL: postgresql://fdeopen_app:${APP_DATABASE_PASSWORD:?Set a separate application database password}@postgres:5432/fdeopen
   MEDIA_UPLOAD_DIR: /app/.data/uploads
   FDE_LEARNING_URL: ${FDE_LEARNING_URL:-https://51fde.net}
 
@@ -15,9 +15,11 @@ services:
       POSTGRES_USER: fdeopen
       POSTGRES_DB: fdeopen
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a random database password}
+      APP_DATABASE_PASSWORD: ${APP_DATABASE_PASSWORD:?Set a separate application database password}
       POSTGRES_INITDB_ARGS: --data-checksums
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-app-db.sh:/docker-entrypoint-initdb.d/20-fdeopen-app.sh:ro
     healthcheck:
       test: [CMD-SHELL, pg_isready -U fdeopen -d fdeopen]
       interval: 5s

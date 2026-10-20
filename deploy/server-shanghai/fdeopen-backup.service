@@ -1,0 +1,9 @@
+[Unit]
+Description=Backup FDE Frontline database and uploads
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/bash /opt/fdeopen/current/deploy/server-shanghai/backup.sh
