@@ -171,3 +171,16 @@
     white-space: normal;
   }
 }
+/* Match the established page-heading scale on the new guide and practice pages. */
+.page-space > h1 {
+  margin: 12px 0 20px;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.8px;
+  color: #14243e;
+}
+.page-space > p {
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
