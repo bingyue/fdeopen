@@ -14,7 +14,7 @@ export function StartPaths() {
         </p>
       </div>
       <div className="path-grid">
-        <Link href="/start#enterprise" data-tone="blue">
+        <Link href="/start#enterprise" data-tone="ink">
           <div className="path-card-meta">
             <span>01 / 企业负责人</span>
             <Compass size={21} aria-hidden="true" />
@@ -30,7 +30,7 @@ export function StartPaths() {
           <h3>开发者做项目 →</h3>
           <p>选开源组件，跑通练习，带着可复现的结果参与共创。</p>
         </Link>
-        <Link href="/start#learner" data-tone="warm">
+        <Link href="/start#learner">
           <div className="path-card-meta">
             <span>03 / 初次了解</span>
             <BookOpen size={21} aria-hidden="true" />

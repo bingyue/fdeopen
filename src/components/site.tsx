@@ -19,12 +19,17 @@ import { kinds, resourcePath } from '@/lib/types';
 import { Button } from './ui/button';
 import { SiteNavigation, CommunityNavigation } from './navigation';
 import { LoginLink } from './login-link';
+export function LogoMark() {
+  return (
+    <span className="media-logo-mark" aria-hidden="true">
+      F<span>↗</span>
+    </span>
+  );
+}
 export function Logo() {
   return (
     <Link href="/" className="logo media-logo" aria-label="FDE前线 首页">
-      <span className="media-logo-mark">
-        F<span>↗</span>
-      </span>
+      <LogoMark />
       <span>
         FDE前线<small>企业AI转型与智能体产业媒体</small>
       </span>

@@ -19,7 +19,13 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { resourcePreview, collections, developers, homeSettings } from '@/lib/catalog';
-import { ResourceGrid, SectionTitle, CollectionCard, DeveloperCard } from '@/components/site';
+import {
+  ResourceGrid,
+  SectionTitle,
+  CollectionCard,
+  DeveloperCard,
+  LogoMark,
+} from '@/components/site';
 import { Button } from '@/components/ui/button';
 export const metadata = {
   title: 'FDE开放社区',
@@ -50,7 +56,7 @@ function Ecosystem() {
       </svg>
       <div className="eco-center">
         <span className="eco-logo">
-          <Box size={30} />
+          <LogoMark />
         </span>
         <b>FDE前线</b>
         <small>从开放，到落地</small>

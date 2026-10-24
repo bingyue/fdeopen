@@ -1,32 +1,37 @@
-/* Shared visual theme: ink, cobalt and restrained jade / apricot accents.
-   Keep reading surfaces quiet and reserve tinted surfaces for navigation. */
+/* Brand mapping: the F / frame supplies ink; the rising arrow supplies teal.
+   Legacy blue tokens remain aliases so all existing controls follow the brand. */
 :root {
-  --ink: #203047;
-  --muted: #56677e;
-  --blue: #285ec9;
-  --blue-dark: #204da5;
+  --brand-ink: #14243b;
+  --brand-ink-hover: #243c58;
+  --brand-teal: #16705f;
+  --brand-mint: #a3dcc7;
+  --brand-slate: #eef2f6;
+  --brand-teal-soft: #edf6f2;
+  --brand-teal-line: #cbded5;
+  --ink: var(--brand-ink);
+  --muted: #53667b;
+  --blue: var(--brand-ink);
+  --blue-dark: var(--brand-ink-hover);
   --media-text: var(--ink);
-  --media-navy: #172b43;
-  --media-blue: var(--blue);
-  --surface: #f3f6f7;
+  --media-navy: var(--brand-ink);
+  --media-blue: var(--brand-teal);
+  --surface: var(--brand-slate);
   --media-paper: var(--surface);
-  --line: #e0e7e8;
+  --line: #dce3e9;
   --control-border: #d5dfe3;
   --control-radius: 10px;
   --panel-radius: 14px;
-  --accent-teal: #16705f;
-  --accent-teal-soft: #eef8f3;
-  --accent-warm: #8a501b;
-  --accent-warm-soft: #fff6e9;
-  --canvas: #fcfcfa;
-  --soft-shadow: 0 6px 22px #172b4308;
+  --accent-teal: var(--brand-teal);
+  --accent-teal-soft: var(--brand-teal-soft);
+  --canvas: #fafbfd;
+  --soft-shadow: 0 6px 22px #14243b08;
 }
 
 body {
   background: var(--canvas);
 }
-:focus-visible {
-  outline-color: var(--blue);
+:is(button, a, input, select, summary, textarea):focus-visible {
+  outline-color: var(--brand-teal);
 }
 .site-header {
   border-bottom-color: var(--line);
@@ -35,7 +40,7 @@ body {
   color: var(--accent-teal);
 }
 .community-subnav {
-  background: #f4f7f6;
+  background: var(--brand-slate);
   border-color: var(--line);
 }
 .community-subnav > div {
@@ -52,13 +57,13 @@ body {
 }
 .community-subnav a:hover,
 .community-subnav a[aria-current='page'] {
-  background: #e5eeeb;
-  color: #175e51;
+  background: #dfebe5;
+  color: var(--brand-teal);
 }
 .header-actions .btn-secondary {
   background: var(--accent-teal-soft);
-  border-color: #cfe3dc;
-  color: #175e51;
+  border-color: var(--brand-teal-line);
+  color: var(--brand-teal);
 }
 
 /* One entry card per audience; color supports, rather than replaces, labels. */
@@ -88,9 +93,11 @@ body {
   background: currentColor;
 }
 .path-grid > a {
-  --path-ink: var(--blue-dark);
-  --path-bg: #eff4fe;
-  --path-border: #d7e2f5;
+  --path-ink: var(--brand-teal);
+  --path-title: var(--brand-ink);
+  --path-copy: var(--muted);
+  --path-bg: var(--brand-slate);
+  --path-border: var(--line);
   background: var(--path-bg);
   border-color: var(--path-border);
   border-radius: var(--panel-radius);
@@ -100,15 +107,17 @@ body {
     box-shadow 180ms ease,
     border-color 180ms ease;
 }
-.path-grid > a[data-tone='teal'] {
-  --path-ink: #175e51;
-  --path-bg: var(--accent-teal-soft);
-  --path-border: #d0e7dd;
+.path-grid > a[data-tone='ink'] {
+  --path-ink: var(--brand-mint);
+  --path-title: #ffffff;
+  --path-copy: #d3deea;
+  --path-bg: var(--brand-ink);
+  --path-border: var(--brand-ink);
+  box-shadow: none;
 }
-.path-grid > a[data-tone='warm'] {
-  --path-ink: var(--accent-warm);
-  --path-bg: var(--accent-warm-soft);
-  --path-border: #ecdcc4;
+.path-grid > a[data-tone='teal'] {
+  --path-bg: var(--accent-teal-soft);
+  --path-border: var(--brand-teal-line);
 }
 .path-grid > a:hover {
   background: var(--path-bg);
@@ -130,11 +139,12 @@ body {
 .path-card-meta > svg {
   flex-shrink: 0;
 }
+.path-grid h2,
 .path-grid h3 {
-  color: var(--media-navy);
+  color: var(--path-title);
 }
 .path-grid p {
-  color: #526276;
+  color: var(--path-copy);
 }
 
 /* Consistent editorial surfaces, without changing image colors or layouts. */
@@ -144,7 +154,7 @@ body {
 .editors-picks {
   padding: 0 20px 20px;
   border-radius: 12px;
-  background: #f2f5f3;
+  background: var(--brand-slate);
 }
 .rail-title {
   border-top-color: var(--accent-teal);
@@ -170,7 +180,7 @@ body {
 }
 .topic-teaser,
 .research-strip {
-  background: #f1f6f3;
+  background: var(--brand-teal-soft);
   border-radius: var(--panel-radius);
 }
 .newsletter-panel,
@@ -218,9 +228,9 @@ body {
 }
 .media-filter-links a.active,
 .media-filter-links a:hover {
-  color: var(--blue-dark);
-  background: #edf3ff;
-  border-color: #cbdaf4;
+  color: var(--brand-teal);
+  background: var(--brand-teal-soft);
+  border-color: var(--brand-teal-line);
 }
 .resource-card,
 .collection-card,
@@ -253,16 +263,42 @@ body {
   border-top-color: var(--accent-teal);
 }
 .media-footer {
-  background: #f1f5f2;
-  border-top-color: #d7e3dc;
+  background: var(--brand-ink);
+  border-top: 3px solid var(--brand-teal);
+  color: #f6f9fc;
+}
+.media-footer .media-logo,
+.media-footer-grid strong {
+  color: #f6f9fc;
+}
+.media-footer .media-logo-mark {
+  border-color: #f6f9fc;
 }
 .media-footer .media-logo-mark > span {
-  background: #f1f5f2;
+  background: var(--brand-ink);
+  color: var(--brand-mint);
+}
+.media-footer-grid p,
+.media-footer-grid small,
+.media-footer .media-logo small,
+.media-footer-grid > div > a:not(.logo),
+.media-footer-bottom {
+  color: #bac9da;
+}
+.media-footer-bottom {
+  border-color: #35455b;
+}
+.media-footer a:hover,
+.media-footer-grid > div > a:not(.logo):hover {
+  color: var(--brand-mint);
+}
+.media-footer a:focus-visible {
+  outline-color: var(--brand-mint);
 }
 .media-floating-tools {
   border-radius: 14px;
   background: var(--media-navy);
-  box-shadow: 0 8px 24px #172b4320;
+  box-shadow: 0 8px 24px #14243b20;
 }
 .media-float-trigger {
   border-radius: 10px;
@@ -270,6 +306,69 @@ body {
 .media-float-trigger:hover,
 .media-float-trigger[aria-expanded='true'] {
   background: var(--accent-teal);
+}
+
+/* Carry the same two-color identity into community and account screens. */
+.desktop-nav a[aria-current='page'] {
+  color: var(--brand-ink);
+  box-shadow: 0 2px 0 var(--brand-teal);
+}
+.desktop-nav a:hover,
+.hero h1 em,
+.hero-copy > .eyebrow,
+.text-link,
+.reading-action > a,
+.start-guide section a,
+.article-toc-media a:hover,
+.media-admin-item > a,
+.upload-control a {
+  color: var(--brand-teal);
+}
+.start-guide section a.media-primary {
+  color: white;
+}
+.btn-primary {
+  box-shadow: 0 3px 8px #14243b15;
+}
+.hero-wrap {
+  background: linear-gradient(180deg, var(--canvas), #f0f5f4 80%, white);
+}
+.announcement > span,
+.filters > a.selected,
+.mobile-nav nav a[aria-current='page'],
+.dashboard-nav a.active {
+  background: var(--brand-teal-soft);
+  border-color: var(--brand-teal-line);
+  color: var(--brand-teal);
+}
+.hero-search:focus-within {
+  outline-color: var(--brand-teal);
+}
+.blue-dash,
+.connectors circle {
+  background: var(--brand-teal);
+  fill: var(--brand-teal);
+}
+.eco-center {
+  background: white;
+  border-color: var(--line);
+  box-shadow:
+    0 10px 40px #14243b12,
+    0 0 0 8px #ffffff80;
+}
+.eco-logo .media-logo-mark {
+  color: var(--brand-ink);
+}
+:is(.resource-icon, .node-icon, .collection-card).blue,
+:is(.resource-icon, .node-icon, .collection-card).violet,
+:is(.resource-icon, .node-icon, .collection-card).pink {
+  background: var(--brand-slate);
+  color: var(--brand-ink);
+}
+:is(.resource-icon, .node-icon, .collection-card).green,
+:is(.resource-icon, .node-icon, .collection-card).orange {
+  background: var(--brand-teal-soft);
+  color: var(--brand-teal);
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
