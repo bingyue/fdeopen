@@ -1,4 +1,9 @@
+import { LoginLink } from '@/components/login-link';
 import Link from 'next/link';
+import { CasePractice } from './case-practice';
+import { db } from '@/lib/db';
+import { mediaBookmarked } from '@/lib/reading';
+import { MediaBookmark } from './reading-controls';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { cache } from 'react';
 import { mediaPost, mediaList, mediaRedirect } from '@/lib/media-service';
@@ -74,6 +79,7 @@ export async function MediaArticle({
     mediaList({ channel: post.channel, limit: 4 }),
     currentUser(),
   ]);
+  const bookmarked = !preview && user ? await mediaBookmarked(await db(), user.id, post.id) : false;
   const toc = tableOfContents(post.body),
     url = siteUrl() + postPath(post);
   const observedAt = Date.parse(post.observed_at || post.updated_at);
@@ -150,6 +156,7 @@ export async function MediaArticle({
             {post.subtitle && <p className="article-subtitle">{post.subtitle}</p>}
             <PostMeta post={post} />
             <p className="article-summary">{post.summary}</p>
+            {!preview && <MediaBookmark id={post.id} initial={bookmarked} loggedIn={!!user} />}
             <ShareArticle />
           </header>
           <figure className="article-cover">
@@ -207,8 +214,9 @@ export async function MediaArticle({
               </p>
             </div>
           )}
+          {post.channel === 'cases' && !preview && <CasePractice slug={post.slug} />}
           <MediaMarkdown body={post.body} />
-          {post.channel === 'cases' && (
+          {post.channel === 'cases' && toc.length < 3 && (
             <div className="case-detail-sections">
               {details.map(
                 ([key, label]) =>
@@ -245,9 +253,7 @@ export async function MediaArticle({
                     (user ? (
                       <InquiryForm kind="report" postId={post.id} />
                     ) : (
-                      <Link className="media-primary" href="/login">
-                        登录并申请资料
-                      </Link>
+                      <LoginLink className="media-primary">登录并申请资料</LoginLink>
                     ))}
                 </>
               )}

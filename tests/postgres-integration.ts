@@ -115,7 +115,7 @@ assert.equal(
   0,
 );
 await migrate(database, true);
-assert.equal((await database.query('SELECT * FROM schema_migrations')).length, 8);
+assert.equal((await database.query('SELECT * FROM schema_migrations')).length, 9);
 
 await database.transaction(async (tx) => {
   await tx.query('SET LOCAL ROLE anon');

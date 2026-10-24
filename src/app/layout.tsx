@@ -5,6 +5,7 @@ import { currentUser } from '@/lib/auth';
 import { isDemo, siteUrl } from '@/lib/config';
 import './globals.css';
 import './media.css';
+import './onboarding.css';
 import './floating-tools.css';
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {

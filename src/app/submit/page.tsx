@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { loginHref } from '@/lib/return-path';
 import { queryText, type SearchParams } from '@/lib/pagination';
 import { currentUser } from '@/lib/auth';
 import { getResource } from '@/lib/catalog';
@@ -22,7 +23,7 @@ export default async function Submit({ searchParams }: { searchParams: Promise<S
         <Empty
           title="登录后提交你的资源"
           description="公开内容无需登录。提交资源需要一个可跟进审核进度的社区身份。"
-          href="/login"
+          href={loginHref('/submit?' + new URLSearchParams({ type, edit }).toString())}
           label="登录并开始贡献"
         />
       ) : edit &&

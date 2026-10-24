@@ -1,0 +1,30 @@
+{
+  "passed": 2,
+  "failed": 2,
+  "results": [
+    {
+      "id": "A1",
+      "pass": true,
+      "reasons": []
+    },
+    {
+      "id": "A2",
+      "pass": false,
+      "reasons": [
+        "引用越权"
+      ]
+    },
+    {
+      "id": "A3",
+      "pass": true,
+      "reasons": []
+    },
+    {
+      "id": "A4",
+      "pass": false,
+      "reasons": [
+        "回答缺少引用"
+      ]
+    }
+  ]
+}

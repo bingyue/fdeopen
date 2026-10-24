@@ -18,7 +18,7 @@ await (
   );
   if (!user) throw new Error('Account not found.');
   await tx.query(
-    'UPDATE account_credentials SET password_hash=$1,password_changed_at=now() WHERE user_id=$2',
+    'UPDATE account_credentials SET password_hash=$1,password_changed_at=now(),recovery_hash=NULL WHERE user_id=$2',
     [hash, user.user_id],
   );
   await tx.query('DELETE FROM sessions WHERE user_id=$1', [user.user_id]);

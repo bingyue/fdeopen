@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-10-20T08:23:32.780Z",
-  "engine": "PostgreSQL 17.11 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
-  "migrations": 8,
+  "checkedAt": "2026-10-24T17:06:06.387Z",
+  "engine": "PostgreSQL 16.15 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "migrations": 9,
   "concurrentDuplicateSubmission": true,
   "concurrentToggleSerialization": true,
   "idempotentMigration": true,

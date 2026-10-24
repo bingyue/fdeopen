@@ -245,4 +245,5 @@ pack=dict(version=1,batch=BATCH,prepared_at='2026-10-20',author={'id':uid('edito
 (PRIVATE/'source-ledger.json').write_text(json.dumps(dict(batch=BATCH,imported=ledger,excluded=excluded),ensure_ascii=False,indent=2)+'\n')
 subprocess.run(['node','--import','tsx','scripts/clean-media-sources.ts','--apply'],cwd=ROOT,check=True)
 subprocess.run(['node','--import','tsx','scripts/curate-cases.ts','--apply'],cwd=ROOT,check=True)
+subprocess.run(['node','--import','tsx','scripts/polish-cases.ts','--apply'],cwd=ROOT,check=True)
 print(json.dumps(dict(posts=len(posts),channels=Counter(p['channel'] for p in posts),assets=len(assets),asset_mib=round(sum(a['size'] for a in assets.values())/1024**2,2),excluded=len(excluded),minimum_body=min(len(p['body']) for p in posts)),ensure_ascii=False,indent=2))

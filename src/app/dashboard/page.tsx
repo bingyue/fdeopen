@@ -1,4 +1,8 @@
 import Link from 'next/link';
+import { db } from '@/lib/db';
+import { loginHref } from '@/lib/return-path';
+import { ReadingList, HistorySettings } from '@/components/reading-controls';
+import { RecoverySetup } from '@/components/recovery-forms';
 import { redirect } from 'next/navigation';
 import { currentUser } from '@/lib/auth';
 import { workspaceData, workspaceTabs, type WorkspaceTab } from '@/lib/workspace';
@@ -6,7 +10,7 @@ import { queryText, positiveInteger, type SearchParams } from '@/lib/pagination'
 import { Pagination } from '@/components/pagination';
 import { StatusBadge } from '@/components/status-badge';
 import { isModerator } from '@/lib/validation';
-import { PageHeading, ResourceGrid, Empty } from '@/components/site';
+import { PageHeading, Empty } from '@/components/site';
 import { ProfileForm } from '@/components/forms';
 import { Logout, SimpleForm, ActionButton } from '@/components/actions';
 import { resourcePath } from '@/lib/types';
@@ -15,16 +19,37 @@ import { isLocalAuth } from '@/lib/config';
 import { PasswordForm } from '@/components/account-forms';
 export const metadata = { title: '我的工作台', robots: { index: false, follow: false } };
 export default async function Dashboard({ searchParams }: { searchParams: Promise<SearchParams> }) {
-  const user = await currentUser();
-  if (!user) redirect('/login');
-  const mediaAccess = await mediaRole(user);
   const params = await searchParams;
+  const user = await currentUser();
+  if (!user)
+    redirect(
+      loginHref(
+        '/dashboard?' +
+          new URLSearchParams(
+            Object.entries(params).filter(
+              (entry): entry is [string, string] => typeof entry[1] === 'string',
+            ),
+          ).toString(),
+      ),
+    );
+  const mediaAccess = await mediaRole(user);
   const requestedTab = queryText(params, 'tab');
   const tab: WorkspaceTab = workspaceTabs.includes(requestedTab as WorkspaceTab)
     ? (requestedTab as WorkspaceTab)
     : 'overview';
   const { saved, submissions, apps, notifications, owned, stats, page, pages } =
     await workspaceData(user.id, tab, positiveInteger(queryText(params, 'page')));
+  const historySettings =
+    tab === 'history'
+      ? (
+          await (
+            await db()
+          ).query<{ reading_history_enabled: boolean }>(
+            'SELECT reading_history_enabled FROM profiles WHERE user_id=$1',
+            [user.id],
+          )
+        )[0]
+      : null;
   return (
     <div className="container page-space">
       <PageHeading
@@ -38,7 +63,8 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
         <nav className="dashboard-nav" aria-label="工作台导航">
           {[
             ['overview', '工作台概览'],
-            ['bookmarks', '我的收藏'],
+            ['bookmarks', '稍后阅读 / 收藏'],
+            ['history', '最近阅读'],
             ['submissions', '投稿与需求'],
             ['applications', '共创申请'],
             ['profile', '个人资料'],
@@ -61,12 +87,20 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
           {tab === 'profile' ? (
             <>
               <ProfileForm user={user} />
-              {isLocalAuth() && <PasswordForm />}
+              {isLocalAuth() && (
+                <>
+                  <RecoverySetup />
+                  <PasswordForm />
+                </>
+              )}
             </>
-          ) : tab === 'bookmarks' ? (
+          ) : tab === 'bookmarks' || tab === 'history' ? (
             <>
-              <h2>我的收藏</h2>
-              <ResourceGrid resources={saved} />
+              <h2>{tab === 'history' ? '最近阅读' : '稍后阅读 / 收藏'}</h2>
+              {historySettings && (
+                <HistorySettings enabled={historySettings.reading_history_enabled} />
+              )}
+              <ReadingList items={saved} history={tab === 'history'} />
             </>
           ) : tab === 'submissions' ? (
             <>
@@ -154,7 +188,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
             <>
               <div className="stats-grid">
                 {[
-                  ['收藏资源', stats.saved],
+                  ['收藏内容', stats.saved],
                   ['累计投稿', stats.submissions],
                   ['共创申请', stats.applications],
                   ['确认贡献', stats.completed],

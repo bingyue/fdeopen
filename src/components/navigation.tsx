@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { LoginLink } from './login-link';
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
 const nav = [
@@ -10,7 +11,7 @@ const nav = [
   ['产业研究', '/research'],
   ['人物', '/people'],
   ['活动', '/events'],
-  ['FDE生态', '/community'],
+  ['开放社区', '/community'],
   ['关于我们', '/about'],
 ];
 export function SiteNavigation({
@@ -79,10 +80,37 @@ export function SiteNavigation({
           </Link>
         ))}
         <Link href="/contribute">投稿 / 合作</Link>
-        <Link href={loggedIn ? '/dashboard' : '/login'}>
-          {loggedIn ? '我的工作台' : 'GitHub 登录'}
-        </Link>
+        {loggedIn ? <Link href="/dashboard">我的工作台</Link> : <LoginLink>账号登录</LoginLink>}
       </nav>
     </details>
+  );
+}
+
+export function CommunityNavigation() {
+  const pathname = usePathname();
+  return (
+    <nav className="community-subnav" aria-label="社区快捷导航">
+      <div>
+        <Link href="/start" aria-current={pathname === '/start' ? 'page' : undefined}>
+          新手指南
+        </Link>
+        {[
+          ['开源项目', '/projects'],
+          ['Skills', '/skills'],
+          ['企业场景', '/scenarios'],
+          ['动手实践', '/practice'],
+          ['开源共创', '/build'],
+          ['开放文档', '/docs'],
+        ].map(([label, href]) => (
+          <Link
+            key={href}
+            href={href}
+            aria-current={pathname === href || pathname.startsWith(href + '/') ? 'page' : undefined}
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
+    </nav>
   );
 }

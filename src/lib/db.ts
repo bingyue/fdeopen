@@ -45,6 +45,7 @@ export async function migrate(db: DB, rls = false) {
     '006_frontline_brand.sql',
     '007_media_sourced.sql',
     '008_account_credentials.sql',
+    '009_reading_and_recovery.sql',
   ]) {
     if ((await db.query('SELECT version FROM schema_migrations WHERE version=$1', [file])).length)
       continue;

@@ -1,10 +1,13 @@
 import { db } from './db';
+import { readingList, type ReadingItem } from './reading';
+import { publicMedia } from './media-service';
 import { summaryColumns } from './catalog';
 import { positiveInteger } from './pagination';
 import type { Application, ResourceSummary, Submission, Kind } from './types';
 export const workspaceTabs = [
   'overview',
   'bookmarks',
+  'history',
   'submissions',
   'applications',
   'profile',
@@ -13,7 +16,7 @@ export type WorkspaceTab = (typeof workspaceTabs)[number];
 type LinkedSubmission = Submission & { resource_slug: string | null; resource_kind: Kind | null };
 export async function workspaceData(userId: string, tab: WorkspaceTab, requestedPage = 1) {
   const data = {
-    saved: [] as ResourceSummary[],
+    saved: [] as ReadingItem[],
     submissions: [] as LinkedSubmission[],
     apps: [] as Application[],
     notifications: [] as { id: string; message: string; read: boolean; created_at: string }[],
@@ -24,9 +27,9 @@ export async function workspaceData(userId: string, tab: WorkspaceTab, requested
   };
   if (tab === 'profile') return data;
   const database = await db();
+  if (tab === 'bookmarks' || tab === 'history')
+    return { ...data, ...(await readingList(database, userId, tab, requestedPage)) };
   const from = {
-    bookmarks:
-      "resources r JOIN bookmarks b ON b.resource_id=r.id WHERE b.user_id=$1 AND r.status='published'",
     submissions:
       "submissions s LEFT JOIN resources r ON r.id=s.resource_id AND r.status='published' WHERE s.user_id=$1",
     applications: 'task_applications a JOIN resources r ON r.id=a.task_id WHERE a.user_id=$1',
@@ -40,11 +43,6 @@ export async function workspaceData(userId: string, tab: WorkspaceTab, requested
   data.page = Math.min(positiveInteger(requestedPage), Math.max(1, data.pages));
   const params = [userId, (data.page - 1) * 12];
   const limit = 'LIMIT 12 OFFSET $2';
-  if (tab === 'bookmarks')
-    data.saved = await database.query<ResourceSummary>(
-      `SELECT ${summaryColumns} FROM ${from} ORDER BY b.created_at DESC,r.id ${limit}`,
-      params,
-    );
   if (tab === 'submissions')
     data.submissions = await database.query<LinkedSubmission>(
       `SELECT s.*,r.slug resource_slug,r.kind resource_kind FROM ${from} ORDER BY s.created_at DESC,s.id ${limit}`,
@@ -59,7 +57,7 @@ export async function workspaceData(userId: string, tab: WorkspaceTab, requested
     const [stats, notifications, owned] = await Promise.all([
       database.query<typeof data.stats>(
         `SELECT
-        (SELECT count(*)::int FROM bookmarks b JOIN resources r ON r.id=b.resource_id WHERE b.user_id=$1 AND r.status='published') saved,
+        (SELECT count(*)::int FROM bookmarks b JOIN resources r ON r.id=b.resource_id WHERE b.user_id=$1 AND r.status='published') + (SELECT count(*)::int FROM media_bookmarks b JOIN media_posts p ON p.id=b.post_id WHERE b.user_id=$1 AND ${publicMedia}) saved,
         (SELECT count(*)::int FROM submissions WHERE user_id=$1) submissions,
         (SELECT count(*)::int FROM task_applications WHERE user_id=$1) applications,
         (SELECT count(*)::int FROM task_applications WHERE user_id=$1 AND status='completed') completed`,

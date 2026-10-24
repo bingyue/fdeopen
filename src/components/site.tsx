@@ -17,7 +17,8 @@ import {
 import type { User, Resource, ResourceSummary, Profile, Collection } from '@/lib/types';
 import { kinds, resourcePath } from '@/lib/types';
 import { Button } from './ui/button';
-import { SiteNavigation } from './navigation';
+import { SiteNavigation, CommunityNavigation } from './navigation';
+import { LoginLink } from './login-link';
 export function Logo() {
   return (
     <Link href="/" className="logo media-logo" aria-label="FDE前线 首页">
@@ -50,22 +51,22 @@ export function Header({ user }: { user: User | null }) {
                 投稿 / 合作
               </Link>
             </Button>
-            <Link
-              className="login-link"
-              aria-label={user ? '我的工作台' : '账号登录'}
-              href={user ? '/dashboard' : '/login'}
-            >
-              {user ? (
+            {user ? (
+              <Link className="login-link" href="/dashboard" aria-label="我的工作台">
                 <span className="avatar avatar-sm">{user.name.slice(0, 1)}</span>
-              ) : (
+                <span>工作台</span>
+              </Link>
+            ) : (
+              <LoginLink className="login-link" aria-label="账号登录">
                 <UserRound size={18} />
-              )}
-              <span>{user ? '工作台' : '登录'}</span>
-            </Link>
+                <span>登录</span>
+              </LoginLink>
+            )}
           </div>
           <SiteNavigation mobile loggedIn={!!user} />
         </div>
       </header>
+      <CommunityNavigation />
     </>
   );
 }

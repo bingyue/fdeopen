@@ -1,4 +1,5 @@
 'use client';
+import { loginHref } from '@/lib/return-path';
 import { useState, useTransition, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Bookmark, Heart, Check, ArrowUpRight, Copy, LogOut } from 'lucide-react';
@@ -104,7 +105,9 @@ function ToggleControl({
         aria-pressed={active}
         onClick={() => {
           if (!loggedIn) {
-            router.push('/login');
+            router.push(
+              loginHref(window.location.pathname + window.location.search + window.location.hash),
+            );
             return;
           }
           start(async () => {

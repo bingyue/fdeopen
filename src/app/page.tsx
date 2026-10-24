@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { StartPaths } from '@/components/start-paths';
 import { ArrowRight, ArrowUpRight, Radio } from 'lucide-react';
 import { mediaList, mediaTaxonomy } from '@/lib/media-service';
 import { postPath } from '@/lib/media-model';
@@ -33,6 +34,7 @@ export default async function Home() {
     picks = home.rows.length > 1 ? home.rows.slice(1) : latest.rows.slice(1, 5);
   return (
     <div className="media-home media-container">
+      <StartPaths />
       <div className="newswire">
         <span>
           <Radio size={15} />

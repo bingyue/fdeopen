@@ -1,0 +1,30 @@
+{
+  "threshold": 0.1,
+  "orders": [
+    {
+      "id": "Q1",
+      "actual": 100,
+      "predicted": 105
+    },
+    {
+      "id": "Q2",
+      "actual": 200,
+      "predicted": 190
+    },
+    {
+      "id": "Q3",
+      "actual": 80,
+      "predicted": 96
+    },
+    {
+      "id": "Q4",
+      "actual": 100,
+      "predicted": 90
+    },
+    {
+      "id": "Q5",
+      "actual": null,
+      "predicted": 20
+    }
+  ]
+}

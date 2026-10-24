@@ -1,0 +1,42 @@
+{
+  "answers": [
+    {
+      "id": "A1",
+      "allowed": [
+        "manual-v1"
+      ],
+      "citations": [
+        "manual-v1"
+      ],
+      "answered": true,
+      "answerable": true
+    },
+    {
+      "id": "A2",
+      "allowed": [
+        "manual-v1"
+      ],
+      "citations": [
+        "internal-costs"
+      ],
+      "answered": true,
+      "answerable": true
+    },
+    {
+      "id": "A3",
+      "allowed": [],
+      "citations": [],
+      "answered": false,
+      "answerable": false
+    },
+    {
+      "id": "A4",
+      "allowed": [
+        "manual-v1"
+      ],
+      "citations": [],
+      "answered": true,
+      "answerable": true
+    }
+  ]
+}

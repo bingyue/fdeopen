@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "control",
+      "users": 1000,
+      "orders": 100,
+      "revenue": 10000,
+      "goods_cost": 6000,
+      "discount": 0,
+      "contact_cost": 100,
+      "complaints": 1
+    },
+    {
+      "name": "experiment",
+      "users": 1000,
+      "orders": 120,
+      "revenue": 12000,
+      "goods_cost": 7200,
+      "discount": 800,
+      "contact_cost": 200,
+      "complaints": 3
+    }
+  ]
+}

@@ -8,10 +8,12 @@ import { api, requestJson } from '@/lib/client-api';
 import type { GithubMetadata } from '@/lib/github';
 import type { User } from '@/lib/types';
 export function LoginForm({
+  next = '/dashboard',
   demo,
   accessKeyRequired,
   error,
 }: {
+  next?: string;
   demo: boolean;
   accessKeyRequired: boolean;
   error: boolean;
@@ -26,7 +28,7 @@ export function LoginForm({
     start(async () => {
       try {
         await api('demo-login', { role, accessKey: key });
-        router.push('/dashboard');
+        router.push(next);
         router.refresh();
       } catch (e) {
         setMessage((e as Error).message);
@@ -66,7 +68,7 @@ export function LoginForm({
           onClick={() => {
             // OAuth needs a full document redirect to the provider, not an RSC fetch.
             // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-            window.location.assign('/auth/github');
+            window.location.assign('/auth/github?next=' + encodeURIComponent(next));
           }}
         >
           <Github size={18} />

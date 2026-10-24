@@ -4,13 +4,23 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { api } from '@/lib/client-api';
+import { RecoveryCodeNotice } from './recovery-forms';
 
-export function AccountLoginForm() {
+export function AccountLoginForm({ next }: { next: string }) {
   const router = useRouter();
   const [register, setRegister] = useState(false);
+  const [recoveryCode, setRecoveryCode] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [busy, start] = useTransition();
+  if (recoveryCode)
+    return (
+      <RecoveryCodeNotice
+        code={recoveryCode}
+        onDone={() => setRecoveryCode('')}
+        label="已保存，前往登录"
+      />
+    );
   return (
     <form
       className="stack-form"
@@ -22,7 +32,7 @@ export function AccountLoginForm() {
         setMessage('');
         start(async () => {
           try {
-            await api(register ? 'account-register' : 'account-login', {
+            const result = await api(register ? 'account-register' : 'account-login', {
               loginName: data.get('loginName'),
               password: data.get('password'),
               name: data.get('name'),
@@ -31,9 +41,12 @@ export function AccountLoginForm() {
             if (register) {
               form.reset();
               setRegister(false);
+              setRecoveryCode(String(result.recoveryCode));
               setMessage('账号已创建，请使用新账号登录。');
             } else {
-              router.push('/dashboard');
+              router.push(
+                result.needsOnboarding ? '/welcome?next=' + encodeURIComponent(next) : next,
+              );
               router.refresh();
             }
           } catch (e) {
@@ -112,7 +125,7 @@ export function AccountLoginForm() {
         </p>
       )}
       <p className="login-note">
-        忘记密码时，请通过<Link href="/contribute">投稿合作入口</Link>联系管理员核验账号归属。
+        <Link href={'/recover?next=' + encodeURIComponent(next)}>忘记密码？使用恢复码找回</Link>
       </p>
     </form>
   );
@@ -125,7 +138,9 @@ export function PasswordForm() {
   return (
     <section className="item-panel">
       <h2>账号安全</h2>
-      <p>修改密码后，所有设备上的登录状态都会退出。</p>
+      <p>
+        修改密码后，所有设备上的登录状态都会退出，旧恢复码也会失效。重新登录后请生成新的恢复码。
+      </p>
       <form
         className="stack-form"
         onSubmit={(event) => {

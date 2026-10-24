@@ -54,7 +54,10 @@ test('public discovery, detail, MDX, SEO, responsive layout and accessibility', 
     true,
   );
   await page.getByText('菜单', { exact: true }).click();
-  await page.getByRole('navigation').getByRole('link', { name: '企业场景', exact: true }).click();
+  await page
+    .getByRole('navigation', { name: '移动端导航' })
+    .getByRole('link', { name: '企业场景', exact: true })
+    .click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('企业场景');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
@@ -210,7 +213,10 @@ test('review regressions: malformed query parameters, bounded API payloads and m
   for (const data of ['null', '[]', '{broken']) {
     const response = await request.post('/api/bookmark', {
       data,
-      headers: { Origin: `http://127.0.0.1:${process.env.FDE_E2E_PORT || 3211}`, 'Content-Type': 'application/json' },
+      headers: {
+        Origin: `http://127.0.0.1:${process.env.FDE_E2E_PORT || 3211}`,
+        'Content-Type': 'application/json',
+      },
     });
     expect(response.status()).toBe(400);
   }

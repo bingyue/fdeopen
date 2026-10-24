@@ -1,4 +1,6 @@
+import { LoginLink } from '@/components/login-link';
 import Link from 'next/link';
+import { StartPaths } from '@/components/start-paths';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -19,7 +21,11 @@ import {
 import { resourcePreview, collections, developers, homeSettings } from '@/lib/catalog';
 import { ResourceGrid, SectionTitle, CollectionCard, DeveloperCard } from '@/components/site';
 import { Button } from '@/components/ui/button';
-export const metadata = { title: 'FDE开放社区', description: 'FDE前线的开放社区：开源项目、Skills、企业场景与共创任务。', alternates: { canonical: '/community' } };
+export const metadata = {
+  title: 'FDE开放社区',
+  description: 'FDE前线的开放社区：开源项目、Skills、企业场景与共创任务。',
+  alternates: { canonical: '/community' },
+};
 const categories = [
   ['RAG', BookOpen, '知识的下一步'],
   ['Agent', Sparkles, '让想法开始行动'],
@@ -109,6 +115,9 @@ export default async function Home() {
   ]);
   return (
     <>
+      <div className="container">
+        <StartPaths />
+      </div>
       <section className="hero-wrap">
         <div className="container">
           <Link href="/collections/hundred-builds" className="announcement">
@@ -132,7 +141,7 @@ export default async function Home() {
                 从真实业务场景出发，和开发者一起把 AI 落到实处。
               </p>
               <form action="/search" className="hero-search" role="search">
-                <input type="hidden" name="scope" value="community"/>
+                <input type="hidden" name="scope" value="community" />
                 <Search size={21} />
                 <input
                   aria-label="搜索项目、Skills 或企业场景"
@@ -303,9 +312,9 @@ export default async function Home() {
               <div className="join-developers">
                 <UsersIcon />
                 <p>社区正在开放共建，来建立你的第一个开发者档案。</p>
-                <Link href="/login" className="text-link">
+                <LoginLink className="text-link">
                   加入共建 <ArrowRight size={16} />
-                </Link>
+                </LoginLink>
               </div>
             )}
           </section>

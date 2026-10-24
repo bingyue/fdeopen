@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { safeReturnPath } from '@/lib/return-path';
 import { redirect } from 'next/navigation';
 import { currentUser } from '@/lib/auth';
 import { isDemo, isLocalAuth } from '@/lib/config';
@@ -9,10 +10,11 @@ export const metadata = { title: '加入社区', robots: { index: false, follow:
 export default async function Login({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; next?: string }>;
 }) {
-  if (await currentUser()) redirect('/dashboard');
   const p = await searchParams;
+  const next = safeReturnPath(p.next);
+  if (await currentUser()) redirect(next);
   return (
     <div className="container page-space">
       <div className="login-panel">
@@ -24,9 +26,10 @@ export default async function Login({
           和社区一起留下真实贡献。
         </p>
         {isLocalAuth() ? (
-          <AccountLoginForm />
+          <AccountLoginForm next={next} />
         ) : (
           <LoginForm
+            next={next}
             demo={isDemo()}
             accessKeyRequired={!!process.env.DEMO_ACCESS_KEY}
             error={!!p.error}

@@ -1,3 +1,4 @@
+import { recordReading, setMediaBookmark, configureHistory } from '@/lib/reading';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
 import { randomUUID, createHash } from 'node:crypto';
@@ -11,7 +12,13 @@ import {
 } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { isDemo, isLocalAuth, usesSupabase } from '@/lib/config';
-import { createAccount, loginAccount, changePassword } from '@/lib/accounts';
+import {
+  registerAccount,
+  loginAccount,
+  changePassword,
+  recoverAccount,
+  issueRecoveryCode,
+} from '@/lib/accounts';
 import { DEMO_ADMIN, DEMO_MEMBER } from '@/lib/seed';
 import { AppError, isModerator } from '@/lib/validation';
 import { checkOrigin, readJson, errorResponse, requestKey } from '@/lib/http';
@@ -66,7 +73,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ act
     const { action } = await params;
     const data = await readJson(request);
     await service.rateLimit(`http:${requestKey(request)}`, 150, 60);
-    if (action === 'account-login' || action === 'account-register') {
+    if (['account-login', 'account-register', 'account-recover'].includes(action)) {
       if (!isLocalAuth()) throw new AppError('账号登录未启用', 404);
       await service.rateLimit(`account-ip:${requestKey(request)}`, 20, 600);
       const accountKey = createHash('sha256')
@@ -77,14 +84,26 @@ export async function POST(request: Request, { params }: { params: Promise<{ act
         )
         .digest('hex');
       await service.rateLimit(`account-name:${accountKey}`, 20, 600);
+      if (action === 'account-recover') {
+        await service.rateLimit(`recover-ip:${requestKey(request)}`, 5, 900);
+        await service.rateLimit(`recover-account:${accountKey}`, 5, 900);
+        await recoverAccount(await db(), data);
+        return Response.json({ ok: true }, { headers: { 'Cache-Control': 'no-store' } });
+      }
       if (action === 'account-register') {
         await service.rateLimit(`register:${requestKey(request)}`, 5, 3600);
-        await createAccount(await db(), data);
-        return Response.json({ ok: true }, { status: 201 });
+        const account = await registerAccount(await db(), data);
+        return Response.json(
+          { recoveryCode: account.recoveryCode },
+          { status: 201, headers: { 'Cache-Control': 'no-store' } },
+        );
       }
       const session = await loginAccount(await db(), data);
       await setSessionCookie(session.token);
-      return Response.json({ ok: true });
+      return Response.json(
+        { ok: true, needsOnboarding: session.needsOnboarding },
+        { headers: { 'Cache-Control': 'no-store' } },
+      );
     }
     if (action === 'demo-login') {
       if (!isDemo()) throw new AppError('演示登录已关闭', 404);
@@ -106,11 +125,41 @@ export async function POST(request: Request, { params }: { params: Promise<{ act
       ).query("SELECT id FROM resources WHERE id=$1 AND status='published'", [v.resourceId]);
       if (!r.length) throw new AppError('内容不存在', 404);
       await service.event(await db(), v.event, v.resourceId);
+      const reader = v.event === 'view' ? await currentUser() : null;
+      if (reader) await recordReading(await db(), reader.id, 'resource', v.resourceId);
       return Response.json({ ok: true });
     }
     const user = await requireUser();
     let result: unknown = { ok: true };
     switch (action) {
+      case 'remove-bookmark': {
+        const id = idSchema.parse(data.resourceId);
+        await (
+          await db()
+        ).query('DELETE FROM bookmarks WHERE user_id=$1 AND resource_id=$2', [user.id, id]);
+        break;
+      }
+      case 'media-bookmark': {
+        const v = z.object({ id: idSchema, active: z.boolean() }).parse(data);
+        await setMediaBookmark(await db(), user.id, v.id, v.active);
+        break;
+      }
+      case 'reading-history': {
+        const enabled = z.boolean().parse(data.enabled);
+        await configureHistory(await db(), user.id, enabled);
+        break;
+      }
+      case 'account-recovery-code': {
+        if (!isLocalAuth()) throw new AppError('账号登录未启用', 404);
+        await service.rateLimit(`recovery-code:${user.id}`, 5, 600);
+        result = await issueRecoveryCode(await db(), user.id, data);
+        break;
+      }
+      case 'onboarding':
+        await (
+          await db()
+        ).query('UPDATE profiles SET onboarding_at=now() WHERE user_id=$1', [user.id]);
+        break;
       case 'logout': {
         if (!usesSupabase()) {
           const jar = await cookies();
@@ -187,6 +236,34 @@ export async function POST(request: Request, { params }: { params: Promise<{ act
       default: {
         if (!isModerator(user.role)) throw new AppError('此操作需要社区管理权限', 403);
         switch (action) {
+          case 'remove-bookmark': {
+            const id = idSchema.parse(data.resourceId);
+            await (
+              await db()
+            ).query('DELETE FROM bookmarks WHERE user_id=$1 AND resource_id=$2', [user.id, id]);
+            break;
+          }
+          case 'media-bookmark': {
+            const v = z.object({ id: idSchema, active: z.boolean() }).parse(data);
+            await setMediaBookmark(await db(), user.id, v.id, v.active);
+            break;
+          }
+          case 'reading-history': {
+            const enabled = z.boolean().parse(data.enabled);
+            await configureHistory(await db(), user.id, enabled);
+            break;
+          }
+          case 'account-recovery-code': {
+            if (!isLocalAuth()) throw new AppError('账号登录未启用', 404);
+            await service.rateLimit(`recovery-code:${user.id}`, 5, 600);
+            result = await issueRecoveryCode(await db(), user.id, data);
+            break;
+          }
+          case 'onboarding':
+            await (
+              await db()
+            ).query('UPDATE profiles SET onboarding_at=now() WHERE user_id=$1', [user.id]);
+            break;
           case 'review': {
             const v = z
               .object({
@@ -316,7 +393,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ act
         }
       }
     }
-    return Response.json(result);
+    return Response.json(result, { headers: { 'Cache-Control': 'private, no-store' } });
   } catch (e) {
     return errorResponse(e);
   }

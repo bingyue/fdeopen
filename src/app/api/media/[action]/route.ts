@@ -1,3 +1,5 @@
+import { db } from '@/lib/db';
+import { recordReading } from '@/lib/reading';
 import { z } from 'zod';
 import { currentUser, requireUser } from '@/lib/auth';
 import { checkOrigin, readJson, errorResponse, requestKey } from '@/lib/http';
@@ -40,7 +42,10 @@ export async function POST(request: Request, { params }: { params: Promise<{ act
       return Response.json({ ok: true });
     }
     if (action === 'view') {
-      await media.recordMediaView(z.uuid().parse(data.id), key);
+      const id = z.uuid().parse(data.id);
+      await media.recordMediaView(id, key);
+      const reader = await currentUser();
+      if (reader) await recordReading(await db(), reader.id, 'media', id);
       return Response.json({ ok: true });
     }
     const user = await requireUser();

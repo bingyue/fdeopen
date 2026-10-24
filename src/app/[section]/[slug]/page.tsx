@@ -1,3 +1,5 @@
+import { ResourcePractice } from '@/components/resource-practice';
+import { LoginLink } from '@/components/login-link';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { readFile } from 'node:fs/promises';
@@ -43,7 +45,8 @@ export default async function Detail({
   params: Promise<{ section: string; slug: string }>;
 }) {
   const { section, slug } = await params;
-  if (section === 'articles' || isChannel(section)) return <MediaDetail section={section} slug={slug}/>;
+  if (section === 'articles' || isChannel(section))
+    return <MediaDetail section={section} slug={slug} />;
   const r = await getResource(slug);
   if (!r || kinds[r.kind].path !== `/${section}`) notFound();
   const [related, user, database] = await Promise.all([
@@ -128,6 +131,7 @@ export default async function Detail({
             <a href="#related">关联资源</a>
             <a href="#discussion">社区讨论</a>
           </nav>
+          <ResourcePractice slug={r.slug} />
           <section id="overview" className="prose-section">
             <h2>
               {r.kind === 'scenario'
@@ -310,9 +314,9 @@ export default async function Detail({
                   success="申请已提交，在工作台查看审核进度。"
                 />
               ) : (
-                <Link href="/login" className="btn btn-primary">
+                <LoginLink className="btn btn-primary">
                   登录后申请认领 <ArrowRight size={16} />
-                </Link>
+                </LoginLink>
               ))}
           </section>
           <section id="related" className="prose-section">
@@ -352,9 +356,9 @@ export default async function Detail({
                 success="讨论已进入审核队列，通过后公开显示。"
               />
             ) : (
-              <Link href="/login" className="text-link">
+              <LoginLink className="text-link">
                 登录参与讨论 <ArrowRight size={15} />
-              </Link>
+              </LoginLink>
             )}
           </section>
         </article>
@@ -451,7 +455,7 @@ export default async function Detail({
                   success="已收到，编辑会审核处理。"
                 />
               ) : (
-                <Link href="/login">登录后提交反馈</Link>
+                <LoginLink>登录后提交反馈</LoginLink>
               )}
             </details>
           </div>

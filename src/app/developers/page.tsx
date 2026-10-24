@@ -29,7 +29,7 @@ export default async function Page() {
         <Empty
           title="成为第一批社区贡献者"
           description="登录并公开你的开发者档案，让更多人了解你的方向。"
-          href="/login"
+          href="/login?next=%2Fdashboard%3Ftab%3Dprofile"
           label="加入社区"
         />
       )}
