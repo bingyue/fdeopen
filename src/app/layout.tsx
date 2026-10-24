@@ -7,6 +7,7 @@ import './globals.css';
 import './media.css';
 import './onboarding.css';
 import './floating-tools.css';
+import './theme.css';
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
