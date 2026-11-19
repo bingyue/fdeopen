@@ -15,12 +15,12 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.6px;
-  color: var(--brand-teal);
+  color: var(--brand-blue-strong);
   line-height: 1.7;
 }
 .marketing-eyebrow > span {
   margin-left: 12px;
-  color: #776952;
+  color: var(--muted);
 }
 .marketing-button {
   display: inline-flex;
@@ -29,10 +29,10 @@
   gap: 8px;
   min-height: 44px;
   padding: 11px 18px;
-  background: var(--brand-teal);
+  background: var(--brand-blue-strong);
   color: #fff;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: 4px;
   font: inherit;
   font-size: 14px;
   font-weight: 650;
@@ -42,7 +42,7 @@
   transition: background 0.16s;
 }
 .marketing-button:hover {
-  background: #115747;
+  background: var(--brand-blue-hover);
   color: #fff;
 }
 .marketing-button.secondary {
@@ -51,7 +51,7 @@
   border-color: #cbd5d9;
 }
 .marketing-button.secondary:hover {
-  background: var(--brand-teal-soft);
+  background: var(--brand-blue-soft);
 }
 .marketing-button:disabled {
   cursor: not-allowed;
@@ -61,7 +61,7 @@
 .marketing-button:focus-visible,
 .marketing-text-link:focus-visible,
 .marketing-text-button:focus-visible {
-  outline: 3px solid #ba681e;
+  outline: 3px solid var(--brand-blue);
   outline-offset: 3px;
 }
 .marketing-actions {
@@ -73,7 +73,7 @@
 }
 .marketing-text-link,
 .marketing-text-button {
-  color: var(--brand-teal);
+  color: var(--brand-blue-strong);
   font-weight: 650;
   font-size: 14px;
 }
@@ -96,9 +96,9 @@
   grid-template-columns: 230px minmax(0, 1fr);
   gap: 44px;
   align-items: center;
-  background: #f5f1e8;
-  border: 1px solid #e5dcc9;
-  border-radius: 10px;
+  background: var(--brand-slate);
+  border: 1px solid var(--line);
+  border-radius: 4px;
   padding: 36px 44px;
   margin: 28px 0 42px;
   color: var(--brand-ink);
@@ -114,7 +114,7 @@
   height: auto;
   box-shadow: 7px 10px 22px #46372220;
   border-radius: 2px;
-  transform: rotate(-2deg);
+  transform: none;
 }
 .book-feature h2,
 .book-feature h1 {
@@ -139,7 +139,7 @@
 }
 .book-feature .book-byline {
   font-size: 13px;
-  color: #675a44;
+  color: var(--muted);
 }
 .book-byline > span {
   margin: 0 8px;
@@ -154,20 +154,20 @@
 .book-milestone {
   font-weight: 650;
   font-size: 14px;
-  color: #865321;
+  color: var(--brand-blue-strong);
   margin-top: 16px;
 }
 .book-milestone small {
   display: block;
   font-size: 11px;
-  color: #716451;
+  color: var(--muted);
   font-weight: 400;
   margin-top: 5px;
 }
 .book-publication {
   display: block;
   margin-top: 24px;
-  color: #6a6255;
+  color: var(--muted);
   font-size: 12px;
 }
 .book-hero {
@@ -183,7 +183,7 @@
 .promo-card {
   padding: 26px;
   border: 1px solid #dce4e8;
-  border-radius: 8px;
+  border-radius: 4px;
   margin-bottom: 24px;
   background: white;
   min-width: 0;
@@ -214,8 +214,8 @@
   letter-spacing: 1.1px;
 }
 .book-promo {
-  background: #faf7f0;
-  border-color: #e9dfcc;
+  background: var(--brand-slate);
+  border-color: var(--line);
 }
 .book-promo-inner {
   display: flex;
@@ -234,44 +234,38 @@
   margin-top: 0;
 }
 .community-promo {
-  background: var(--brand-ink);
-  color: white;
-  border-color: var(--brand-ink);
+  background: var(--brand-blue-soft);
+  color: var(--brand-ink);
+  border-color: var(--brand-blue-line);
+  border-top: 3px solid var(--brand-blue);
 }
 .community-promo h3 {
-  color: white;
+  color: var(--brand-ink);
 }
 .community-promo p,
 .community-promo small {
-  color: #c5d4df;
+  color: var(--muted);
 }
 .community-promo .promo-disclosure {
-  color: var(--brand-mint);
+  color: var(--brand-blue-strong);
 }
 .community-promo > strong {
-  color: #bce8d7;
+  color: var(--brand-blue-strong);
   font-size: 13px;
   display: block;
   margin: 20px 0;
 }
-.community-promo .marketing-button {
-  background: var(--brand-mint);
-  color: #133d34;
-}
-.community-promo .marketing-button:hover {
-  background: #c3eddc;
-}
 .community-promo .marketing-text-link {
   display: block;
-  color: #c0e6d7;
+  color: var(--brand-blue-strong);
   margin-top: 20px;
 }
 .community-promo .marketing-actions {
   margin-bottom: 16px;
 }
 .awesome-promo {
-  background: #edf5f1;
-  border-color: #d3e4db;
+  background: var(--brand-blue-soft);
+  border-color: var(--brand-blue-line);
 }
 .awesome-promo h3 {
   font-size: 27px;
@@ -293,7 +287,7 @@
 .awesome-topics li,
 .marketing-tags > span {
   background: #ffffffb3;
-  border: 1px solid #d9e3dd;
+  border: 1px solid var(--line);
   padding: 9px 12px;
   border-radius: 4px;
   font-size: 13px;
@@ -364,7 +358,7 @@
 .marketing-three-grid article {
   padding: 24px;
   background: #f2f5f7;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 .marketing-three-grid h3 {
   font-size: 19px;
@@ -374,7 +368,7 @@
   font:
     600 36px/1 Georgia,
     serif;
-  color: #497c69;
+  color: var(--brand-blue-strong);
 }
 .marketing-anchor-nav {
   display: flex;
@@ -423,7 +417,7 @@
   gap: 40px;
   padding: 36px;
   background: #eff3f5;
-  border-radius: 8px;
+  border-radius: 4px;
   margin: 48px 0;
 }
 .founder-profile img {
@@ -453,8 +447,8 @@
   justify-content: space-between;
   gap: 24px;
   padding: 32px;
-  background: #f5f1e8;
-  border-radius: 8px;
+  background: var(--brand-slate);
+  border-radius: 4px;
 }
 .book-purchase .marketing-actions {
   flex-shrink: 0;
@@ -465,35 +459,36 @@
   gap: 48px;
   align-items: start;
   padding: 48px;
-  background: var(--brand-ink);
-  border-radius: 10px;
-  color: white;
+  background: var(--brand-blue-soft);
+  border: 1px solid var(--brand-blue-line);
+  border-radius: 4px;
+  color: var(--brand-ink);
 }
 .membership-hero > div {
   padding-top: 18px;
 }
 .membership-hero .marketing-eyebrow {
-  color: var(--brand-mint);
+  color: var(--brand-blue-strong);
 }
 .membership-hero h1 {
   font-size: clamp(32px, 3.4vw, 48px);
   line-height: 1.45;
   letter-spacing: -1.3px;
   margin: 22px 0;
-  color: white;
+  color: var(--brand-ink);
 }
 .membership-hero h1 em {
   font-style: normal;
-  color: var(--brand-mint);
+  color: var(--brand-blue-strong);
   display: block;
 }
 .membership-hero > div > p {
   font-size: 16px;
   line-height: 1.9;
-  color: #d0dce5;
+  color: var(--muted);
 }
 .membership-hero .marketing-text-link {
-  color: #c3e6d8;
+  color: var(--brand-blue-strong);
 }
 .membership-credibility {
   display: flex;
@@ -501,18 +496,19 @@
   gap: 10px;
   margin-top: 40px;
   padding-top: 22px;
-  border-top: 1px solid #ffffff26;
+  border-top: 1px solid var(--brand-blue-line);
   font-size: 12px;
-  color: #c2d3dd;
+  color: var(--muted);
 }
 .membership-purchase-card {
   background: #fff;
   color: var(--brand-ink);
-  border-radius: 8px;
+  border: 1px solid var(--brand-blue-line);
+  border-radius: 4px;
   padding: 28px;
 }
 .membership-purchase-card .marketing-eyebrow {
-  color: var(--brand-teal);
+  color: var(--brand-blue-strong);
 }
 .membership-purchase-card h2 {
   font-size: 20px;
@@ -587,7 +583,7 @@
 }
 .purchase-modal {
   border: 1px solid #dce5e9;
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 0;
   max-width: min(440px, calc(100vw - 32px));
   max-height: calc(100dvh - 40px);
@@ -634,13 +630,13 @@
 .benefits-grid article {
   padding: 26px;
   border: 1px solid #dde5e9;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 .benefits-grid article > span {
   font:
     500 30px/1 Georgia,
     serif;
-  color: #497c69;
+  color: var(--brand-blue-strong);
 }
 .benefits-grid h3 {
   font-size: 18px;
@@ -648,20 +644,20 @@
 }
 .benefits-grid article:last-child {
   grid-column: span 3;
-  background: #edf5f1;
+  background: var(--brand-blue-soft);
 }
 .content-preview {
   display: block;
   padding: 26px;
   background: #f1f5f7;
   border: 1px solid #e0e7ec;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 .content-preview:hover {
-  border-color: var(--brand-teal);
+  border-color: var(--brand-blue-strong);
 }
 .content-preview span {
-  color: var(--brand-teal);
+  color: var(--brand-blue-strong);
   font-size: 12px;
 }
 .content-preview p {
@@ -671,8 +667,8 @@
 }
 .marketing-note {
   padding: 20px 24px;
-  background: #f5f1e8;
-  border-radius: 6px;
+  background: var(--brand-slate);
+  border-radius: 4px;
 }
 .membership-steps {
   display: grid;
@@ -681,7 +677,7 @@
   padding-left: 24px;
 }
 .membership-steps li::marker {
-  color: var(--brand-teal);
+  color: var(--brand-blue-strong);
   font-weight: 700;
 }
 .membership-steps p,
@@ -696,8 +692,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 36px;
-  border-radius: 8px;
-  background: #eaf3ee;
+  border-radius: 4px;
+  background: var(--brand-blue-soft);
 }
 .membership-bottom p {
   color: #536376;
@@ -714,8 +710,8 @@
 }
 .marketing-ecosystem > a {
   padding: 20px;
-  background: #eef4f1;
-  border-radius: 6px;
+  background: var(--brand-slate);
+  border-radius: 4px;
 }
 .marketing-ecosystem strong {
   font-size: 15px;
@@ -899,7 +895,7 @@
   }
   .mobile-nav nav .mobile-membership-link {
     color: #fff;
-    background: var(--brand-teal);
+    background: var(--brand-blue-strong);
     padding: 12px;
     border-radius: 4px;
   }

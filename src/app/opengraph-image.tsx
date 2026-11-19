@@ -7,21 +7,21 @@ export default function Image() {
   return new ImageResponse(
     <div
       style={{
-        background: '#fafbfd',
+        background: '#ffffff',
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
         height: '100%',
         padding: '72px',
-        color: '#14243b',
-        borderBottom: '12px solid #14243b',
+        color: '#262626',
+        borderBottom: '12px solid #262626',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 20, fontSize: 34 }}>
         <svg width="64" height="64" viewBox="0 0 64 64">
-          <path d="M37 10H8v46h44V31" fill="none" stroke="#14243b" strokeWidth="4" />
-          <path d="M20 21h19v8H28v7h10v8H28v8h-8Z" fill="#14243b" />
-          <path d="M39 25 56 8M44 8h12v12" fill="none" stroke="#16705f" strokeWidth="4" />
+          <path d="M37 10H8v46h44V31" fill="none" stroke="#262626" strokeWidth="4" />
+          <path d="M20 21h19v8H28v7h10v8H28v8h-8Z" fill="#262626" />
+          <path d="M39 25 56 8M44 8h12v12" fill="none" stroke="#2466d3" strokeWidth="4" />
         </svg>
         FDE FRONTLINE
       </div>
@@ -31,11 +31,11 @@ export default function Image() {
         Beyond the technology.
       </div>
       <div
-        style={{ display: 'flex', fontSize: 70, fontWeight: 700, color: '#16705f', marginTop: 10 }}
+        style={{ display: 'flex', fontSize: 70, fontWeight: 700, color: '#2466d3', marginTop: 10 }}
       >
         Inside the transformation.
       </div>
-      <div style={{ display: 'flex', fontSize: 24, marginTop: 50, color: '#53667b' }}>
+      <div style={{ display: 'flex', fontSize: 24, marginTop: 50, color: '#626b77' }}>
         Enterprise AI · Agents · Research · Real-world Practice
       </div>
     </div>,

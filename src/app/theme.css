@@ -1,30 +1,35 @@
-/* Brand mapping: the F / frame supplies ink; the rising arrow supplies teal.
-   Legacy blue tokens remain aliases so all existing controls follow the brand. */
+/* Editorial blue palette, informed by 36kr's public brand styles.
+   Legacy teal tokens are aliases for existing community components. */
 :root {
-  --brand-ink: #14243b;
-  --brand-ink-hover: #243c58;
-  --brand-teal: #16705f;
-  --brand-mint: #a3dcc7;
-  --brand-slate: #eef2f6;
-  --brand-teal-soft: #edf6f2;
-  --brand-teal-line: #cbded5;
+  --brand-ink: #262626;
+  --brand-ink-hover: #404650;
+  --brand-blue: #4285f4;
+  --brand-blue-strong: #2466d3;
+  --brand-blue-hover: #1854b8;
+  --brand-blue-soft: #edf4ff;
+  --brand-blue-line: #d3e2fb;
+  --brand-teal: var(--brand-blue-strong);
+  --brand-mint: #b8d2ff;
+  --brand-slate: #f5f7f9;
+  --brand-teal-soft: var(--brand-blue-soft);
+  --brand-teal-line: var(--brand-blue-line);
   --ink: var(--brand-ink);
-  --muted: #53667b;
-  --blue: var(--brand-ink);
-  --blue-dark: var(--brand-ink-hover);
+  --muted: #626b77;
+  --blue: var(--brand-blue-strong);
+  --blue-dark: var(--brand-blue-hover);
   --media-text: var(--ink);
   --media-navy: var(--brand-ink);
-  --media-blue: var(--brand-teal);
+  --media-blue: var(--brand-blue-strong);
   --surface: var(--brand-slate);
   --media-paper: var(--surface);
-  --line: #dce3e9;
-  --control-border: #d5dfe3;
-  --control-radius: 10px;
-  --panel-radius: 14px;
-  --accent-teal: var(--brand-teal);
-  --accent-teal-soft: var(--brand-teal-soft);
-  --canvas: #fafbfd;
-  --soft-shadow: 0 6px 22px #14243b08;
+  --line: #e5e8ed;
+  --control-border: #d4d9e1;
+  --control-radius: 4px;
+  --panel-radius: 4px;
+  --accent-teal: var(--brand-blue-strong);
+  --accent-teal-soft: var(--brand-blue-soft);
+  --canvas: #ffffff;
+  --soft-shadow: none;
 }
 
 body {
@@ -37,7 +42,7 @@ body {
   border-bottom-color: var(--line);
 }
 .media-logo-mark > span {
-  color: var(--accent-teal);
+  color: var(--brand-blue);
 }
 .community-subnav {
   background: var(--brand-slate);
@@ -49,7 +54,7 @@ body {
 }
 .community-subnav a {
   padding: 5px 13px;
-  border-radius: 7px;
+  border-radius: 3px;
   color: #43566e;
   transition:
     background 160ms ease,
@@ -57,7 +62,7 @@ body {
 }
 .community-subnav a:hover,
 .community-subnav a[aria-current='page'] {
-  background: #dfebe5;
+  background: var(--brand-blue-soft);
   color: var(--brand-teal);
 }
 .header-actions .btn-secondary {
@@ -68,16 +73,16 @@ body {
 
 /* One entry card per audience; color supports, rather than replaces, labels. */
 .start-paths {
-  padding-block: 36px 30px;
+  padding-block: 24px;
   border-color: var(--line);
 }
 .start-heading h2 {
-  font-size: clamp(27px, 3vw, 34px);
+  font-size: clamp(24px, 2.5vw, 29px);
   letter-spacing: -0.8px;
   color: var(--media-navy);
 }
 .start-highlight {
-  background: linear-gradient(transparent 72%, #cce9dc 72%, #cce9dc 93%, transparent 93%);
+  background: linear-gradient(transparent 72%, #dce9ff 72%, #dce9ff 93%, transparent 93%);
 }
 .start-heading > .media-eyebrow {
   color: var(--accent-teal);
@@ -96,32 +101,28 @@ body {
   --path-ink: var(--brand-teal);
   --path-title: var(--brand-ink);
   --path-copy: var(--muted);
-  --path-bg: var(--brand-slate);
+  --path-bg: #fff;
   --path-border: var(--line);
   background: var(--path-bg);
   border-color: var(--path-border);
   border-radius: var(--panel-radius);
-  box-shadow: 0 3px 0 #fff inset;
+  box-shadow: none;
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
     border-color 180ms ease;
 }
-.path-grid > a[data-tone='ink'] {
-  --path-ink: var(--brand-mint);
-  --path-title: #ffffff;
-  --path-copy: #d3deea;
-  --path-bg: var(--brand-ink);
-  --path-border: var(--brand-ink);
-  box-shadow: none;
-}
+.path-grid > a[data-tone='ink'],
 .path-grid > a[data-tone='teal'] {
-  --path-bg: var(--accent-teal-soft);
-  --path-border: var(--brand-teal-line);
+  --path-ink: var(--brand-blue-strong);
+  --path-title: var(--brand-ink);
+  --path-copy: var(--muted);
+  --path-bg: #fff;
+  --path-border: var(--line);
 }
 .path-grid > a:hover {
-  background: var(--path-bg);
-  border-color: var(--path-ink);
+  background: var(--brand-blue-soft);
+  border-color: var(--brand-blue-line);
   box-shadow: var(--soft-shadow);
 }
 .path-card-meta {
@@ -149,11 +150,36 @@ body {
 
 /* Consistent editorial surfaces, without changing image colors or layouts. */
 .editorial-cover {
-  border-radius: 12px;
+  border-radius: 4px;
+}
+.cover-layers {
+  background: #eef2f7;
+  color: #243c62;
+}
+.cover-layers i {
+  background: #dae4f3;
+  border-color: #95aac8;
+}
+.cover-layers i:nth-child(2) {
+  background: #c4d3e9;
+}
+.cover-layers i:nth-child(3) {
+  background: #a6bddc;
+}
+.cover-layers i:nth-child(4) {
+  background: #7f9dc6;
+}
+.cover-layers i:nth-child(5) {
+  background: #587cad;
+}
+.cover-report .cover-type {
+  background: #14243b;
+  color: #fff;
+  padding: 6px 8px 6px 0;
 }
 .editors-picks {
-  padding: 0 20px 20px;
-  border-radius: 12px;
+  padding: 0 20px 12px;
+  border-radius: 4px;
   background: var(--brand-slate);
 }
 .rail-title {
@@ -163,9 +189,9 @@ body {
   color: var(--accent-teal);
 }
 .editorial-section-title h2 i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
+  width: 4px;
+  height: 20px;
+  border-radius: 0;
   background: var(--accent-teal);
 }
 .post-tile {
@@ -223,7 +249,7 @@ body {
 .media-filter-links a {
   padding: 6px 12px;
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: 3px;
   background: white;
 }
 .media-filter-links a.active,
@@ -240,23 +266,23 @@ body {
   box-shadow: var(--soft-shadow);
 }
 .resource-card:hover {
-  border-color: #9ebbb5;
+  border-color: var(--brand-blue);
 }
 
 /* Keep long-form reading neutral, with a gentle cue for practical next steps. */
 .article-summary {
-  border-top-color: #cde0d7;
+  border-top-color: var(--line);
 }
 .provenance,
 .media-prose blockquote {
   border-left-color: var(--accent-teal);
-  background: #f0f6f3;
-  border-radius: 0 10px 10px 0;
+  background: var(--brand-slate);
+  border-radius: 0 4px 4px 0;
 }
 .case-practice,
 .about-founder {
   background: var(--accent-teal-soft);
-  border-color: #cfe2d9;
+  border-color: var(--brand-blue-line);
   border-radius: var(--panel-radius);
 }
 .about-founder {
@@ -264,7 +290,7 @@ body {
 }
 .media-footer {
   background: var(--brand-ink);
-  border-top: 3px solid var(--brand-teal);
+  border-top: 1px solid #3c4149;
   color: #f6f9fc;
 }
 .media-footer .media-logo,
@@ -283,10 +309,10 @@ body {
 .media-footer .media-logo small,
 .media-footer-grid > div > a:not(.logo),
 .media-footer-bottom {
-  color: #bac9da;
+  color: #c4c8ce;
 }
 .media-footer-bottom {
-  border-color: #35455b;
+  border-color: #444a52;
 }
 .media-footer a:hover,
 .media-footer-grid > div > a:not(.logo):hover {
@@ -296,22 +322,28 @@ body {
   outline-color: var(--brand-mint);
 }
 .media-floating-tools {
-  border-radius: 14px;
-  background: var(--media-navy);
-  box-shadow: 0 8px 24px #14243b20;
+  border-radius: 4px;
+  background: white;
+  border: 1px solid var(--line);
+  box-shadow: 0 3px 14px #20252b0a;
 }
 .media-float-trigger {
-  border-radius: 10px;
+  border-radius: 2px;
+  color: var(--muted);
 }
 .media-float-trigger:hover,
 .media-float-trigger[aria-expanded='true'] {
-  background: var(--accent-teal);
+  background: var(--brand-blue-strong);
+  color: white;
+}
+.media-float-top {
+  border-top-color: var(--line);
 }
 
 /* Carry the same two-color identity into community and account screens. */
 .desktop-nav a[aria-current='page'] {
-  color: var(--brand-ink);
-  box-shadow: 0 2px 0 var(--brand-teal);
+  color: var(--brand-blue-strong);
+  box-shadow: 0 2px 0 var(--brand-blue);
 }
 .desktop-nav a:hover,
 .hero h1 em,
@@ -328,10 +360,10 @@ body {
   color: white;
 }
 .btn-primary {
-  box-shadow: 0 3px 8px #14243b15;
+  box-shadow: none;
 }
 .hero-wrap {
-  background: linear-gradient(180deg, var(--canvas), #f0f5f4 80%, white);
+  background: var(--brand-slate);
 }
 .announcement > span,
 .filters > a.selected,
@@ -373,7 +405,7 @@ body {
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .path-grid > a:hover {
-    transform: translateY(-3px);
+    transform: none;
   }
 }
 @media (max-width: 700px) {
@@ -405,5 +437,126 @@ body {
   .media-primary,
   .media-filters button {
     transition: none;
+  }
+}
+
+/* Compact opening paths and clear news-feed hierarchy. */
+.start-heading {
+  max-width: none;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  column-gap: 32px;
+}
+.start-heading > .media-eyebrow {
+  grid-column: 1;
+}
+.start-heading h2 {
+  grid-column: 1;
+  margin-bottom: 0;
+}
+.start-heading > p {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  max-width: 700px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.path-grid {
+  gap: 18px;
+  margin-top: 20px;
+}
+.path-grid > a {
+  padding: 18px 20px;
+  border-top: 2px solid var(--brand-blue);
+}
+.path-card-meta {
+  margin-bottom: 10px;
+}
+.path-grid h3 {
+  font-size: 18px;
+}
+.path-grid p {
+  font-size: 13px;
+}
+.desktop-nav a {
+  color: var(--brand-ink);
+}
+.post-row h3,
+.post-tile h3 {
+  font-weight: 700;
+}
+.story-tabs {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+.story-tabs > span {
+  position: relative;
+}
+.story-tabs > span::after {
+  content: '';
+  position: absolute;
+  height: 3px;
+  background: var(--brand-blue);
+  inset: auto 0 -13px;
+}
+.editorial-section-title h2 {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.post-tile {
+  padding: 0 0 16px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+.post-tile .post-copy {
+  padding: 14px 0 0;
+}
+.topic-teaser,
+.research-strip {
+  background: var(--brand-slate);
+}
+.newsletter-panel {
+  background: var(--brand-blue-soft);
+  color: var(--brand-ink);
+  border-top: 2px solid var(--brand-blue);
+}
+.newsletter-panel .media-eyebrow {
+  color: var(--brand-blue-strong);
+}
+.newsletter-panel > p {
+  color: var(--muted);
+}
+.newsletter-input {
+  border: 1px solid var(--control-border);
+}
+.newsletter-input button {
+  color: var(--brand-blue-strong);
+}
+.media-float-trigger:focus-visible {
+  outline-color: var(--brand-blue);
+}
+.page-space > h1 {
+  color: var(--brand-ink);
+}
+@media (max-width: 700px) {
+  .start-heading {
+    display: block;
+  }
+  .start-heading > p {
+    margin-top: 10px;
+  }
+  .path-grid {
+    gap: 10px;
+  }
+  .path-grid > a {
+    padding: 14px 16px;
+  }
+  .path-card-meta {
+    margin-bottom: 6px;
+  }
+  .post-tile {
+    padding: 0 0 14px;
   }
 }
