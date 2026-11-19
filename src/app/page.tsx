@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { BookFeatureBanner, CommunityPromoCard } from '@/components/marketing/promos';
+import { placements } from '@/lib/marketing/config';
 import { StartPaths } from '@/components/start-paths';
 import { ArrowRight, ArrowUpRight, Radio } from 'lucide-react';
 import { mediaList, mediaTaxonomy } from '@/lib/media-service';
@@ -103,6 +105,7 @@ export default async function Home() {
       ) : (
         <MediaEmpty title="为企业 AI 的下一步，记录值得阅读的内容。" />
       )}
+      <BookFeatureBanner />
       <div className="media-main-grid">
         <section>
           <EditorialSection title="前线正在发生" en="LATEST STORIES" href="/insights" />
@@ -123,6 +126,12 @@ export default async function Home() {
           </Link>
         </section>
         <aside className="home-sidebar">
+          {placements['home-sidebar'].enabled && (
+            <CommunityPromoCard
+              compact
+              context={{ placement: 'home-sidebar', contentType: 'home' }}
+            />
+          )}
           <div className="sidebar-section">
             <div className="rail-title">
               <span>读者关注</span>
@@ -236,6 +245,9 @@ export default async function Home() {
           {!events.rows.length && <MediaEmpty title="近期活动尚未公布" />}
         </section>
       </div>
+      {placements['home-bottom'].enabled && (
+        <CommunityPromoCard context={{ placement: 'home-bottom', contentType: 'home' }} />
+      )}
       <section className="ecosystem-editorial">
         <EditorialSection title="连接实践者，共建产业生态" en="FDE ECOSYSTEM" href="/community" />
         <div className="ecosystem-links">

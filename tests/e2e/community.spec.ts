@@ -90,7 +90,8 @@ test('member submits and bookmarks; admin publishes; member updates; task become
     .getByLabel('你计划如何完成这项贡献？')
     .fill('整理隔离环境的安装步骤与复现日志，并提交经过检查的部署说明文档。');
   await page.getByRole('button', { name: '申请认领', exact: true }).click();
-  await expect(page.getByRole('status')).toContainText('申请已提交');
+  // The server refresh replaces the form; verify the persisted application state.
+  await expect(page.getByRole('link', { name: '查看申请进度与反馈 →' })).toBeVisible();
   await page.goto('/projects/ragflow');
   await page.getByLabel('写下你的实践或问题').fill('E2E：部署文档已复现，建议补充依赖版本说明。');
   await page.getByRole('button', { name: '提交讨论', exact: true }).click();

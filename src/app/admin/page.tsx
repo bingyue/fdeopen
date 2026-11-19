@@ -536,6 +536,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<Se
       <div className="dashboard-layout">
         <nav className="dashboard-nav" aria-label="后台导航">
           <Link href="/admin/media">媒体编辑工作台 ↗</Link>
+          <Link href="/admin/marketing">图书与社群转化统计 ↗</Link>
           {tabs.map(([key, title]) => (
             <Link key={key} href={`/admin?tab=${key}`} className={key === tab ? 'active' : ''}>
               {title}

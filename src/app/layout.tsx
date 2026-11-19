@@ -8,6 +8,7 @@ import './media.css';
 import './onboarding.css';
 import './floating-tools.css';
 import './theme.css';
+import './marketing.css';
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),

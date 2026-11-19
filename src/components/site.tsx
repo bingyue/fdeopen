@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import { EcosystemLinks } from './marketing/promos';
+import { TrackedLink } from './marketing/tracking';
+import { book, membership, placements } from '@/lib/marketing/config';
 import {
   ArrowUpRight,
   ArrowRight,
@@ -45,8 +48,21 @@ export function Header({ user }: { user: User | null }) {
       <header className="site-header">
         <div className="header-inner">
           <Logo />
-          <SiteNavigation />
+          <SiteNavigation
+            bookEnabled={book.enabled && placements.header.enabled}
+            membershipEnabled={membership.enabled && placements.header.enabled}
+          />
           <div className="header-actions">
+            {membership.enabled && placements.header.enabled && (
+              <TrackedLink
+                href="/membership"
+                className="marketing-button header-membership"
+                event="community_detail_click"
+                context={{ placement: 'header' }}
+              >
+                加入实战社群
+              </TrackedLink>
+            )}
             <Link href="/search" className="icon-link" aria-label="全站搜索">
               <Search size={19} />
             </Link>
@@ -68,7 +84,12 @@ export function Header({ user }: { user: User | null }) {
               </LoginLink>
             )}
           </div>
-          <SiteNavigation mobile loggedIn={!!user} />
+          <SiteNavigation
+            mobile
+            loggedIn={!!user}
+            bookEnabled={book.enabled && placements.header.enabled}
+            membershipEnabled={membership.enabled && placements.header.enabled}
+          />
         </div>
       </header>
       <CommunityNavigation />
@@ -106,6 +127,7 @@ export function Footer() {
             <Link href="/terms">用户协议</Link>
             <Link href="/privacy">隐私政策</Link>
           </div>
+          <EcosystemLinks footer />
         </div>
         <div className="media-footer-bottom">
           <div className="media-footer-identity">

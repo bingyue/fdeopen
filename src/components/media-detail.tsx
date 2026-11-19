@@ -1,5 +1,6 @@
 import { LoginLink } from '@/components/login-link';
 import Link from 'next/link';
+import { ArticleConversionBlock } from './marketing/promos';
 import { CasePractice } from './case-practice';
 import { db } from '@/lib/db';
 import { mediaBookmarked } from '@/lib/reading';
@@ -289,6 +290,13 @@ export async function MediaArticle({
             </div>
           )}
           <ShareArticle />
+          {!preview && (
+            <ArticleConversionBlock
+              contentType={post.channel}
+              articleId={post.id}
+              title={post.title}
+            />
+          )}
           <EditorialSection title="继续阅读" en="KEEP EXPLORING" href={`/${post.channel}`} />
           {related.rows
             .filter((p) => p.id !== post.id)
@@ -319,6 +327,14 @@ export async function MediaArticle({
               )}
             </nav>
           </div>
+          {!preview && (
+            <ArticleConversionBlock
+              contentType={post.channel}
+              articleId={post.id}
+              title={post.title}
+              sidebar
+            />
+          )}
         </aside>
       </div>
     </div>

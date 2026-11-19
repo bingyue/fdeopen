@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { FounderProfile, EcosystemLinks } from '@/components/marketing/promos';
+import { purchaseReady } from '@/lib/marketing/config';
 export const metadata = {
   title: '关于FDE前线',
   description: '了解FDE前线与创始人邴越：AI技术专家、企业FDE转型顾问，关注企业AI转型与智能体产业。',
@@ -24,21 +26,13 @@ export default function About() {
         <p>
           我们重视来源、核验与表达边界。编辑观点不冒充统计结论，示例不冒充企业成果，商业合作不混同独立报道。匿名内容保留核验依据，公开范围尊重受访者和企业授权。
         </p>
-        <section className="about-founder" aria-labelledby="founder">
-          <div className="about-founder-heading">
-            <span className="media-eyebrow">FOUNDER</span>
-            <span className="about-founder-label">FDE前线创始人</span>
-            <h2 id="founder">邴越</h2>
-            <p className="about-founder-role">AI技术专家，企业FDE转型顾问</p>
-          </div>
-          <p>
-            拥有十二年一线互联网和企业数智化经验，FDE前线·FDE中国社区（FDEChina.ai）发起人。
-            在AI出海电商、AI自动化、AI营销获客领域有丰富实践经验。
-          </p>
+        <FounderProfile />
+        <section className="about-founder" aria-label="一线经历">
+          <h3>一线经历与专业实践</h3>
           <ul className="about-founder-experience">
             <li>曾任职阿里巴巴 / 美团点评 / 快手技术专家</li>
             <li>曾服务新华网、埃森哲中国、用友软件企业数字化转型</li>
-            <li>清华大学出版社《FDE企业AI转型》作者</li>
+            <li>清华大学出版社《FDE前线部署工程师：企业AI转型与智能体工程化交付》作者</li>
             <li>中国通信工业协会人工智能领域专家</li>
             <li>腾讯云架构师同盟专家</li>
           </ul>
@@ -54,6 +48,13 @@ export default function About() {
           <Link href="/enterprise">企业需求</Link>
           <Link href="/contribute">投稿与合作</Link>
         </div>
+        <h2>知识出版与开放实践</h2>
+        <p>
+          以专业图书构建系统方法，以Awesome-FDE沉淀免费交付指南，以FDE中国社区连接实践者。年度实战社群由FDE中国社区组织会员经营，知识星球承载首期购买与内容。
+          {!purchaseReady() && '社群目前为方案预览。'}
+          人才培养由51FDE连接，企业服务从真实业务需求出发。
+        </p>
+        <EcosystemLinks />
         <h2 id="learning">专业成长与产业协作</h2>
         <p>
           学习、培训、企业诊断与人才合作作为生态连接入口。我们优先公开可阅读、可复核的经验；具体服务与安排由合作双方确认。

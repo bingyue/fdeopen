@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { LoginLink } from './login-link';
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
+import { TrackedLink } from './marketing/tracking';
 const nav = [
   ['首页', '/'],
   ['前线观察', '/insights'],
@@ -13,25 +14,43 @@ const nav = [
   ['活动', '/events'],
   ['开放社区', '/community'],
   ['关于我们', '/about'],
+  ['FDE图书', '/book'],
 ];
 export function SiteNavigation({
   mobile = false,
   loggedIn = false,
+  bookEnabled = true,
+  membershipEnabled = true,
 }: {
   mobile?: boolean;
   loggedIn?: boolean;
+  bookEnabled?: boolean;
+  membershipEnabled?: boolean;
 }) {
   const pathname = usePathname();
   const details = useRef<HTMLDetailsElement>(null);
-  const links = nav.map(([label, href]) => (
-    <Link
-      key={href}
-      href={href}
-      aria-current={pathname === href || pathname.startsWith(href + '/') ? 'page' : undefined}
-    >
-      {label}
-    </Link>
-  ));
+  const links = nav
+    .filter(([, href]) => href !== '/book' || bookEnabled)
+    .map(([label, href]) =>
+      href === '/book' ? (
+        <TrackedLink
+          key={href}
+          href={href}
+          event="book_detail_click"
+          context={{ placement: 'header' }}
+        >
+          {label}
+        </TrackedLink>
+      ) : (
+        <Link
+          key={href}
+          href={href}
+          aria-current={pathname === href || pathname.startsWith(href + '/') ? 'page' : undefined}
+        >
+          {label}
+        </Link>
+      ),
+    );
   if (!mobile)
     return (
       <nav className="desktop-nav" aria-label="主导航">
@@ -79,6 +98,16 @@ export function SiteNavigation({
             {label}
           </Link>
         ))}
+        {membershipEnabled && (
+          <TrackedLink
+            href="/membership"
+            event="community_detail_click"
+            context={{ placement: 'header' }}
+            className="mobile-membership-link"
+          >
+            加入实战社群
+          </TrackedLink>
+        )}
         <Link href="/contribute">投稿 / 合作</Link>
         {loggedIn ? <Link href="/dashboard">我的工作台</Link> : <LoginLink>账号登录</LoginLink>}
       </nav>

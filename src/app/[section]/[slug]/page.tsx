@@ -1,6 +1,7 @@
 import { ResourcePractice } from '@/components/resource-practice';
 import { LoginLink } from '@/components/login-link';
 import Link from 'next/link';
+import { ArticleConversionBlock } from '@/components/marketing/promos';
 import { notFound } from 'next/navigation';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -361,6 +362,14 @@ export default async function Detail({
               </LoginLink>
             )}
           </section>
+          {['project', 'skill'].includes(r.kind) && (
+            <ArticleConversionBlock
+              contentType={r.kind}
+              articleId={r.id}
+              title={r.title}
+              resource
+            />
+          )}
         </article>
         <aside className="detail-aside">
           <div className="side-panel">
@@ -459,6 +468,15 @@ export default async function Detail({
               )}
             </details>
           </div>
+          {['project', 'skill'].includes(r.kind) && (
+            <ArticleConversionBlock
+              contentType={r.kind}
+              articleId={r.id}
+              title={r.title}
+              resource
+              sidebar
+            />
+          )}
         </aside>
       </div>
     </div>

@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { AwesomeFDECard } from './marketing/promos';
+import { awesome, placements } from '@/lib/marketing/config';
 import { Search, SlidersHorizontal, ArrowRight, Plus } from 'lucide-react';
 import { listResources, filterOptions } from '@/lib/catalog';
 import { kinds, type Kind } from '@/lib/types';
@@ -57,6 +59,9 @@ export async function CatalogPage({
           </Link>
         </Button>
       </PageHeading>
+      {kind === 'project' && awesome.featured && placements['projects-feature'].enabled && (
+        <AwesomeFDECard context={{ placement: 'projects-feature', contentType: 'project' }} />
+      )}
       {kind === 'scenario' && (
         <div className="notice">
           <strong>场景是方案的起点。</strong>{' '}

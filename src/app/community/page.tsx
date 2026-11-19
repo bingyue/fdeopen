@@ -1,5 +1,7 @@
 import { LoginLink } from '@/components/login-link';
 import Link from 'next/link';
+import { AwesomeFDECard } from '@/components/marketing/promos';
+import { placements } from '@/lib/marketing/config';
 import { StartPaths } from '@/components/start-paths';
 import {
   ArrowRight,
@@ -217,6 +219,9 @@ export default async function Home() {
         </div>
       </section>
       <div className="container home-content">
+        {placements['community-feature'].enabled && (
+          <AwesomeFDECard context={{ placement: 'community-feature', contentType: 'community' }} />
+        )}
         <section>
           <SectionTitle
             eyebrow="OPENHUB"

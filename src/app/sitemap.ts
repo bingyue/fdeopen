@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { book, membership } from '@/lib/marketing/config';
 import { db } from '@/lib/db';
 import { siteUrl, isDemo } from '@/lib/config';
 import { kinds, resourcePath, type Resource } from '@/lib/types';
@@ -29,6 +30,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       '/collections',
       '/developers',
       '/about',
+      ...(book.enabled ? ['/book'] : []),
+      ...(membership.enabled ? ['/membership'] : []),
       '/community',
       '/start',
       '/practice',
