@@ -365,6 +365,10 @@ body {
 .hero-wrap {
   background: var(--brand-slate);
 }
+.hero-copy,
+.ecosystem {
+  animation: none;
+}
 .announcement > span,
 .filters > a.selected,
 .mobile-nav nav a[aria-current='page'],
