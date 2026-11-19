@@ -303,7 +303,9 @@ export function EcosystemLinks({ footer = false }: { footer?: boolean }) {
       {ecosystem
         .filter(
           (x) =>
-            (x.url !== '/book' || book.enabled) && (x.url !== '/membership' || membership.enabled),
+            (x.url !== '/book' || book.enabled) &&
+            (x.url !== '/membership' || membership.enabled) &&
+            (!footer || !['/book', '/contribute', awesome.repositoryUrl].includes(x.url)),
         )
         .map((x) => (
           <Link

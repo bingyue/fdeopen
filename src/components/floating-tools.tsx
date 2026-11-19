@@ -1,18 +1,12 @@
 'use client';
 
-import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useId, useRef, useState } from 'react';
-import {
-  ArrowUp,
-  ArrowUpRight,
-  Check,
-  Copy,
-  MessageCircle,
-  PenLine,
-  Share2,
-  X,
-} from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Check, Copy, MessageCircle, QrCode, Share2, X } from 'lucide-react';
+
+// Place the official QR image in public/ and set its URL here when available.
+const followAccount = { name: 'FDE前线', qrCodeUrl: '' };
 
 const publicPages = new Set([
   '/',
@@ -51,11 +45,18 @@ export function FloatingTools() {
 
 function FloatingToolsBar() {
   const panelId = useId();
+  const followPanelId = useId();
   const panel = useRef<HTMLDivElement>(null);
+  const followPanel = useRef<HTMLDivElement>(null);
   const shareButton = useRef<HTMLButtonElement>(null);
+  const followButton = useRef<HTMLButtonElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
+  const closeFollowButton = useRef<HTMLButtonElement>(null);
   const linkInput = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
+  const [followOpen, setFollowOpen] = useState(false);
+  const [qrCodeFailed, setQrCodeFailed] = useState(false);
+  const hasQrCode = !!followAccount.qrCodeUrl && !qrCodeFailed;
   const [page, setPage] = useState({ title: '', url: '', local: false });
   const [canShare, setCanShare] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -110,6 +111,7 @@ function FloatingToolsBar() {
 
   function backToTop() {
     panel.current?.hidePopover();
+    followPanel.current?.hidePopover();
     window.scrollTo({
       top: 0,
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -140,10 +142,19 @@ function FloatingToolsBar() {
           <Share2 size={20} strokeWidth={1.7} aria-hidden="true" />
           <span>分享页面</span>
         </button>
-        <Link href="/contribute" className="media-float-trigger" aria-label="投稿合作">
-          <PenLine size={20} strokeWidth={1.7} aria-hidden="true" />
-          <span>投稿合作</span>
-        </Link>
+        <button
+          ref={followButton}
+          type="button"
+          className="media-float-trigger"
+          popoverTarget={followPanelId}
+          aria-label="关注我们"
+          aria-expanded={followOpen}
+          aria-controls={followPanelId}
+          aria-haspopup="dialog"
+        >
+          <QrCode size={20} strokeWidth={1.7} aria-hidden="true" />
+          <span>关注我们</span>
+        </button>
         <button
           type="button"
           className="media-float-trigger media-float-top"
@@ -230,6 +241,67 @@ function FloatingToolsBar() {
           <p className={`media-share-feedback${copied ? ' is-success' : ''}`} role="status">
             {copied && <Check size={15} aria-hidden="true" />}
             {feedback}
+          </p>
+        </div>
+      </div>
+      <div
+        ref={followPanel}
+        id={followPanelId}
+        popover="auto"
+        role="dialog"
+        aria-labelledby={`${followPanelId}-title`}
+        aria-describedby={`${followPanelId}-description`}
+        className="media-share-panel media-follow-panel"
+        onBeforeToggle={(event) => {
+          if (event.newState === 'closed' && event.currentTarget.contains(document.activeElement)) {
+            followButton.current?.focus({ preventScroll: true });
+          }
+        }}
+        onToggle={(event) => {
+          const isOpen = event.newState === 'open';
+          setFollowOpen(isOpen);
+          if (isOpen) closeFollowButton.current?.focus({ preventScroll: true });
+        }}
+      >
+        <div className="media-share-heading">
+          <div>
+            <span>保持连接</span>
+            <h2 id={`${followPanelId}-title`}>关注我们</h2>
+          </div>
+          <button
+            ref={closeFollowButton}
+            type="button"
+            className="media-share-close"
+            aria-label="关闭关注我们"
+            popoverTarget={followPanelId}
+            popoverTargetAction="hide"
+          >
+            <X size={18} aria-hidden="true" />
+          </button>
+        </div>
+        <div className="media-follow-body">
+          <strong>{followAccount.name}</strong>
+          <p id={`${followPanelId}-description`}>企业 AI 转型方法与一线实践</p>
+          <div className={`media-follow-code${hasQrCode ? '' : ' is-placeholder'}`}>
+            {hasQrCode ? (
+              <Image
+                src={followAccount.qrCodeUrl}
+                alt={`关注${followAccount.name}的二维码`}
+                width={168}
+                height={168}
+                unoptimized
+                onError={() => setQrCodeFailed(true)}
+              />
+            ) : (
+              <>
+                <QrCode size={48} strokeWidth={1.25} aria-hidden="true" />
+                <span>关注二维码</span>
+                <small>敬请期待</small>
+              </>
+            )}
+          </div>
+          <p className="media-follow-note">
+            {hasQrCode ? `微信扫一扫，关注${followAccount.name}` : '关注二维码即将上线'}
           </p>
         </div>
       </div>

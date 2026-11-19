@@ -19,7 +19,7 @@ if (existing) {
     database,
     {
       loginName: name,
-      name: 'FDE前线编辑部',
+      name: 'FDE前线',
       password: process.env.BOOTSTRAP_ADMIN_PASSWORD,
       consent: true,
     },

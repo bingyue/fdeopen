@@ -188,12 +188,10 @@ body {
   background: var(--brand-teal-soft);
   border-radius: var(--panel-radius);
 }
-.newsletter-panel,
 .ecosystem-links > a,
 .media-empty {
   border-radius: var(--panel-radius);
 }
-.newsletter-input,
 .media-filters input,
 .media-filters select,
 .media-filters button,
@@ -491,23 +489,6 @@ body {
 .topic-teaser,
 .research-strip {
   background: var(--brand-slate);
-}
-.newsletter-panel {
-  background: var(--brand-blue-soft);
-  color: var(--brand-ink);
-  border-top: 2px solid var(--brand-blue);
-}
-.newsletter-panel .media-eyebrow {
-  color: var(--brand-blue-strong);
-}
-.newsletter-panel > p {
-  color: var(--muted);
-}
-.newsletter-input {
-  border: 1px solid var(--control-border);
-}
-.newsletter-input button {
-  color: var(--brand-blue-strong);
 }
 .media-float-trigger:focus-visible {
   outline-color: var(--brand-blue);

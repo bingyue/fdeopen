@@ -12,7 +12,6 @@ import {
   EditorialSection,
   MediaEmpty,
 } from '@/components/media';
-import { Newsletter } from '@/components/media-interactions';
 export const metadata = {
   title: 'FDE前线 · 企业AI转型与智能体产业媒体',
   description:
@@ -168,7 +167,6 @@ export default async function Home() {
               <PostCard key={post.id} post={post} mode="compact" />
             ))}
           </div>
-          <Newsletter />
         </aside>
       </div>
       <section className="home-cases">

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { EcosystemLinks } from './marketing/promos';
 import { TrackedLink } from './marketing/tracking';
-import { membership, placements } from '@/lib/marketing/config';
+import { book, membership, placements } from '@/lib/marketing/config';
 import {
   ArrowUpRight,
   ArrowRight,
@@ -106,6 +106,7 @@ export function Footer() {
             <Link href="/insights">前线观察</Link>
             <Link href="/cases">企业案例</Link>
             <Link href="/research">产业研究</Link>
+            {book.enabled && <Link href="/book">FDE图书</Link>}
           </div>
           <div>
             <strong>连接与共建</strong>

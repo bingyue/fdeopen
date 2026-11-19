@@ -227,7 +227,7 @@ for prefix,slug,title,source_name,topic in [
     selected=[p for p in posts if p['slug'].startswith(prefix)]
     body=f'本篇将《{source_name.split(" · ")[-1]}》中已整理的{len(selected)}篇案例组织为阅读路径。案例提供业务问题、方案选择和交付过程的参考；来源披露的结果不构成对其他企业的效果承诺。\n\n## 怎样阅读这些案例\n\n先按行业与核心业务任务找到相近项目，再检查原有流程、输入资料、异常分支与业务负责人。技术名词相同，并不意味着数据基础、流程复杂度和投入条件相同。\n\n## 案例阅读索引\n\n| 案例 | 行业 | 核心场景 |\n| --- | --- | --- |\n'
     for p in selected:body+=f'| [{p["title"]}](/cases/{p["slug"]}) | {p["details"]["industry"]} | {p["details"]["scenario"]} |\n'
-    body+='\n## 把阅读变成可执行的调研\n\n- 对照客户现有流程，记录哪些环节与材料相同，哪些条件尚不成立。\n- 将原文披露结果与自己的现状基线分开，明确指标的分母、时间范围和成本边界。\n- 把案例中的方案拆成资料准备、模型能力、系统接口与人工责任，逐项判断可复用程度。\n- 对未公开的预算、人员、周期和异常处理记录待确认问题，不用行业案例替代客户验收。\n\n## 来源范围\n\n本导读不增加新的企业事实或量化成效。具体来源、页码或受访者见各案例正文；方法性阅读建议由FDE前线编辑部整理。'
+    body+='\n## 把阅读变成可执行的调研\n\n- 对照客户现有流程，记录哪些环节与材料相同，哪些条件尚不成立。\n- 将原文披露结果与自己的现状基线分开，明确指标的分母、时间范围和成本边界。\n- 把案例中的方案拆成资料准备、模型能力、系统接口与人工责任，逐项判断可复用程度。\n- 对未公开的预算、人员、周期和异常处理记录待确认问题，不用行业案例替代客户验收。\n\n## 来源范围\n\n本导读不增加新的企业事实或量化成效。具体来源、页码或受访者见各案例正文；方法性阅读建议由FDE前线整理。'
     origin_file=(FILES/'信通院制造业数智化案例2025/manifest.json') if prefix=='caict-2025-' else (FILES/'FDE案例集整理/Datawhale-FDE案例100_本地整理/manifest.csv')
     add(slug,title,body,origin_file,source_name,channel='research',date='2026-10-20',family=topic if topic=='manufacturing' else 'fde',authenticity='editorial',details={'research_type':'series','team':'FDE前线'},topic=topic)
 
@@ -240,7 +240,7 @@ for p in posts:
     if len(p['body'])>80000:raise ValueError('Oversized article: '+p['slug'])
     if len(p['summary'])<20:raise ValueError('Insufficient summary: '+p['slug'])
 assert len({p['slug'] for p in posts})==len(posts)
-pack=dict(version=1,batch=BATCH,prepared_at='2026-10-20',author={'id':uid('editor'),'slug':'frontline-editorial','name':'FDE前线编辑部','title':'内容整理与研究','bio':'整理公开案例、访谈、研究资料与原创方法。第三方事实和指标注明来源，分析建议与项目实际成果分开呈现。'},categories=categories,tags=[dict(slug=k,name=v,description='') for k,v in tag_names.items()],topics=topics,assets=list(assets.values()),posts=posts)
+pack=dict(version=1,batch=BATCH,prepared_at='2026-10-20',author={'id':uid('editor'),'slug':'frontline-editorial','name':'FDE前线','title':'内容整理与研究','bio':'整理公开案例、访谈、研究资料与原创方法。第三方事实和指标注明来源，分析建议与项目实际成果分开呈现。'},categories=categories,tags=[dict(slug=k,name=v,description='') for k,v in tag_names.items()],topics=topics,assets=list(assets.values()),posts=posts)
 (ROOT/'content/media-library.json').write_text(json.dumps(pack,ensure_ascii=False,indent=2)+'\n')
 (PRIVATE/'source-ledger.json').write_text(json.dumps(dict(batch=BATCH,imported=ledger,excluded=excluded),ensure_ascii=False,indent=2)+'\n')
 subprocess.run(['node','--import','tsx','scripts/clean-media-sources.ts','--apply'],cwd=ROOT,check=True)

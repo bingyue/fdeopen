@@ -679,48 +679,6 @@
   padding: 16px 0;
   border-bottom: 1px solid #e4e9ef;
 }
-.newsletter-panel {
-  background: var(--media-navy);
-  color: #edf2f8;
-  padding: 27px;
-}
-.newsletter-panel .media-eyebrow {
-  color: #9cb4d3;
-  font-size: 9px;
-}
-.newsletter-panel h3 {
-  font-family: 'Songti SC', 'STSong', serif;
-  font-size: 24px;
-  line-height: 1.6;
-  font-weight: 500;
-  margin: 12px 0;
-}
-.newsletter-panel > p {
-  font-size: 12px;
-  color: #b3c0d1;
-  line-height: 1.8;
-}
-.newsletter-input {
-  display: flex;
-  margin-top: 20px;
-  background: white;
-  color: var(--media-navy);
-}
-.newsletter-input input {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  background: transparent;
-  padding: 12px;
-  font-size: 12px;
-}
-.newsletter-input button {
-  padding: 12px;
-  border: 0;
-  background: transparent;
-  color: var(--media-navy);
-  cursor: pointer;
-}
 .consent-line {
   display: flex !important;
   align-items: flex-start;
@@ -738,10 +696,6 @@
   margin: 3px 2px 0 0;
 }
 .consent-line a {
-  text-decoration: underline;
-}
-.newsletter-panel > a {
-  font-size: 12px;
   text-decoration: underline;
 }
 .home-cases,
@@ -1785,9 +1739,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
-  }
-  .newsletter-panel {
-    grid-column: 1/-1;
   }
   .media-grid-three {
     grid-template-columns: 1fr 1fr;

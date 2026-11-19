@@ -65,7 +65,7 @@ export function EditorialCover({ post, large = false }: { post: PublicPost; larg
 export function PostMeta({ post }: { post: PublicPost }) {
   return (
     <div className="post-meta">
-      <span>{post.author_name || '编辑部'}</span>
+      <span>{post.author_name || 'FDE前线'}</span>
       <span>·</span>
       {post.authenticity === 'example' ? (
         <span className="example-label">示例内容</span>
