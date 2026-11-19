@@ -45,7 +45,7 @@ beforeAll(async () => {
 });
 const input = (slug: string) => ({
   slug,
-  channel: 'features',
+  channel: 'insights',
   title: '媒体验收：' + slug,
   summary: '这是一篇用于验证媒体内容发布权限与展示流程的完整测试摘要。',
   body,
@@ -187,17 +187,16 @@ describe('media private forms and uploads', () => {
       )[0].status,
     ).toBe('contacted');
   });
-  it('rejects real registration against example events', async () => {
-    const event = (await mediaList({ channel: 'events' })).rows[0];
+  it('rejects registration for the retired events channel', async () => {
     await expect(
       submitInquiry(null, {
         kind: 'event',
-        post_id: event.id,
+        post_id: randomUUID(),
         name: '测试用户',
         contact: 'test@example.com',
         consent: true,
       }),
-    ).rejects.toThrow('示例活动');
+    ).rejects.toThrow();
   });
   it('validates file signature and protects unlinked assets', async () => {
     expect(() => detectUpload(Buffer.from('<svg onload="alert(1)"></svg>'))).toThrow();

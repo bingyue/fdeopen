@@ -68,7 +68,6 @@ it('archives atomically with an audit snapshot, preserves CMS text, and survives
   expect((await importLibrary(database, library, DEMO_ADMIN)).inserted).toBe(0);
   expect((await mediaList({ channel: 'cases' })).count).toBe(20);
   expect((await curateDatabaseCases(database, DEMO_ADMIN, true)).changedSlugs).toEqual([]);
-  expect((await mediaList({ channel: 'features' })).count).toBe(13);
   expect((await mediaList({ channel: 'research' })).count).toBe(12);
-  expect((await mediaList({ channel: 'insights' })).count).toBe(2);
+  expect((await mediaList({ channel: 'insights' })).count).toBe(15);
 });

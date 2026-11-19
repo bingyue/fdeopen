@@ -45,18 +45,14 @@ export function EditorialCover({ post, large = false }: { post: PublicPost; larg
             ? 'RESEARCH'
             : post.channel === 'cases'
               ? 'IN PRACTICE'
-              : post.channel === 'people'
-                ? 'PERSPECTIVES'
-                : 'THE NEXT'}
+              : 'THE NEXT'}
         </span>
         <strong>
           {post.channel === 'research'
             ? '企业 AI 研究'
             : post.channel === 'cases'
               ? post.details.industry || '企业实践'
-              : post.channel === 'people'
-                ? '一线的思考'
-                : '组织的下一步'}
+              : '组织的下一步'}
         </strong>
       </div>
       <div className="cover-bottom">

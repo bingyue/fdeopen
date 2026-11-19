@@ -44,27 +44,6 @@ body {
 .media-logo-mark > span {
   color: var(--brand-blue);
 }
-.community-subnav {
-  background: var(--brand-slate);
-  border-color: var(--line);
-}
-.community-subnav > div {
-  gap: 8px;
-  padding-block: 8px;
-}
-.community-subnav a {
-  padding: 5px 13px;
-  border-radius: 3px;
-  color: #43566e;
-  transition:
-    background 160ms ease,
-    color 160ms ease;
-}
-.community-subnav a:hover,
-.community-subnav a[aria-current='page'] {
-  background: var(--brand-blue-soft);
-  color: var(--brand-teal);
-}
 .header-actions .btn-secondary {
   background: var(--accent-teal-soft);
   border-color: var(--brand-teal-line);
@@ -210,7 +189,6 @@ body {
   border-radius: var(--panel-radius);
 }
 .newsletter-panel,
-.event-teaser,
 .ecosystem-links > a,
 .media-empty {
   border-radius: var(--panel-radius);
@@ -416,12 +394,6 @@ body {
   .start-paths {
     padding-top: 24px;
   }
-  .community-subnav > div {
-    gap: 4px;
-  }
-  .community-subnav a {
-    padding-inline: 10px;
-  }
   .path-card-meta {
     margin-bottom: 10px;
   }
@@ -437,7 +409,6 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .path-grid > a,
-  .community-subnav a,
   .media-primary,
   .media-filters button {
     transition: none;

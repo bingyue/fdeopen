@@ -746,7 +746,6 @@
 }
 .home-cases,
 .home-research,
-.home-two-columns,
 .ecosystem-editorial {
   margin-top: 54px;
   border-top: 1px solid #d9e1e9;
@@ -820,54 +819,6 @@
   color: var(--media-blue);
   font-size: 11px;
   margin-top: 20px;
-}
-.home-two-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-}
-.home-two-columns .post-row {
-  grid-template-columns: 150px minmax(0, 1fr);
-  padding-top: 0;
-}
-.home-two-columns .post-row h3 {
-  font-size: 17px;
-}
-.event-teaser {
-  display: flex;
-  gap: 22px;
-  background: #f4f6f8;
-  padding: 24px;
-  align-items: center;
-}
-.event-date {
-  min-width: 65px;
-  border-right: 1px solid #d4dce7;
-  padding-right: 20px;
-  text-align: center;
-}
-.event-date small {
-  font-size: 10px;
-  color: #56677e;
-}
-.event-date strong {
-  display: block;
-  font-size: 32px;
-  line-height: 1.3;
-  font-family: 'Avenir Next', sans-serif;
-}
-.event-teaser h3 {
-  font-size: 18px;
-  line-height: 1.6;
-  margin: 0 0 10px;
-}
-.event-teaser p {
-  font-size: 11px;
-  color: #56677e;
-}
-.event-teaser span {
-  font-size: 10px;
-  color: #4b688d;
 }
 .ecosystem-links {
   display: grid;
@@ -1667,9 +1618,6 @@
   .research-card h3 {
     font-size: 18px;
   }
-  .home-two-columns {
-    gap: 28px;
-  }
   .ecosystem-links h3 {
     font-size: 14px;
   }
@@ -1754,9 +1702,6 @@
   }
   .research-card .cover-type strong {
     font-size: 15px;
-  }
-  .home-two-columns {
-    grid-template-columns: 1fr;
   }
   .ecosystem-links {
     grid-template-columns: repeat(3, 1fr);
@@ -1861,7 +1806,6 @@
   }
   .home-cases,
   .home-research,
-  .home-two-columns,
   .ecosystem-editorial {
     margin-top: 32px;
     padding-top: 25px;
@@ -2113,19 +2057,6 @@
   .research-card {
     grid-template-columns: 105px minmax(0, 1fr);
   }
-  .home-two-columns .post-row {
-    grid-template-columns: 110px minmax(0, 1fr);
-  }
-  .home-two-columns .post-row h3 {
-    font-size: 15px;
-  }
-  .event-teaser {
-    padding: 19px;
-    gap: 17px;
-  }
-  .event-teaser h3 {
-    font-size: 16px;
-  }
   .ecosystem-links {
     grid-template-columns: 1fr 1fr;
   }
@@ -2224,12 +2155,6 @@
 .mobile-nav nav {
   max-height: calc(100vh - 110px);
   overflow-y: auto;
-}
-.mobile-community-label {
-  font-size: 10px;
-  color: #56677e;
-  border-top: 1px solid #dce4ec;
-  padding: 12px 11px 3px;
 }
 .media-skeleton {
   padding-top: 40px;

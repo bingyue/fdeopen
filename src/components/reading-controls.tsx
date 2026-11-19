@@ -55,7 +55,6 @@ export function MediaBookmark({
 }
 const labels: Record<string, string> = {
   cases: '企业案例',
-  features: '深度文章',
   research: '产业研究',
   insights: '前线观察',
   project: '开源项目',

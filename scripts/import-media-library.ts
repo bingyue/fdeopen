@@ -27,7 +27,7 @@ for (const asset of library.assets) {
   if (!valid) throw new Error('Asset signature mismatch: ' + asset.file);
 }
 const counts = Object.fromEntries(
-  ['cases', 'features', 'insights', 'research'].map((c) => [
+  ['cases', 'insights', 'research'].map((c) => [
     c,
     library.posts.filter((p) => p.value.channel === c).length,
   ]),

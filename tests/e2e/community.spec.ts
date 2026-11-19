@@ -56,6 +56,10 @@ test('public discovery, detail, MDX, SEO, responsive layout and accessibility', 
   await page.getByText('菜单', { exact: true }).click();
   await page
     .getByRole('navigation', { name: '移动端导航' })
+    .getByText('开源生态', { exact: true })
+    .click();
+  await page
+    .getByRole('navigation', { name: '移动端导航' })
     .getByRole('link', { name: '企业场景', exact: true })
     .click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('企业场景');
@@ -224,14 +228,18 @@ test('review regressions: malformed query parameters, bounded API payloads and m
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByLabel('主导航菜单').click();
   const mobile = page.getByRole('navigation', { name: '移动端导航' });
-  await mobile.getByRole('link', { name: 'Skills 市场' }).click();
+  await mobile.getByText('开源生态', { exact: true }).click();
+  await mobile.getByRole('link', { name: 'Skills', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Skills 市场');
   await expect(page.locator('.mobile-nav')).not.toHaveAttribute('open');
   await page.getByLabel('主导航菜单').click();
-  await expect(mobile.getByRole('link', { name: 'Skills 市场' })).toHaveAttribute(
+  await mobile.getByText('开源生态', { exact: true }).click();
+  await expect(mobile.getByRole('link', { name: 'Skills', exact: true })).toHaveAttribute(
     'aria-current',
     'page',
   );
+  await page.keyboard.press('Escape');
+  await expect(mobile.getByText('开源生态', { exact: true })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(page.locator('.mobile-nav')).not.toHaveAttribute('open');
   await expect(page.getByLabel('主导航菜单')).toBeFocused();

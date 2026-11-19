@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { EcosystemLinks } from './marketing/promos';
 import { TrackedLink } from './marketing/tracking';
-import { book, membership, placements } from '@/lib/marketing/config';
+import { membership, placements } from '@/lib/marketing/config';
 import {
   ArrowUpRight,
   ArrowRight,
@@ -20,7 +20,7 @@ import {
 import type { User, Resource, ResourceSummary, Profile, Collection } from '@/lib/types';
 import { kinds, resourcePath } from '@/lib/types';
 import { Button } from './ui/button';
-import { SiteNavigation, CommunityNavigation } from './navigation';
+import { SiteNavigation } from './navigation';
 import { LoginLink } from './login-link';
 export function LogoMark() {
   return (
@@ -48,10 +48,7 @@ export function Header({ user }: { user: User | null }) {
       <header className="site-header">
         <div className="header-inner">
           <Logo />
-          <SiteNavigation
-            bookEnabled={book.enabled && placements.header.enabled}
-            membershipEnabled={membership.enabled && placements.header.enabled}
-          />
+          <SiteNavigation membershipEnabled={membership.enabled && placements.header.enabled} />
           <div className="header-actions">
             {membership.enabled && placements.header.enabled && (
               <TrackedLink
@@ -87,12 +84,10 @@ export function Header({ user }: { user: User | null }) {
           <SiteNavigation
             mobile
             loggedIn={!!user}
-            bookEnabled={book.enabled && placements.header.enabled}
             membershipEnabled={membership.enabled && placements.header.enabled}
           />
         </div>
       </header>
-      <CommunityNavigation />
     </>
   );
 }
@@ -109,15 +104,13 @@ export function Footer() {
           <div>
             <strong>内容与研究</strong>
             <Link href="/insights">前线观察</Link>
-            <Link href="/features">深度报道</Link>
             <Link href="/cases">企业案例</Link>
             <Link href="/research">产业研究</Link>
           </div>
           <div>
             <strong>连接与共建</strong>
-            <Link href="/people">前线人物</Link>
-            <Link href="/events">产业活动</Link>
-            <Link href="/community">FDE开放社区</Link>
+            {membership.enabled && <Link href="/membership">FDE社群</Link>}
+            <Link href="/community">开源资源</Link>
             <Link href="/enterprise">企业服务</Link>
           </div>
           <div>

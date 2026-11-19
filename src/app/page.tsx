@@ -20,22 +20,20 @@ export const metadata = {
   alternates: { canonical: '/' },
 };
 export default async function Home() {
-  const [home, latest, breaking, cases, research, people, events, popular, taxonomy] =
-    await Promise.all([
-      mediaList({ home: true, limit: 5 }),
-      mediaList({ limit: 6 }),
-      mediaList({ breaking: true, limit: 3 }),
-      mediaList({ channel: 'cases', limit: 3 }),
-      mediaList({ channel: 'research', limit: 3 }),
-      mediaList({ channel: 'people', limit: 2 }),
-      mediaList({ channel: 'events', limit: 2 }),
-      mediaList({ popular: true, limit: 4 }),
-      mediaTaxonomy(),
-    ]);
+  const [home, latest, breaking, cases, research, popular, taxonomy] = await Promise.all([
+    mediaList({ home: true, limit: 5 }),
+    mediaList({ limit: 6 }),
+    mediaList({ breaking: true, limit: 3 }),
+    mediaList({ channel: 'cases', limit: 3 }),
+    mediaList({ channel: 'research', limit: 3 }),
+    mediaList({ popular: true, limit: 4 }),
+    mediaTaxonomy(),
+  ]);
   const lead = home.rows[0] || latest.rows[0],
     picks = home.rows.length > 1 ? home.rows.slice(1) : latest.rows.slice(1, 5);
   return (
     <div className="media-home media-container">
+      <BookFeatureBanner />
       <StartPaths />
       <div className="newswire">
         <span>
@@ -97,23 +95,21 @@ export default async function Home() {
                 <PostCard post={post} mode="compact" />
               </div>
             ))}
-            <Link href="/features" className="rail-more">
-              进入深度栏目 <ArrowUpRight size={16} />
+            <Link href="/insights" className="rail-more">
+              进入前线观察 <ArrowUpRight size={16} />
             </Link>
           </aside>
         </section>
       ) : (
         <MediaEmpty title="为企业 AI 的下一步，记录值得阅读的内容。" />
       )}
-      <BookFeatureBanner />
       <div className="media-main-grid">
         <section>
           <EditorialSection title="前线正在发生" en="LATEST STORIES" href="/insights" />
           <div className="story-tabs">
             <span>最新文章</span>
             <Link href="/insights">前线观察</Link>
-            <Link href="/features">深度分析</Link>
-            <Link href="/features?featured=1">编辑精选</Link>
+            <Link href="/insights?featured=1">编辑精选</Link>
           </div>
           <div className="story-feed">
             {latest.rows.map((post) => (
@@ -208,43 +204,6 @@ export default async function Home() {
         </div>
         {!research.rows.length && <MediaEmpty title="研究内容正在准备" />}
       </section>
-      <div className="home-two-columns">
-        <section>
-          <EditorialSection title="前线人物" en="PEOPLE AT THE FRONTLINE" href="/people" />
-          {people.rows.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-          {!people.rows.length && <MediaEmpty title="人物报道正在准备" />}
-        </section>
-        <section>
-          <EditorialSection title="产业活动" en="MEET & CONNECT" href="/events" />
-          {events.rows.map((post) => (
-            <Link className="event-teaser" href={postPath(post)} key={post.id}>
-              <div className="event-date">
-                <small>{post.authenticity === 'example' ? '示例活动' : '即将相遇'}</small>
-                <strong>
-                  {post.authenticity === 'example'
-                    ? '—'
-                    : new Date(post.details.event_start || '').getDate()}
-                </strong>
-              </div>
-              <div>
-                <h3>{post.title}</h3>
-                <p>{post.details.location}</p>
-                <span>
-                  {post.authenticity === 'example'
-                    ? '暂不开放报名'
-                    : post.details.event_state === 'open'
-                      ? '查看活动与报名'
-                      : '查看活动详情'}{' '}
-                  ↗
-                </span>
-              </div>
-            </Link>
-          ))}
-          {!events.rows.length && <MediaEmpty title="近期活动尚未公布" />}
-        </section>
-      </div>
       {placements['home-bottom'].enabled && (
         <CommunityPromoCard context={{ placement: 'home-bottom', contentType: 'home' }} />
       )}

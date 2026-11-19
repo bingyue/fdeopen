@@ -81,7 +81,7 @@ export async function seedMedia(database: DB, demo = false) {
       "INSERT INTO media_topics(slug,title,description,published) VALUES('ai-transformation','企业 AI 转型进行时','示例专题：从工具采用到流程、组织与价值的系统变化。',true) ON CONFLICT DO NOTHING",
     );
     await tx.query(
-      "INSERT INTO media_topic_posts(topic_slug,post_id) SELECT 'ai-transformation',id FROM media_posts WHERE owner_id=$1 AND channel IN ('features','insights','research') ON CONFLICT DO NOTHING",
+      "INSERT INTO media_topic_posts(topic_slug,post_id) SELECT 'ai-transformation',id FROM media_posts WHERE owner_id=$1 AND channel IN ('insights','research') ON CONFLICT DO NOTHING",
       [DEMO_ADMIN],
     );
   });

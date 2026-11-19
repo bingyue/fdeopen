@@ -263,7 +263,7 @@ export function promotionOrder(
   title = '',
   placement: Placement = 'article-bottom',
 ): PromoKind[] {
-  if (contentType === 'cases' || contentType === 'events') return ['community', 'book'];
+  if (contentType === 'cases') return ['community', 'book'];
   if (/职业|成长|人才|转型FDE/.test(title)) return ['book', 'community'];
   if (['project', 'skill'].includes(contentType) || /RAG|MCP|Skill|Agent|智能体工程/i.test(title))
     return ['awesome', 'community', 'book'];

@@ -99,7 +99,7 @@ export function MediaEditor({
   canPublish: boolean;
 }) {
   const router = useRouter();
-  const [channel, setChannel] = useState<Channel>(post?.channel || 'features'),
+  const [channel, setChannel] = useState<Channel>(post?.channel || 'insights'),
     [body, setBody] = useState(post?.body || ''),
     [cover, setCover] = useState(post?.cover_id || null),
     [report, setReport] = useState(post?.report_id || null),
@@ -118,9 +118,6 @@ export function MediaEditor({
           detail = { ...detailsSchema.parse({}), ...post?.details } as Record<string, unknown>;
         for (const [key, value] of f.entries())
           if (key.startsWith('detail_')) detail[key.slice(7)] = value;
-        for (const key of ['event_start', 'event_end'])
-          if (detail[key]) detail[key] = new Date(String(detail[key])).toISOString();
-        detail.capacity = Number(detail.capacity) || 0;
         const data = {
           id: post?.id,
           revision: post?.revision,
@@ -353,77 +350,6 @@ export function MediaEditor({
               <option value="request">登录申请，审核完成后下载</option>
             </select>
           </label>
-        </fieldset>
-      )}
-      {channel === 'people' && (
-        <fieldset>
-          <legend>人物信息</legend>
-          <label>
-            人物姓名
-            <input
-              name="detail_person_name"
-              maxLength={200}
-              defaultValue={post?.details.person_name}
-            />
-          </label>
-          <label>
-            身份与介绍
-            <input
-              name="detail_person_title"
-              maxLength={200}
-              defaultValue={post?.details.person_title}
-            />
-          </label>
-        </fieldset>
-      )}
-      {channel === 'events' && (
-        <fieldset>
-          <legend>活动安排（本地时区）</legend>
-          <div className="form-two">
-            <label>
-              开始时间
-              <input
-                type="datetime-local"
-                name="detail_event_start"
-                defaultValue={localTime(post?.details.event_start)}
-              />
-            </label>
-            <label>
-              结束时间
-              <input
-                type="datetime-local"
-                name="detail_event_end"
-                defaultValue={localTime(post?.details.event_end)}
-              />
-            </label>
-          </div>
-          <label>
-            地点
-            <input name="detail_location" maxLength={200} defaultValue={post?.details.location} />
-          </label>
-          <div className="form-two">
-            <label>
-              报名状态
-              <select
-                name="detail_event_state"
-                defaultValue={post?.details.event_state || 'closed'}
-              >
-                <option value="closed">关闭报名</option>
-                <option value="open">开放报名</option>
-                <option value="cancelled">活动取消</option>
-              </select>
-            </label>
-            <label>
-              报名名额（0 表示不限）
-              <input
-                type="number"
-                name="detail_capacity"
-                min={0}
-                max={100000}
-                defaultValue={post?.details.capacity || 0}
-              />
-            </label>
-          </div>
         </fieldset>
       )}
       <fieldset>

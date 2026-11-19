@@ -84,7 +84,7 @@ export async function readingList(
   const mediaFrom = tab === 'bookmarks' ? 'media_bookmarks' : 'reading_history';
   const resourceFrom = tab === 'bookmarks' ? 'bookmarks' : 'reading_history';
   const time = tab === 'bookmarks' ? 'created_at' : 'seen_at';
-  const union = `SELECT p.id,p.title,p.summary,'/' || (CASE p.channel WHEN 'features' THEN 'articles' ELSE p.channel END) || '/' || p.slug AS url,p.channel AS kind,'media' AS target,b.${time} AS saved_at FROM ${mediaFrom} b JOIN media_posts p ON p.id=b.post_id WHERE b.user_id=$1 AND ${publicMedia}
+  const union = `SELECT p.id,p.title,p.summary,'/' || (CASE p.channel WHEN 'insights' THEN 'articles' ELSE p.channel END) || '/' || p.slug AS url,p.channel AS kind,'media' AS target,b.${time} AS saved_at FROM ${mediaFrom} b JOIN media_posts p ON p.id=b.post_id WHERE b.user_id=$1 AND ${publicMedia}
  UNION ALL SELECT r.id,r.title,r.summary,'/' || (CASE r.kind WHEN 'project' THEN 'projects' WHEN 'skill' THEN 'skills' WHEN 'scenario' THEN 'scenarios' WHEN 'demo' THEN 'lab' WHEN 'task' THEN 'build' ELSE 'docs' END) || '/' || r.slug,r.kind,'resource',b.${time} FROM ${resourceFrom} b JOIN resources r ON r.id=b.resource_id WHERE b.user_id=$1 AND r.status='published'`;
   const [{ count }] = await database.query<{ count: number }>(
     `SELECT count(*)::int count FROM (${union}) items`,

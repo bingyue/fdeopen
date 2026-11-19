@@ -60,7 +60,7 @@ it('uses verified publication chapters and prioritizes recommendations by conten
   expect(promotionOrder('cases')[0]).toBe('community');
   expect(promotionOrder('research')[0]).toBe('book');
   expect(promotionOrder('project')[0]).toBe('awesome');
-  expect(promotionOrder('features', 'FDE职业成长')[0]).toBe('book');
+  expect(promotionOrder('insights', 'FDE职业成长')[0]).toBe('book');
 });
 const event = {
   event: 'book_purchase_click',

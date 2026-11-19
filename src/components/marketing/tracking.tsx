@@ -39,7 +39,7 @@ export function TrackedLink({
   href: string;
   children: React.ReactNode;
   className?: string;
-} & Pick<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'aria-label' | 'title'>) {
+} & Pick<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'aria-label' | 'aria-current' | 'title'>) {
   const external = href.startsWith('https://');
   return (
     <Link

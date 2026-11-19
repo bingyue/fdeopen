@@ -1,0 +1,177 @@
+.ecosystem-navigation {
+  position: relative;
+}
+.ecosystem-navigation > summary {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 27px 0;
+  color: var(--brand-ink);
+  font-size: 13px;
+  list-style: none;
+  cursor: pointer;
+}
+.ecosystem-navigation > summary::-webkit-details-marker {
+  display: none;
+}
+.ecosystem-navigation > summary:hover,
+.ecosystem-navigation[open] > summary,
+.ecosystem-navigation > summary[data-active] {
+  color: var(--brand-blue-strong);
+}
+.ecosystem-navigation > summary[data-active] {
+  box-shadow: 0 2px 0 var(--brand-blue);
+}
+.ecosystem-navigation > summary:focus-visible {
+  outline: 2px solid var(--brand-blue-strong);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.ecosystem-navigation[open] > summary svg {
+  transform: rotate(180deg);
+}
+.ecosystem-menu {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: -20px;
+  z-index: 50;
+  width: 440px;
+  padding: 16px;
+  background: white;
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--brand-blue);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 12px 30px rgb(38 38 38 / 9%);
+  white-space: normal;
+}
+.ecosystem-menu-heading {
+  margin: 0 8px 12px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+.ecosystem-menu-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+.ecosystem-menu a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 10px;
+  border-radius: 3px;
+  white-space: normal;
+}
+.ecosystem-menu a span {
+  color: var(--brand-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+.ecosystem-menu a small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.ecosystem-menu a:hover,
+.ecosystem-menu a:focus-visible,
+.ecosystem-menu a[aria-current='page'] {
+  background: var(--brand-blue-soft);
+  box-shadow: none;
+}
+.ecosystem-menu a:hover span,
+.ecosystem-menu a[aria-current='page'] span {
+  color: var(--brand-blue-strong);
+}
+.ecosystem-menu-more {
+  display: flex;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 6px;
+}
+.ecosystem-menu-more a {
+  color: var(--brand-blue-strong);
+  font-size: 12px;
+}
+@media (max-width: 1200px) {
+  .mobile-nav {
+    position: relative;
+  }
+  .mobile-nav > summary {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 5px 10px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    list-style: none;
+    cursor: pointer;
+  }
+  .mobile-nav > summary::-webkit-details-marker {
+    display: none;
+  }
+  .mobile-nav > nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: min(300px, calc(100vw - 32px));
+    max-height: calc(100dvh - 100px);
+    padding: 14px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 0 12px 30px rgb(38 38 38 / 9%);
+  }
+  .mobile-nav > nav > a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .mobile-nav .ecosystem-navigation > summary {
+    justify-content: space-between;
+    padding: 8px;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+  .mobile-nav .ecosystem-navigation > summary[data-active] {
+    background: var(--brand-blue-soft);
+    box-shadow: none;
+  }
+  .mobile-nav .ecosystem-menu {
+    position: static;
+    width: auto;
+    padding: 4px 0 4px 8px;
+    margin: 4px 0 8px 8px;
+    border: 0;
+    border-left: 2px solid var(--brand-blue);
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .mobile-nav .ecosystem-menu-heading,
+  .mobile-nav .ecosystem-menu-links small {
+    display: none;
+  }
+  .mobile-nav .ecosystem-menu-links {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .mobile-nav .ecosystem-menu-more {
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+  }
+}

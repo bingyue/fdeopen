@@ -9,9 +9,9 @@ test('publication, free ecosystem and mock membership work on desktop and mobile
   await page.goto('/');
   await expect(page.locator('.book-feature')).toBeVisible();
   const order = await page
-    .locator('.front-cover,.book-feature,.media-main-grid')
+    .locator('.start-paths,.front-cover,.book-feature,.media-main-grid')
     .evaluateAll((nodes) => nodes.map((n) => n.className.trim()));
-  expect(order).toEqual(['front-cover', 'book-feature', 'media-main-grid']);
+  expect(order).toEqual(['book-feature', 'start-paths', 'front-cover', 'media-main-grid']);
   await page.locator('.book-feature').getByRole('link', { name: '了解图书' }).click();
   await expect(page).toHaveURL(/\/book$/);
   await expect(page.locator('.book-toc details')).toHaveCount(12);
@@ -52,7 +52,7 @@ test('publication, free ecosystem and mock membership work on desktop and mobile
   await page.getByLabel('主导航菜单').click();
   await expect(
     page.getByRole('navigation', { name: '移动端导航' }).getByRole('link', { name: 'FDE图书' }),
-  ).toBeVisible();
+  ).toHaveCount(0);
   await expect(
     page
       .getByRole('navigation', { name: '移动端导航' })

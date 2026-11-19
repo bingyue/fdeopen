@@ -7,7 +7,7 @@ export function InquiryForm({
   postId,
   diagnosis = false,
 }: {
-  kind: 'enterprise' | 'expert' | 'cooperation' | 'report' | 'event';
+  kind: 'enterprise' | 'expert' | 'cooperation' | 'report';
   postId?: string;
   diagnosis?: boolean;
 }) {

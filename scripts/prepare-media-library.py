@@ -187,7 +187,7 @@ for file,slug,date,home in originals:
     body=clean_body(raw,file,images=True)
     refs=file.parent/'参考资料.md'
     if refs.exists():body+='\n\n## 参考资料\n\n'+clean_body(refs.read_text(),refs)
-    add(slug,title,body,file,'FDE前线 · 原创深度稿',channel='features',date=date,family='organization',authenticity='editorial',cover=cover,home=home,topic='organization')
+    add(slug,title,body,file,'FDE前线 · 原创深度稿',channel='insights',date=date,family='organization',authenticity='editorial',cover=cover,home=home,topic='organization')
 
 # 5. Existing public editorial methods from the owner's FDE site (no example events).
 file=ROOT.parent/'51fde/src/lib/frontline-content.ts'
@@ -218,7 +218,7 @@ for file in sorted(base.glob('*.md')):
     if not m:continue
     title=re.sub(r'^案例\d+[｜|]','',m.group(1))+'：从业务任务到可验证交付'
     body='> 方案实践：本文来自 FDE前线公开演示方案材料。演示数据、试点目标和产品能力说明不构成真实客户收益或生产部署承诺。\n\n'+clean_body(raw,file)
-    add('practice-'+file.stem,title,body,file,'FDE前线 · 企业AI智能体行业和案例分享',channel='features',date='2026-10-13',family='fde',authenticity='editorial',topic='fde-delivery')
+    add('practice-'+file.stem,title,body,file,'FDE前线 · 企业AI智能体行业和案例分享',channel='insights',date='2026-10-13',family='fde',authenticity='editorial',topic='fde-delivery')
 
 # 8. Reading guides connect the original reports to their actual, traceable case entries.
 for prefix,slug,title,source_name,topic in [

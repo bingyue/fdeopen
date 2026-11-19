@@ -26,11 +26,8 @@ const publicPages = new Set([
 ]);
 const publicSections = new Set([
   'insights',
-  'features',
   'cases',
   'research',
-  'people',
-  'events',
   'articles',
   'projects',
   'skills',

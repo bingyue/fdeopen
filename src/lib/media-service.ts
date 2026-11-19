@@ -28,7 +28,7 @@ const publicColumns = `p.id,p.slug,p.channel,p.title,p.subtitle,p.summary,p.cate
  p.seo_title,p.seo_description,p.report_id,p.download_access,p.home_rank,p.featured,p.breaking,
  p.published_at,p.created_at,p.updated_at,p.revision,now() AS observed_at,a.name AS author_name,a.slug AS author_slug,a.bio AS author_bio,c.name AS category_name`;
 const summaryDetails =
-  "jsonb_build_object('industry',p.details->>'industry','scenario',p.details->>'scenario','technology',p.details->>'technology','company',p.details->>'company','research_type',p.details->>'research_type','person_name',p.details->>'person_name','person_title',p.details->>'person_title','event_start',p.details->>'event_start','event_end',p.details->>'event_end','location',p.details->>'location','event_state',p.details->>'event_state') AS details";
+  "jsonb_build_object('industry',p.details->>'industry','scenario',p.details->>'scenario','technology',p.details->>'technology','company',p.details->>'company','research_type',p.details->>'research_type') AS details";
 function dates<T>(row: T): T {
   return JSON.parse(JSON.stringify(row));
 }
@@ -392,26 +392,10 @@ export async function submitInquiry(user: User | null, input: unknown) {
       );
       if (
         !p ||
-        (v.kind === 'report' && (p.channel !== 'research' || p.download_access !== 'request')) ||
-        (v.kind === 'event' && p.channel !== 'events')
+        (v.kind === 'report' && (p.channel !== 'research' || p.download_access !== 'request'))
       )
         throw new AppError('相关内容不可申请', 404);
       if (v.kind === 'report' && !user) throw new AppError('请先登录以便查看申请与获取资料', 401);
-      if (v.kind === 'event') {
-        if (p.authenticity === 'example') throw new AppError('示例活动不接受真实报名');
-        if (
-          p.details.event_state !== 'open' ||
-          !p.details.event_end ||
-          new Date(p.details.event_end).getTime() <= Date.now()
-        )
-          throw new AppError('活动报名已结束');
-        const [{ count }] = await tx.query<{ count: number }>(
-          "SELECT count(*)::int AS count FROM media_inquiries WHERE post_id=$1 AND kind='event' AND status<>'rejected'",
-          [p.id],
-        );
-        if (p.details.capacity && count >= p.details.capacity)
-          throw new AppError('活动名额已满', 409);
-      }
     }
     const duplicate = await tx.query(
       "SELECT id FROM media_inquiries WHERE kind=$1 AND contact=$2 AND post_id IS NOT DISTINCT FROM $3 AND status IN ('new','contacted')",

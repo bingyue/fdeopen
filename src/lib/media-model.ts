@@ -5,12 +5,7 @@ export const channels = {
   insights: {
     name: '前线观察',
     en: 'INSIGHTS',
-    description: '观察产业变化，寻找企业 AI 转型的真实问题。',
-  },
-  features: {
-    name: '深度',
-    en: 'IN DEPTH',
-    description: '走进技术、组织与商业的交汇处，理解变化背后的逻辑。',
+    description: '观察产业变化，深入技术、组织与商业一线，理解企业 AI 转型的真实问题。',
   },
   cases: {
     name: '企业案例',
@@ -22,12 +17,6 @@ export const channels = {
     en: 'RESEARCH',
     description: '用系统研究与可验证的方法，理解企业 AI 的下一步。',
   },
-  people: {
-    name: '人物',
-    en: 'PEOPLE',
-    description: '记录企业 AI 负责人、技术专家与一线实践者的思考。',
-  },
-  events: { name: '活动', en: 'EVENTS', description: '在沙龙、研讨与交流中，让产业经验流动起来。' },
 } as const;
 export type Channel = keyof typeof channels;
 export function isChannel(value: string): value is Channel {
@@ -53,7 +42,6 @@ export const slugSchema = z
   .regex(/^[a-z0-9][a-z0-9-]{1,99}$/, 'Slug 使用 2–100 位小写字母、数字和短横线');
 const short = z.string().trim().max(200).default('');
 const text = z.string().trim().max(6000).default('');
-const optionalDate = z.union([z.iso.datetime({ offset: true }), z.literal('')]).optional();
 export const detailsSchema = z.object({
   company: short,
   industry: short,
@@ -74,20 +62,13 @@ export const detailsSchema = z.object({
   materials: text,
   research_type: z.enum(['article', 'report', 'series']).default('article'),
   team: short,
-  person_name: short,
-  person_title: short,
-  event_start: optionalDate,
-  event_end: optionalDate,
-  location: short,
-  event_state: z.enum(['open', 'closed', 'cancelled']).default('closed'),
-  capacity: z.number().int().min(0).max(100000).default(0),
 });
 export const postSchema = z
   .object({
     id: z.uuid().optional(),
     revision: z.number().int().positive().optional(),
     slug: slugSchema,
-    channel: z.enum(['insights', 'features', 'cases', 'research', 'people', 'events']),
+    channel: z.enum(['insights', 'cases', 'research']),
     title: z.string().trim().min(3).max(160),
     subtitle: short,
     summary: z.string().trim().max(600).default(''),
@@ -144,18 +125,7 @@ export const postSchema = z
         issue('案例发布需要企业名称（可匿名）、行业和应用场景');
       if (v.channel === 'cases' && v.authenticity === 'editorial')
         issue('企业案例请选择示例、已核实或匿名状态');
-      if (
-        v.channel === 'events' &&
-        (!v.details.event_start || !v.details.event_end || !v.details.location)
-      )
-        issue('活动发布需要开始时间、结束时间与地点');
     }
-    if (
-      v.details.event_start &&
-      v.details.event_end &&
-      v.details.event_start >= v.details.event_end
-    )
-      issue('活动结束时间必须晚于开始时间');
     if (v.channel !== 'research' && (v.report_id || v.download_access !== 'none'))
       issue('报告仅可关联产业研究内容');
     if (v.download_access !== 'none' && !v.report_id) issue('请先上传报告 PDF');
@@ -188,12 +158,12 @@ export type Author = {
 export type Taxonomy = { slug: string; name: string; description: string };
 export type Topic = { slug: string; title: string; description: string; published: boolean };
 export function postPath(post: Pick<MediaPost, 'channel' | 'slug'>) {
-  return `${['cases', 'research', 'events'].includes(post.channel) ? '/' + post.channel : '/articles'}/${post.slug}`;
+  return `${['cases', 'research'].includes(post.channel) ? '/' + post.channel : '/articles'}/${post.slug}`;
 }
 export const PRIVACY_VERSION = '2026-10-media-v1';
 export const inquirySchema = z
   .object({
-    kind: z.enum(['enterprise', 'expert', 'cooperation', 'report', 'event']),
+    kind: z.enum(['enterprise', 'expert', 'cooperation', 'report']),
     post_id: z.uuid().nullable().default(null),
     name: z.string().trim().min(2).max(80),
     contact: z.string().trim().min(5).max(200),
@@ -226,7 +196,7 @@ export const inquirySchema = z
       issue('请填写专业领域、行业经验与代表案例');
     if (v.kind === 'cooperation' && (!v.cooperation_type || !v.organization || v.notes.length < 10))
       issue('请填写合作类型、机构与合作需求');
-    if (['event', 'report'].includes(v.kind) && !v.post_id) issue('请选择相关活动或报告');
+    if (v.kind === 'report' && !v.post_id) issue('请选择相关报告');
   });
 export type Inquiry = z.infer<typeof inquirySchema> & {
   id: string;

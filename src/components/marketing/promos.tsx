@@ -51,7 +51,7 @@ export function BookFeatureBanner({ detail = false }: { detail?: boolean }) {
           width={440}
           height={560}
           sizes={detail ? '(max-width: 767px) 230px, 340px' : '(max-width: 767px) 160px, 210px'}
-          preload={detail}
+          preload
         />
       </div>
       <div className="book-feature-copy">

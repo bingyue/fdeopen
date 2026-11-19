@@ -25,7 +25,7 @@ export default async function Requests() {
       <div className="channel-heading">
         <span className="media-eyebrow">YOUR REQUESTS</span>
         <h1>我的申请</h1>
-        <p>查看资料获取、活动报名与合作申请的处理状态。</p>
+        <p>查看资料获取与合作申请的处理状态。</p>
       </div>
       <div className="media-links">
         <Link href="/dashboard">返回个人中心</Link>
@@ -41,7 +41,6 @@ export default async function Requests() {
                     expert: '专家合作',
                     cooperation: '投稿合作',
                     report: '研究资料',
-                    event: '活动报名',
                   }[r.kind]}
               </h3>
               <p>

@@ -24,7 +24,7 @@ const tabs = [
   ['taxonomy', '栏目与标签'],
   ['authors', '作者'],
   ['topics', '专题'],
-  ['inquiries', '申请与报名'],
+  ['inquiries', '申请管理'],
   ['subscribers', '周刊登记'],
   ['access', '编辑权限'],
 ];
@@ -171,7 +171,7 @@ export default async function AdminMedia({
     );
     panel = (
       <>
-        <h2>私密申请与报名</h2>
+        <h2>私密申请</h2>
         <p>
           联系方式与原始需求仅供本次申请处理。查看已记录审计日志。报告申请设为“已完成”后，申请人取得下载权限。
         </p>
@@ -183,7 +183,6 @@ export default async function AdminMedia({
               ['enterprise', '企业需求'],
               ['expert', '专家'],
               ['cooperation', '投稿合作'],
-              ['event', '活动报名'],
               ['report', '报告资料'],
             ].map(([k, v]) => (
               <option key={k} value={k}>

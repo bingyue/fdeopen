@@ -8,7 +8,7 @@ import { Pagination } from '@/components/pagination';
 import { queryText, positiveInteger, type SearchParams } from '@/lib/pagination';
 export const metadata = {
   title: '全站搜索',
-  description: '搜索FDE前线的产业观察、深度内容、企业案例、研究以及开放社区资源。',
+  description: '搜索FDE前线的前线观察、企业案例、产业研究以及开源社区资源。',
   robots: { index: false, follow: true },
   alternates: { canonical: '/search' },
 };

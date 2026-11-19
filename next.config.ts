@@ -19,6 +19,12 @@ const config: NextConfig = {
     ],
   },
   outputFileTracingIncludes: { '/*': ['./content/**/*', './supabase/migrations/**/*'] },
+  async redirects() {
+    return [
+      { source: '/features', destination: '/insights', permanent: true },
+      { source: '/features/:slug', destination: '/articles/:slug', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

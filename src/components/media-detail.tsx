@@ -83,7 +83,6 @@ export async function MediaArticle({
   const bookmarked = !preview && user ? await mediaBookmarked(await db(), user.id, post.id) : false;
   const toc = tableOfContents(post.body),
     url = siteUrl() + postPath(post);
-  const observedAt = Date.parse(post.observed_at || post.updated_at);
   const jsonLd = [
     {
       '@context': 'https://schema.org',
@@ -180,41 +179,6 @@ export async function MediaArticle({
               )}
             </dl>
           )}
-          {post.channel === 'people' && post.details.person_name && (
-            <div className="author-box">
-              <div>
-                <h3>{post.details.person_name}</h3>
-                <p>{post.details.person_title}</p>
-              </div>
-            </div>
-          )}
-          {post.channel === 'events' && (
-            <div className="report-access">
-              <h3>{post.authenticity === 'example' ? '示例活动信息' : '活动安排'}</h3>
-              <p>
-                时间：
-                {post.details.event_start
-                  ? new Date(post.details.event_start).toLocaleString('zh-CN', {
-                      timeZone: 'Asia/Shanghai',
-                    })
-                  : '待公布'}
-                （北京时间）
-              </p>
-              <p>地点：{post.details.location}</p>
-              <p>
-                状态：
-                {post.authenticity === 'example'
-                  ? '示例，不接受真实报名'
-                  : post.details.event_state === 'cancelled'
-                    ? '已取消'
-                    : post.details.event_end && Date.parse(post.details.event_end) < observedAt
-                      ? '已结束'
-                      : post.details.event_state === 'open'
-                        ? '开放报名'
-                        : '报名关闭'}
-              </p>
-            </div>
-          )}
           {post.channel === 'cases' && !preview && <CasePractice slug={post.slug} />}
           <MediaMarkdown body={post.body} />
           {post.channel === 'cases' && toc.length < 3 && (
@@ -260,17 +224,6 @@ export async function MediaArticle({
               )}
             </section>
           )}
-          {post.channel === 'events' &&
-            !preview &&
-            post.authenticity !== 'example' &&
-            post.details.event_state === 'open' &&
-            post.details.event_end &&
-            Date.parse(post.details.event_end) > observedAt && (
-              <section className="report-access">
-                <h3>活动报名</h3>
-                <InquiryForm kind="event" postId={post.id} />
-              </section>
-            )}
           <div className="article-tags">
             {post.tags.map((tag) => (
               <Link href={`/tags/${tag}`} key={tag}>
