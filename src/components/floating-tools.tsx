@@ -5,8 +5,10 @@ import { usePathname } from 'next/navigation';
 import { useId, useRef, useState } from 'react';
 import { ArrowUp, ArrowUpRight, Check, Copy, MessageCircle, QrCode, Share2, X } from 'lucide-react';
 
-// Place the official QR image in public/ and set its URL here when available.
-const followAccount = { name: 'FDE前线', qrCodeUrl: '' };
+const followAccount = {
+  name: 'FDE前线',
+  qrCodeUrl: '/marketing/fde-frontline-wechat-qr.jpg',
+};
 
 const publicPages = new Set([
   '/',
@@ -286,7 +288,7 @@ function FloatingToolsBar() {
             {hasQrCode ? (
               <Image
                 src={followAccount.qrCodeUrl}
-                alt={`关注${followAccount.name}的二维码`}
+                alt={`${followAccount.name}微信公众号二维码`}
                 width={168}
                 height={168}
                 unoptimized
@@ -301,7 +303,7 @@ function FloatingToolsBar() {
             )}
           </div>
           <p className="media-follow-note">
-            {hasQrCode ? `微信扫一扫，关注${followAccount.name}` : '关注二维码即将上线'}
+            {hasQrCode ? '微信扫一扫，关注公众号' : '关注二维码即将上线'}
           </p>
         </div>
       </div>
